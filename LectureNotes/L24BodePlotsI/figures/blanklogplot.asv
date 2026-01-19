@@ -1,8 +1,0 @@
-figure(1)
-clf
-set(1,'position',[300 400 600 300])
-axes
-set(gca,'xscale','log','fontsize',14,'ytick',[-60 -40 -20 0 20],'xtick',[.01 .1 1 10 100],yticklabel',{''},'xticklabel',{'.01','.1','1','10','100'},'box','on')
-axis([.03 300 -100 100])
-xlabel('Frequency \omega (rad/s)')
-grid

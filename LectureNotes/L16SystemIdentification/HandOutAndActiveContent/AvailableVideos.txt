@@ -1,2 +1,0 @@
-Compilation of topics: rotational systems, transfer functions, and (Matlab-based) system ID. Sent by Erik S. in Sp. 2022. Start around 3:55.
-https://www.youtube.com/watch?v=miMT44LFUjs

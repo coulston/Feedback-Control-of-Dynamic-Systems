@@ -1,7 +1,0 @@
-\begin{tikzpicture}
-\draw (0,0) node[draw,circle,very thick,minimum width=2] (axis) {Motor Axis};
-\draw (3,-1.73) node[draw,very thick, rectangle,rounded corners,rotate=-30,outer sep=0] (head) {\begin{minipage}{.5in}\begin{center}Read Head\end{center}\end{minipage}}; 
-\draw[very thick] (axis.-35) .. controls ++(.75,-.75) and ++(-1,.57) .. node[pos=.5,below] {Arm} (head.180);
-\draw[|->] (1.15,0) node[right] {$\theta_{1}$} arc (0:-35:1.15) ;
-\draw[|->] (2.55,0) node[right] {$\theta_{2}$} arc (0:-30:2.55) ;
-\end{tikzpicture}
