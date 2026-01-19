@@ -3,6 +3,10 @@
 /LectureNotes/*/*.out
 /LectureNotes/*/*.gz
 /LectureNotes/*/*.toc
+/LectureNotes/*/*.bbl
+/LectureNotes/*/*.blg
+/LectureNotes/*/*.nav
+/LectureNotes/*/*.snm
 
 /LectureNotes/*/quizfigures
 
@@ -12,7 +16,24 @@
 /LectureNotes/*/HandOutAndActiveContent/*.gz
 
 /LectureNotes/*/HomeworkProblems/*.aux
+/LectureNotes/*/HomeworkProblems/*.bbl
+/LectureNotes/*/HomeworkProblems/*.blg
 /LectureNotes/*/HomeworkProblems/*.log
 /LectureNotes/*/HomeworkProblems/*.out
 /LectureNotes/*/HomeworkProblems/*.gz
 /LectureNotes/*/HomeworkProblems/*.pdf
+/LectureNotes/*/HomeworkProblems/*soln*
+
+/Homework/allHW/*soln*.pdf
+/Homework/HW*/*.log
+/Homework/HW*/*.out
+/Homework/HW*/*.gz
+/Homework/HW*/*.toc
+/Homework/HW*/*.bbl
+/Homework/HW*/*.blg
+/Homework/HW*/*.nav
+/Homework/HW*/*.snm
+/Homework/HW*/*.docx
+/Homework/HW*/*soln*
+/Homework/HW*/quiz*
+/Homework/HW*/quizzes
