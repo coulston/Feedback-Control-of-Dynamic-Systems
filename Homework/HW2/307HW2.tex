@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#2\\
+Due: 11:59pm, Wednesday, Sept 9th, \courseyear.\vspace{.1in}
+\end{center}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+%\item Solve the following:
+\item \hwpath{L3LaplaceTransformReview}{02}
+\item \hwpath{L3LaplaceTransformReview}{06}
+\item \hwpath{L4SolvingDifferentialEquationsI}{02}     
+\item \hwpath{L5SolvingDifferentialEquationsII}{01}     
+\item \hwpath{L5SolvingDifferentialEquationsII}{02}  
+
+\item Quiz Question Monday: \hwpath{L3LaplaceTransformReview}{05}
+\item Quiz Question Wednesday: \hwpath{L4SolvingDifferentialEquationsI}{01}     
+\end{enumerate}
+\newpage
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+\textbf{Solutions:}
+
+\begin{enumerate}
+\item \hwpath{L3LaplaceTransformReview}{02}
+\item \hwpath{L3LaplaceTransformReview}{06}
+\item \hwpath{L4SolvingDifferentialEquationsI}{02}     
+\item \hwpath{L5SolvingDifferentialEquationsII}{01}     
+\item \hwpath{L5SolvingDifferentialEquationsII}{02}  
+\end{enumerate}
+\end{document}  

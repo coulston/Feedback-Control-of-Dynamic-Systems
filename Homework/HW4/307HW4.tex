@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#4\\
+Due: 11:59pm, Wednesday, Sept 23rd, \courseyear.
+\end{center}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L7BlockDiagrams}{03}
+\item \hwpath{L7BlockDiagrams}{12}
+
+\item \hwpath{L10ThermalSystems}{02} 
+\item \hwpath{L10ThermalSystems}{06} 
+
+\item \hwpath{L11MotorsandHydraulicActuators}{10}
+
+\item Quiz Question Monday: \hwpath{L7BlockDiagrams}{02}
+\item Quiz Question Wednesday:\hwpath{L10ThermalSystems}{03} 
+
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+\textbf{Solutions:}
+\begin{enumerate}
+\item \hwpath{L7BlockDiagrams}{03}
+\item \hwpath{L7BlockDiagrams}{12}
+
+\item \hwpath{L10ThermalSystems}{02} 
+\item \hwpath{L10ThermalSystems}{06} 
+
+\item \hwpath{L11MotorsandHydraulicActuators}{10}
+\end{enumerate}
+\end{document}  

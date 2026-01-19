@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#11\\
+Due: Monday, Nov 30th, 11:59pm
+\end{center}\vspace{.2in}
+%\section{}
+%\subsection{}
+ \begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L29NyquistStabilityAnalysis}{03}
+
+\item \hwpath{L30GainandPhaseMargin}{01}  
+ 
+\item \hwpath{L31SystemswithTimeDelay}{02}    
+\item \hwpath{L31SystemswithTimeDelay}{05}  
+
+\item Quiz Question Friday: \hwpath{L29NyquistStabilityAnalysis}{04}
+\item Quiz Question Monday: \hwpath{L30GainandPhaseMargin}{05}  
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+\newpage
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L29NyquistStabilityAnalysis}{03}
+
+\item \hwpath{L30GainandPhaseMargin}{01}  
+ 
+\item \hwpath{L31SystemswithTimeDelay}{02}    
+\item \hwpath{L31SystemswithTimeDelay}{05}  
+\end{enumerate}
+
+\end{document}  

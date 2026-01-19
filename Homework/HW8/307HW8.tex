@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+\usepackage{fullpage}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#8\\
+Due: Wednesday, Oct 28th, 11:59pm \\
+\end{center}\vspace{.2in}
+%\section{}
+%\subsection{}
+ \begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L21RootLocusII}{06}
+\item \hwpath{L21RootLocusII}{09}
+
+\item \hwpath{L22RootLocusIII}{03}
+\item \hwpath{L22RootLocusIII}{05}
+\item \hwpath{L22RootLocusIII}{07}
+
+\item Quiz Question Monday: \hwpath{L21RootLocusII}{05}
+\item Quiz Question Wednesday: \hwpath{L22RootLocusIII}{02}
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+\newpage
+%\vspace{1.5in}
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L21RootLocusII}{06}
+\item \hwpath{L21RootLocusII}{09}
+\item \hwpath{L22RootLocusIII}{03}
+\item \hwpath{L22RootLocusIII}{05}
+\item \hwpath{L22RootLocusIII}{07}
+\end{enumerate}
+
+\end{document}  

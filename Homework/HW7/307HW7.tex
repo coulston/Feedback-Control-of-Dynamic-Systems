@@ -1,0 +1,50 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+\usepackage{fullpage}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#7\\
+Due: Wednesday, Oct 21st, 11:59pm 
+\end{center}\vspace{.2in}
+%\section{}
+%\subsection{}
+ \begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L18ReferenceSteadyStateError}{09}
+\item \hwpath{L19PIDControl}{08}
+\item \hwpath{L20RootLocusI}{02}
+\item \hwpath{L20RootLocusI}{03}
+\item Quiz Question Monday: \hwpath{L18ReferenceSteadyStateError}{02}
+\item Quiz Question Wednesday:\hwpath{L19PIDControl}{06}
+
+\end{enumerate}
+
+\newpage
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L18ReferenceSteadyStateError}{09}
+\item \hwpath{L19PIDControl}{08}
+\item \hwpath{L20RootLocusI}{02}
+\item \hwpath{L20RootLocusI}{03}
+\end{enumerate}
+
+\end{document}  

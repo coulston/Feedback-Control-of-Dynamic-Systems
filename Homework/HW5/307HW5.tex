@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#5\\
+Due: 11:59pm, Monday, Oct 5th, \courseyear.\vspace{.1in}
+\end{center}
+
+%\section{}
+%\subsection{}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L12FirstOrderResponse}{02}	
+\
+\item \hwpath{L13SecondOrderResponse}{09}	
+
+\item \hwpath{L14HigherOrderResponse}{03}	
+\item \hwpath{L14HigherOrderResponse}{07}	
+
+\item Quiz Question Friday: \hwpath{L12FirstOrderResponse}{04}
+\item Quiz Question Monday: \hwpath{L13SecondOrderResponse}{01}	
+
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+\newpage
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L12FirstOrderResponse}{02}	
+\
+\item \hwpath{L13SecondOrderResponse}{09}	
+
+\item \hwpath{L14HigherOrderResponse}{03}	
+\item \hwpath{L14HigherOrderResponse}{07}	
+\end{enumerate}
+
+\end{document}  

@@ -1,0 +1,45 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#12\\
+Due: Wednesday, Dec  9th, 11:59pm
+\end{center}\vspace{.2in}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L36FinalProject}{01}
+\item \hwpath{L36FinalProject}{02}
+\item \hwpath{L36FinalProject}{03}
+
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+\newpage
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L36FinalProject}{01}  
+\item \hwpath{L36FinalProject}{02}  
+\item \hwpath{L36FinalProject}{03}  
+\end{enumerate}
+
+
+\end{document}  

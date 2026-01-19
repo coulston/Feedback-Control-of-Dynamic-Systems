@@ -1,0 +1,53 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#3\\
+Due: 11:59pm, Wednesday Sept 16, \courseyear.\vspace{.1in}
+\end{center}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L6Impedance}{09} 
+\item \hwpath{L6Impedance}{15} 
+
+\item \hwpath{L9MechanicalImpedance}{03} 
+\item \hwpath{L9MechanicalImpedance}{06} 
+
+\item \hwpath{L8FluidandAnalogousSystems}{02} 
+\item \hwpath{L8FluidandAnalogousSystems}{04} 
+
+\item Quiz Question Monday:  \hwpath{L6Impedance}{08} 
+\item Quiz Question Wednesday: \hwpath{L9MechanicalImpedance}{01} 
+
+
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+\textbf{Solutions:}
+
+\begin{enumerate}
+\item \hwpath{L6Impedance}{09} 
+\item \hwpath{L6Impedance}{15} 
+
+\item \hwpath{L9MechanicalImpedance}{03} 
+\item \hwpath{L9MechanicalImpedance}{06} 
+
+\item \hwpath{L8FluidandAnalogousSystems}{02} 
+\item \hwpath{L8FluidandAnalogousSystems}{04} 
+\end{enumerate}
+\end{document}  

@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+\usepackage{fullpage}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#10\\
+Due: Monday, Nov 16th, 11:59pm
+\end{center}\vspace{.2in}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L27BodePlotsIV}{01}
+\item \hwpath{L27BodePlotsIV}{03}
+\item \hwpath{L28NyquistStabilityTheorem}{02}
+\item \hwpath{L28NyquistStabilityTheorem}{04}
+\item Quiz Question Friday: \hwpath{L26BodePlotsIII}{05}
+\item Quiz Question Monday: \hwpath{L28NyquistStabilityTheorem}{06}
+\end{enumerate}
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+\newpage
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L27BodePlotsIV}{01}
+\item \hwpath{L27BodePlotsIV}{03}
+\item \hwpath{L28NyquistStabilityTheorem}{02}
+\item \hwpath{L28NyquistStabilityTheorem}{04}
+\end{enumerate}
+
+\end{document}  

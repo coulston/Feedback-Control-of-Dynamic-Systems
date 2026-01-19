@@ -1,0 +1,40 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#2\\
+Quiz \#4
+\end{center}
+%\section{}
+%\subsection{}
+
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+%\item Solve the following:
+
+Quiz Question Wednesday: \hwpath{L4SolvingDifferentialEquationsI}{01} 
+
+\begin{enumerate}[(a)]
+\item 
+\item
+\item 
+\item 
+\item
+
+\end{enumerate}
+
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+Quiz Question Wednesday: \hwpath{L4SolvingDifferentialEquationsI}{01} 
+
+\end{document}  

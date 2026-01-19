@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+\usepackage{fullpage}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#6\\
+Due: Monday, Oct 12th, 11:59pm \\
+\end{center}\vspace{.2in}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+
+\item \hwpath{L15SystemIdentification}{06}
+\item \hwpath{L15SystemIdentification}{10}
+
+\item \hwpath{L16StabilityandRouthHurwitz}{06} 
+
+\item \hwpath{L17DisturbancesandSteadyStateError}{06}
+\item \hwpath{L17DisturbancesandSteadyStateError}{08}
+
+\item Quiz Question Friday:  \hwpath{L15SystemIdentification}{09}
+\item Quiz Question Monday: \hwpath{L16StabilityandRouthHurwitz}{05}
+
+ \end{enumerate}
+\newpage
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \hwpath{L15SystemIdentification}{06}
+\item \hwpath{L15SystemIdentification}{10}
+
+\item \hwpath{L16StabilityandRouthHurwitz}{06} 
+
+\item \hwpath{L17DisturbancesandSteadyStateError}{06}
+\item \hwpath{L17DisturbancesandSteadyStateError}{08}
+\end{enumerate}
+
+\end{document}  

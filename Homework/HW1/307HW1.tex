@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+\input{../../commonheader.tex}
+
+\newcommand{\lecturefolder}{}
+\newcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2.tex}}
+
+\begin{document}
+\mdseries
+\begin{center}
+{\Large \course: \coursename}\\
+\semesteryear\\
+Homework Assignment \#1\\
+Due: 11:59pm, Monday, Aug 31st, \courseyear.\vspace{.1in}
+\end{center}
+%\section{}
+%\subsection{}
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+%\item Solve the following:
+\item \hwpath{L0XComplexNumberReview}{01}
+\item \hwpath{L1ModelingMechanicalSystems}{02} 
+\item \hwpath{L2ElectricalSystems}{04} 
+\item \hwpath{L2ElectricalSystems}{05} 
+\item \hwpath{L2ElectricalSystems}{06} 
+
+\item Quiz Question Friday: \hwpath{L0XComplexNumberReview}{02}
+\item Quiz Question Monday: \hwpath{L1ModelingMechanicalSystems}{04} 
+
+\item To help us get to know you, please edit your Canvas profile to add a profile picture in which we can see your face. For help, see https://community.canvaslms.com/docs/DOC-10599-4212710334.
+
+\item As part of the course, we will be using MATLAB as a tool for doing numerical calculations and displaying results. If you are not familiar with MATLAB, please go through the Matlab on-ramp tutorial https://www.mathworks.com/training-schedule/matlab-onramp.html. At the completion of the tutorial, you can generate a certificate indicating your completion. As part of your homework, either submit the certificate, or submit a statement ``I am already very familiar with Matlab and take responsibility for knowing what was covered in the Matlab on-ramp tutorial.''
+
+
+\end{enumerate}
+\newpage
+
+\renewcommand{\hwpath}[2]{\renewcommand{\lecturefolder}{#1}
+\input{\mainfolder/LectureNotes/#1/HomeworkProblems/Problem#2solnonly.tex}}
+
+\textbf{Solutions:}
+
+\begin{enumerate}
+\item \hwpath{L0XComplexNumberReview}{01}
+\item \hwpath{L1ModelingMechanicalSystems}{02} 
+\item \hwpath{L2ElectricalSystems}{04} 
+\item \hwpath{L2ElectricalSystems}{05} 
+\item \hwpath{L2ElectricalSystems}{06} 
+\end{enumerate}
+\end{document}  
