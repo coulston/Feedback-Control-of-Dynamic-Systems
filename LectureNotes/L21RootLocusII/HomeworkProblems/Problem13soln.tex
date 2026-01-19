@@ -1,0 +1,16 @@
+(a) The \%OS requirement gives us $\zeta > 0.69$, which corresponds to $\theta < 46$ deg. The settling time requirement gives us $\zeta \omega_n > 0.08$. The allowable pole region is shown in the figure below.\\
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem13soln1}
+\\
+(b) A PD controller is more likely to improve damping, and therefore reduce oscillations and overshoot, than a PI controller (see the PID control lecture).
+
+(c) To import our plant into sisotool, we use\\
+>> gs=tf([0.1],[1 0 0]) \\
+>> sisotool(gs) \\
+
+Placing the PD controller's pole anywhere on the negative real axis will draw the two purely imaginary poles (from the plant) back toward the real axis, creating an oval. As long as the pole is to the left of the boundary of the settling time requirement, we should theoretically be able to meet both requirements by choosing an appropriate gain $K_D$. However, we may run into trouble purely because the controller zero appears in the closed-loop, which means we can't disregard it completely using dominant pole theory.
+
+For lack of a better idea, we can start by placing the controller zero at -1. Then, we can add the design requirement boundaries into the sisotool root locus plots and pull the (pink, square) closed loop poles into the allowable closed-loop pole region. View the ``Response to Step Command'' under the Analysis menu. Note that we still have too much overshoot because we cannot disregard the zero at -1, despite the closed-loop poles being in the allowable region. In fact, we have to drag one of the closed-loop poles very close to this zero in order to ``cancel'' it so that we can meet the overshoot requirement, as shown in the root locus plot.\\
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem13soln2.png}\\
+
+With a controller $C(s) = 187.45(s+1)$, we meet both transient response requirements, as shown in the figure below.\\
+\includegraphics[width=3in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem13soln3.png}

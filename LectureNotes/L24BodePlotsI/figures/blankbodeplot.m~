@@ -1,0 +1,31 @@
+figure(1)
+set(1,'position',[300 400 600 300])
+set(1,'papersize',[6 3])
+set(1,'paperposition',[0 0 6 3])
+clf
+ha=axes;
+set(gca,'xscale','log')
+set(gca,'xtick',[.1 1 10 100],'xticklabel',{'$.1$','$1$','$10$','$100$'},'fontsize',14);
+set(gca,'ytick',[-40 -30 -20 -10 0],'yticklabel',{'-40','-30','-20','-10','0'},'fontsize',14);
+xlabel('\textsf{Frequency} $\omega$ (\textsf{rad/s})')
+ylabel('Magnitude (dB)')
+grid
+
+plotpdftex(1,'blankbodeplot',[1.4 1])
+
+
+figure(2)
+set(2,'position',[300 400 600 300])
+set(2,'papersize',[6 3])
+set(2,'paperposition',[0 0 6 3])
+clf
+ha=axes;
+axis([.01 100 -100 10]);
+set(gca,'xscale','log')
+set(gca,'xtick',[.01 .1 1 10 100],'fontsize',14,'ytick',[-90 -45 0],'xticklabel',{'$.01a$','$.1a$','$a$','$10a$','$100a$'});
+xlabel('\textsf{Frequency} $\omega$ (\textsf{rad/s})')
+ylabel('\textsf{Phase (degrees)}')
+grid
+
+plotpdftex(2,'blankbodeplotphase',[1.4 1])
+

@@ -1,0 +1,376 @@
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usetikzlibrary{decorations.pathmorphing}
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[DEQs II] % (optional, use only with long paper titles)
+{EGGN307: Solving Differential Equations II\license}
+
+\subtitle
+{} % (optional)
+
+\author% (optional, use only with lots of authors)
+{Tyrone Vincent}
+%{T. Vincent\inst{1} \and S.~Another\inst{2}}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[CSM] % (optional, but mostly needed)
+{Division of Engineering\\
+  Colorado School of Mines}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{Lecture 6}
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=1.1cm]{university-logo}{UniversityLogo}
+%\logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+\section{Inverse Laplace Transform with Repeated roots}
+Since polynomials can have repeated roots, we need to determine how to take the inverse Laplace Transform when the denominator roots are repeated.
+
+\subsection{Laplace Transform Pairs with repeated roots}
+\begin{frame}{Laplace Transform Pairs with repeated roots}
+Repeated roots occur when an exponential or sinusoid is multiplied by $t$ or $t^{n}$. First, let's derive the Laplace Transform of $t^{n}$. We already have established the Laplace Transform pair
+\[
+\step \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s},
+\]
+and the integration theorem
+\[
+\mathcal{L}\left\{ \int_{0}^{t}f(\tau )d\tau \right\} =%
+\frac{1}{s}\mathcal{L}\left\{ f(t)\right\}. 
+\]
+\end{frame}
+\begin{frame}{Laplace Transform Pairs with repeated roots}
+Note that a ramp is the integral of a step. That is, the ramp function $tu(t)$ can be defined via
+\[
+tu(t) = \int_{0^{-}}^{t} u(t) dt.
+\]
+Using the integration theorem gives us
+\[
+t\step \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s^{2}}.
+\]
+Thus, a ramp has two poles at $s=0$. 
+\end{frame}
+\begin{frame}{Higher Powers}
+The Laplace Transform for higher powers of $t$ can be found via further integration. For example,
+\[
+\frac{1}{2}t^{2}u(t) =  \int_{0^{-}}^{t} tu(t) dt,
+\]
+which implies
+\[
+\frac{1}{2}t^{2}\step \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s^{3}}.
+\]
+and even higher orders of $t$ can be found similarly. What we see is that powers of $t$ gives us a denominator with repeated roots at $s=0$. 
+\end{frame}
+Now, we can use the frequency shift theorem
+\[
+\mathcal{L}\left\{ e^{-s_{0}t}f(t)\right\}
+=F(s+s_{0})
+\]
+to show that
+\[
+te^{-at} \step  \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{(s+a)^{2}}.
+\]
+Thus the product of a ramp and exponential will give a repeated real root.
+
+Repeated imaginary or complex roots occur when $t$ is multipled by a sinusoid or decaying sinusoid. The following table is a partial list of the Laplace Transform pairs with repeated roots
+\begin{center}
+\begin{tabular}{l|l}
+$f(t)$ & $F(s)$ \\\hline
+$te^{-at}$ & $\frac{1}{(s+a)^{2}}$\\
+$\frac{t^{n}e^{-at}}{n!}$ & $\frac{1}{(s+a)^{n+1}}$ \\
+$t\sin(\omega t)$ & $\frac{2\omega s}{\left(s^{2} +\omega^{2}\right)^{2}}$ \\
+$te^{-at}\sin(\omega t)$ & $\frac{2\omega(s+a)}{\left((s+a)^{2} +\omega^{2}\right)^{2}}$
+\end{tabular}
+\end{center}
+
+\subsection{Partial Fraction Expansion with Repeated Roots}
+\begin{frame}{Partial Fraction Expansion with Repeated Roots}
+Suppose we had the Laplace Transform
+\[
+X(s) = \frac{s+3}{(s^{2}+2s+1)(s+2)},
+\]
+and we want to find the inverse Laplace Transform. The denominator of this function has roots at $-1, -1$ and $-2$. Thus, the root at $-1$ is repeated. In order to apply the partial fraction expansion correctly, we need one term for each root:
+\[
+ \frac{s+3}{(s+1)^{2}(s+2)} = \frac{A}{s+1} + \frac{B}{(s+1)^{2}} + \frac{C}{s+2}
+\]
+\end{frame}
+\begin{frame}{Partial Fraction Expansion with Repeated Roots}
+Since we have expanded our Laplace Transform pairs to include repeated roots, once we find the residues, the inverse Laplace Transform is easy. Thus, we have the general rule:
+
+\begin{center}
+\fbox{\begin{minipage}{4in}If the term $(s+a)^{n}$ appears in the denominator, then the partial fraction expansion will include the terms $(s+a)$, $(s+a)^{2}$, $\cdots$, $(s+a)^{n}$.\end{minipage}}
+\end{center}
+\end{frame}
+Of course, we still have to solve for the residues $A$, $B$, $C$. The good news is that the residue formula will hold for the highest power, as well as all other terms. So we have
+\begin{align*}
+B & = \left.(s+1)^{2}\frac{s+3}{(s+1)^{2}(s+2)}\right|_{s=-1} = \frac{2}{1} = 2\\
+C & = \left.(s+2)\frac{s+3}{(s+1)^{2}(s+2)}\right|_{s=-2} = \frac{1}{1} = 1
+\end{align*}
+However, the residue formula will {\em not} hold for $A$. There is an alternate residue formula, but it is usually easier to simply return to putting the right hand side over a common denominator, substituting in the vales for $B$ and $C$ found above.
+\[
+ \frac{s+3}{(s+1)^{2}(s+2)} = \frac{A(s+1)(s+2) + 2(s+2) + 1(s+1)^2}{(s+1)^{2}(s+2)}
+\]
+Solve for $A$ by equating coefficients for powers of $s$. For example, using the coefficients for $s^{2}$,
+\[
+0 = A +0+1
+\] 
+which implies $A=-1$. The final partial fraction expansion becomes
+\[
+X(s)= \frac{-1}{s+1} + \frac{2}{(s+1)^{2}} + \frac{1}{s+2}
+\]
+The inverse Laplace Transform is then
+\[
+x(t) = \left(-e^{-t} + 2te^{-t} + e^{-2t}\right)\step
+\]
+\section{Differential Equation Examples}
+Let's try some examples to solidify the process of solving differential equations using Laplace Transforms.
+
+\subsection{Example 1}
+\begin{frame}{Tank Problem}
+A tank and valve system is supplied a liquid with density $1$ kg/m$^{3}$ a flow of $q_{in}=1$ m$^{3}$/s for $t\geq0$. If the tank is filled to a height of $1$ m at $t=0$, find the height of liquid in the tank for $t\geq 0$. 
+\begin{center}
+\input{figures/tankandvalve.tex}
+\end{center}
+\end{frame}
+Prevously, we found that this system was governed by the differential equation
+\[
+A \frac{dh}{dt} + \frac{\rho g}{R} h = q_{in}  \\
+\]
+Thus, we can ask: what is the solution to the differential equation
+\[
+2 \frac{dh}{dt} + 4 h = 1 \qquad h(0)=1 \\
+\]
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{2in}
+\color{lightgray}
+\[
+h(t) = \left(\frac{1}{4} + \frac{3}{4}e^{-2t}\right)\step
+\]
+\end{boxedminipage}\\
+}{\begin{boxedminipage}{6.5in}
+Take the Laplace Transform of both sides:
+\[
+2(sH(s) - 1) + 4H(s) = \frac{1}{s}
+\]
+Solve for H(s):
+\begin{align*}
+(2s+4)H(s) &= \frac{2s+1}{s} \\
+H(s) = \frac{s +\frac{1}{2} }{s(s+2)}
+\end{align*}
+Find partial fraction expansion:
+\begin{align*}
+\frac{s +\frac{1}{2} }{s(s+2)} = \frac{A}{s} + \frac{B}{s+2}
+\end{align*}
+where
+\begin{align*}
+A &= \left.\frac{s +\frac{1}{2} }{s+2}\right|_{s=0} = \frac{1}{4}\\
+B &= \left.\frac{s +\frac{1}{2}}{s}\right|_{s=-2} = \frac{3}{4}\\
+\end{align*}
+Giving inverse Laplace Transform
+\[
+h(t) = \left(\frac{1}{4} + \frac{3}{4}e^{-2t}\right)\step
+\]
+\end{boxedminipage}
+}
+
+\subsection{Example 2}
+\begin{frame}{Circuit Problem}
+\begin{center}
+An LRC circuit has applied voltage $v_{in}=1$ for $t\geq0$. If $v_{out}(t)$ was zero for $t\leq0$, find $v_{out}(t)$ for $t\geq 0$.\\
+\input{figures/seriescircuit.tex}
+\end{center}
+\end{frame}
+
+Previously, we found that this system was governed by the differential equation
+\[
+CL\ddot{v}_{out}+CR\dot{v}_{out} + v_{out} = v_{in}
+\]
+Thus, we can ask: what is the solution to the differential equation
+\begin{equation*}
+\frac{1}{4}\ddot{v}_{out}+\dot{v}_{out}+v_{out}=1\qquad v_{out}(0)=0,\text{ }\dot{v}_{out}(0)=0
+\end{equation*}%
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{2in}
+\color{lightgray}
+\[
+v_{out}(t) = (1 - e^{-2t} -2te^{-2t})\step
+\]
+\end{boxedminipage}\\
+}{\begin{boxedminipage}{6.5in}
+First, take the Laplace Transform of both sides (noting that initial conditions are zero):
+\[
+\frac{1}{4}s^{2}V_{out}(s) + sV_{out}(s) + V_{out}(s) = \frac{1}{s}.
+\]
+Then, solve for $V_{out}(s):$
+\begin{align*}
+V_{out}(s) &= \frac{4}{(s^{2}+4s+4)s} \\
+ &= \frac{4}{s(s+2)^{2}} \\
+\end{align*}
+Find partial fraction expansion:
+\[
+V_{out}(s) = \frac{A}{s} +\frac{B}{s+2} + \frac{C}{(s+2)^{2}}
+\]
+Residues:
+\begin{align*}
+A &= \left.\frac{4}{(s+2)^{2}}\right|_{s=0} = 1\\
+C & =\left.\frac{4}{s}\right|_{s=-2} = -2 
+\end{align*}
+Solve for remaining coefficients
+\[
+\frac{4}{s(s+2)^{2}} = \frac{(s^{2}+4s+4) + B(s^{2}+2s) - 2s}{s(s+2)^{2}} 
+\]
+Thus $B=-1$, and
+\[
+v_{out}(t) = (1 - e^{-2t} -2te^{-2t})\step
+\]
+\end{boxedminipage}}
+\section{Transfer Functions}
+In the previous example, the initial conditions we all equal to zero. This is a common enough occurrence in control systems, that we can focus our analysis in this case. 
+
+Suppose, for example, we had a system described by the following differential equation, where $r(t)$ is the input and $y(t)$ is the output
+\[
+\ddot{y} +3\dot{y} +2y = r
+\] 
+When the initial conditions are all zero (i.e. $y(0)=0$ and $\dot{y}(0)=0$, then the Laplace Transform of the equation is fairly easy: just turn each derivative into a power of $s$
+\[
+s^{2}Y(s) + 3sY(s) +2Y(s) = R(s)
+\]
+When we solve for $s$, we see that the Laplace Transform of the output is a function of $s$ times the Laplace Transform of the input. This function is called the {\em Transfer Function}
+\[
+Y(s) = \underbrace{\frac{1}{s^{2}+3s+2}}_{\mbox{Transfer Function}}R(s)
+\]
+\begin{definition}
+The {\em Transfer Function} of a (linear, time invariant) system is the ratio of the Laplace Transform of the output over the Laplace Transform of the input with zero initial conditions.
+\end{definition}
+For the system described the differential equation above, the transfer function, $G(s)$ is
+\[
+G(s) = \frac{Y(s)}{R(s)} = \frac{1}{s^{2}+3s+2}
+\]
+In the next lectures, we will concentrate on finding systematic methods of determining the transfer function or different types of systems.
+
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+% \item Find the solution to the differential equation
+% \[
+% \ddot{x} + 2 \dot{x} +3x = 1 \quad x(0)=1,\dot{x}(0)=0
+% \]
+% 
+% \item Consider the following rotational system. A torque is applied as shown in the figure. If the system is initially at rest at $t=0$ and a torque of $\tau=1$ Nm is applied for $t\geq 0$, what is the time response of the angular position of the spring?\vspace{.1in}
+% \begin{center}
+% \input{quizfigures/rotmechsystem.tex}
+% \end{center}\vspace{.1in}
+\item A motor on a car can be considered an input force for the car
+\begin{enumerate}
+\item Find a differential equation relating the input force and the velocity of the car. Include the mass of the car and viscous friction (air and rolling resistance.) Assume the car is on level ground.
+\item Assume that the velocity of the car is 40 m/s and the car starts to coast at $t=0$. Find the velocity $v(t)$ for $t\geq 0$ if the mass of the car is $1000$ kg and the viscous friction if $125$ N sec/m.  
+\item Determine how long it will take the car to slow to $5 m/s$.
+\item Sketch the output as a function of time.
+\end{enumerate}
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+%\item \rule{0pt}{12pt}\\
+% \begin{center}
+% \includegraphics[width=5in]{quizfigures/1asoln}\\
+% \includegraphics[width=5in]{quizfigures/1asoln}
+% \end{center}
+% \item \rule{0pt}{12pt}\\
+% \begin{center}
+% \includegraphics[width=4in]{quizfigures/2asoln}\\
+% \includegraphics[width=4in]{quizfigures/2bsoln}\\
+% \includegraphics[width=4in]{quizfigures/2csoln}\\
+% \includegraphics[width=4in]{quizfigures/2dsoln}
+% \end{center}
+\item \rule{0pt}{12pt}\\
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=3in]{quizfigures/3asoln}
+\end{center}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=3in]{quizfigures/3bsoln}
+\end{center}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=3in]{quizfigures/3csoln}
+\end{center}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=3in]{quizfigures/3dsoln}
+\end{center}
+\end{enumerate}
+\end{enumerate}
+
+
+\end{document}
+
+

@@ -1,0 +1,9 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (0.6,0) node {\includegraphics[height=1in]{figures/input}};
+\draw (4,0) node[sysblock] (sys) {$G(s)$};
+\draw (7.9,0) node {\includegraphics[height=1in]{figures/output}};
+\draw[<-] (sys.180) -- ++(-0.5,0);
+\draw[->] (sys.0) -- ++(0.5,0);
+
+\end{tikzpicture}

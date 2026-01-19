@@ -1,0 +1,20 @@
+Using the provided log scale, sketch the Bode plot for $G(s) = \frac{5}{s^2+4s+25}$
+using linear approximation rules. For full credit, label and scale each y-axis. Indicate the slope of each segment, and the magnitude and phase at each break point. Find the magnitude at the resonant frequency $\omega_{n}$ and modify the linear approximation to account for any resonance.
+\begin{center}
+\resizebox{4.75in}{!}{
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/blankbode}};
+\draw (-2.75,.5) node {.1};
+\draw (0,.5) node {1};
+\draw (2.75,.5) node {10};
+\draw (5.5,.5) node {100};
+\draw (7,.5) node {$\omega$ (rad/s)};
+\draw (-2.75,-5.25) node {.1};
+\draw (0,-5.25) node {1};
+\draw (2.75,-5.25) node {10};
+\draw (5.5,-5.25) node {100};
+\draw (7,-5.25) node {$\omega$ (rad/s)};
+\end{tikzpicture}
+}
+\end{center}
+Use \textsc{Matlab} to plot the Bode plot and compare your answer.

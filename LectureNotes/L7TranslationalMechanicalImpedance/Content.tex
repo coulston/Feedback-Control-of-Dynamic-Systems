@@ -1,0 +1,393 @@
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\MechanicalTransImpedanceShortName ~ \& \MechanicalRotImpedanceName] 
+{\course: \MechanicalTransImpedanceName\license ~ \&  \MechanicalRotImpedanceName\license}
+
+\subtitle{Lecture \MechanicalTransImpedanceNumber ~ \& \MechanicalRotImpedanceNumber}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+\section{Pre-requisite Material}
+This lecture assumes that the reader is familiar with the following material:
+\begin{itemize}
+	\item \textcolor{red}{need to update this list and whole article after moving some content to impedances}
+\item Lecture \ImpedanceNumber:~\ImpedanceName
+\item Lecture \FluidandAnalogousSystemsNumber:~\FluidandAnalogousSystemsName
+\end{itemize}
+
+
+\textcolor{red}{translational mechanical system content moved to Impedances lecture}
+
+\section{Rotational Mechanical Systems}
+
+Previously, we modeled translational motion in one direction. When objects rotate, the modeling process is similar. For rotational mechanical systems, the variables that we are modeling are 
+\begin{itemize}
+\item torque, which has units of Newton meters [N m], and
+\item angular position, which has units of radians [rad]. 
+\end{itemize}
+Unless otherwise specified, we will always assume that the torque and position variables have these units.
+We will use the following elements to describe rotational mechanical systems. 
+
+\subsection{Components}
+
+%\begin{frame}{Inertia}
+When objects rotate, they follow the rotational version of Newton's law, which relates applied torque to angular acceleration. The scaling parameter in this case is the rotational inertia, $J$ which has units of [kg m$^{2}$].
+\begin{center}
+\input{figures/inertia.tex}
+\end{center}
+\[
+\tau = J\ddot{\theta}
+\]
+%\end{frame}
+
+%\begin{frame}{Damping}
+Viscous friction also applies in the rotational case. In this case, each of the ends of the damper can rotate in response to an applied torque. The scaling parameter $b$ has units of [N m s rad$^{-1}$].  
+\begin{center}
+\input{figures/rotdamper.tex}
+\end{center}
+\[
+\tau = b\dot{\theta}
+\]
+%\end{frame}
+Note that the applied torque is always {\em equal and opposite} on both ends of the damper. 
+
+%\begin{frame}{Spring}
+A rotational spring.  Each of the ends of the spring can rotate in response to an applied torque. The scaling parameter has units of [N m rad$^{-1}$]. 
+\begin{center}
+\input{figures/rotspring.tex}
+\end{center}
+\[
+\tau = k\theta
+\]
+%\end{frame}
+Like the damper, the applied torque is always {\em equal and opposite} on both ends of the spring. 
+
+\subsection{Connection Rules and Boundary Conditions}
+
+The connection rules and boundary conditions are the same as in the translational case.
+\begin{itemize}
+\item When two elements are connected, the two components share the same {\em angular position}. 
+\item When two elements are connected, the torques at the connection {\em sum to zero}. 
+\item A ground fixes the position of that terminal to zero.
+\item A force or position input prescribes the force or position of that terminal.
+\end{itemize}
+
+\subsection{Impedances}
+We note that the algebraic laws that relate rotational mechanical elements are {\em identical} to that of translational mechanical elements, with angular position as the across variable and torque as the through variable. We can use the following impedance elements.
+
+\begin{frame}{Rotational Impedance}
+\begin{center}
+\mode<article>{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \begin{minipage}[b]{.75in}\input{figures/inertia.tex}\\\vspace{.1in}\end{minipage} & \input{figures/rotspring.tex} & \input{figures/rotdamper.tex}\\\hline
+ \rule{0pt}{12pt} Component Law & $J\ddot{\theta} = \tau$ & $\tau = k\theta$ & $\tau = b\dot{\theta}$ \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(force direction agrees with positive direction)\end{center}
+\end{minipage}
+& \input{figures/inertiaimpedance.tex} & \input{figures/rotspringimpedance.tex} & \input{figures/rotdamperimpedance.tex}
+ \end{tabular}}
+\mode<presentation>{\resizebox{10cm}{!}{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{figures/inertia.tex} & \input{figures/rotspring.tex} & \input{figures/rotdamper.tex}\\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(force direction agrees with positive direction)\end{center}
+\end{minipage}
+& \input{figures/inertiaimpedance.tex} & \input{figures/rotspringimpedance.tex} & \input{figures/rotdamperimpedance.tex}
+ \end{tabular}}}
+\end{center}
+%Note that for the spring and damper, we have used $\theta = \theta_{1} - \theta_{2}$.
+\end{frame}
+\subsection{Example}
+The process of finding the transfer function using impedances is straightforward.
+\begin{enumerate}\addtocounter{enumi}{-1}
+\item Draw a diagram of ideal elements.
+\item Identify all of the independent nodes (across variables) which for mechanical systems are positions. Add a ground node, or identify a fixed node as ground.
+\item Connect elements between nodes, with masses and inertias always connected between one node and ground
+\item Add boundary conditions as sources.
+\item Use circuit techniques to find the transfer function.
+\end{enumerate}
+
+Let's try this process to model a hard disk drive read head, which is an important application of control systems. The control system must move the read head over the correct track within a few milliseconds, and hold it there despite disturbances such as external shocks or disk irregularities.
+
+\begin{frame}{Hard Disk Drive Read Head}
+In order to move the read head to the correct track and hold it there, we need to be able to predict the relationship between the motor torque $\tau$ and the angular position of the read head $\theta_2$. First, find the equivalent impedance model. Then, find the transfer function $\frac{\theta_2}{\tau}$. 
+
+\begin{center}
+\includegraphics[width=2.2in]{figures/Hard_disk_labeled}\input{figures/diskdrivepicture.tex}
+\end{center}
+{\tiny Photo attribution: By Ed g2s, via Wikimedia Commons}
+\end{frame}
+
+Since the arm is thin, it is flexible. This can be modeled with ideal elements by splitting the inertia between the arm and the read head, and connecting these inertias with a spring and damper. The motor applies the torque $\tau$. $J_{1}$ is the inertia of the motor axis, while $J_{2} = mr^{2}$, where $m$ is the mass of the read head, and $r$ is the radius at which it rotates. $k$ and $b$ are constants that describe the stiffness and damping characteristics of the actuator arm.
+
+
+\begin{itemize}
+\item[Step 0] Diagram of ideal elements
+\begin{frame}{Hard Disk Drive Ideal Elements}
+\begin{center}
+\input{figures/diskdrivediagram.tex}
+\end{center}
+\end{frame}
+\item[Step 1] For this problem, there are two independent positions: $\theta_{1}$ and $\theta_{2}$. 
+\item[Step 2] Neither of these are fixed, so we also add a ground node.
+\begin{frame}{Nodes}
+\begin{center}
+\input{figures/diskdrivecircuit1}
+\end{center}
+\end{frame}
+\item[Step 3.1] Connect the correct impedance elements between nodes
+\begin{frame}{Disk Drive Impedance Network}
+\begin{center}
+\input{figures/diskdrivecircuit2}
+\end{center}
+\end{frame}
+\item[Step 3.2] The applied torque is a boundary condition. Since torque is a through variable, we should add a current source to the $\theta_{1}$ node. \begin{center}
+\framebox{\begin{minipage}{5in}
+Rule for assigning sign of sources: The current source goes {\em into} the node if a positive torque would tend to cause a positive $\theta_{1}(s)$.
+\end{minipage}}\end{center}
+\begin{frame}{Disk Drive Complete Circuit}
+\begin{center}
+\input{figures/diskdrivecircuit3}
+\end{center}
+\end{frame}
+
+\item[Step 4] Find the transfer function
+
+We can now find the transfer function from $\tau(s)$ to either $\theta_{1}(s)$ or $\theta_{2}(s)$ using our standard circuit methods. If we wanted to find $\theta_{2}(s)/\tau(s)$, the easiest way is to set up the nodal equations, which is KCL at each node.
+
+Nodal equations:
+\[
+\begin{bmatrix} \tau(s) \\ 0 \end{bmatrix} = \begin{bmatrix} J_{1}s^{2} + bs + k & -(bs+k) \\
+-(bs+k) & J_{2}s^{2}+bs+k \end{bmatrix} \begin{bmatrix} \theta_{1}(s) \\ \theta_{2}(s) \end{bmatrix}
+\]
+Solve for $\theta_{1}$ using second equation:
+\[
+\theta_{1}(s) = \frac{J_{2}s^{2}+bs+k}{bs+k}\theta_{2}(s)
+\]
+Plug into first equation:
+\begin{align*}
+\tau(s) &= (J_{1}s^{2} +bs +k)\frac{J_{2}s^{2}+bs+k}{bs+k}\theta_{2}(s) -  (bs+k)\theta_{2}(s)\\
+& = \frac{J_{1}J_{2}s^{4} + J_{1}s^{2}(bs+k) + J_{2}s^{2}(bs +k) + (bs+k)^{2} - (bs+k)^{2}}{(bs+k)}\theta_{2}(s)\\
+& = \frac{J_{1}J_{2}s^{4} + b(J_{1}+J_{2})s^{3} + k(J_{1}+J_{2})s^2}{(bs+k)}\theta_{2}(s)
+\end{align*}
+Thus
+\[
+\frac{\theta_{2}(s)}{\tau(s)} = \frac{bs+k}{J_{1}J_{2}s^{4} + b(J_{1}+J_{2})s^{3} + k(J_{1}+J_{2})s^2}
+\]
+\end{itemize}
+
+
+
+
+
+
+
+%\begin{frame}{Tank example}
+%Consider the problem of a single tank fed by a input at pressure $p_{in}$. Find the transfer function from $p_{in}$ to $p_{1}$. 
+%\begin{center}
+%\input{figures/1tank.tex}
+%\end{center}
+%\end{frame}
+
+%To find the equations, we can replace each element with the impedance equivalent, along with a ``pressure source''. Since pressure is an across variable, this is like a voltage source.  Note that there are two identifiable pressures - the pressure at the bottom of the tank, $p_{1}$  and the atmospheric pressure $p_{a}$. Our circuit should thus have two identifiable voltage nodes.
+%
+%\begin{frame}{Tank system nodes}
+%\begin{center}
+%\input{figures/1tanknodes.tex}
+%\end{center}
+%\end{frame}
+%
+%We have the choice of using gauge pressure, in which case the node $p_{a}$ becomes ground. (If we do not use gauge pressure, we need to add a separate ground, along with a voltage source between ground and $p_{a}$ of magnitude $p_{a}$). However, if we do use gauge pressure, we need to define a new input relative to ground, i.e.: $p'_{in} = p_{in} - p_{a}$.
+%
+%\begin{frame}{Tank system impedance model}
+%\begin{center}
+%\input{figures/1tankmesh.tex}
+%\end{center}
+%\end{frame}
+%
+%You can now use your circuit simplifications to find any transfer function of interest.
+%The mesh equations for this system are
+%\[
+%\begin{bmatrix} P'_{in}(s) \\ 0  \end{bmatrix} = \begin{bmatrix} \frac{\rho g}{sA_{1}} & -\frac{\rho g}{sA_{1}}  \\
+%-\frac{\rho g}{sA_{1}} & \frac{\rho g}{sA_{1}} +R_{1}   \end{bmatrix} \begin{bmatrix} Q_{1}(s) \\ Q_{out}(s) \end{bmatrix}
+%\]
+%
+%To find $P_{1}$, we can write
+%\[
+%P_{1}(s) = R_{1}Q_{out}(s)
+%\]
+
+%\subsection{Thermal Impedances}
+%\begin{frame}
+%Node equations are often useful for thermal systems.  Complete the table for thermal impedances
+%
+%\begin{center}
+%\resizebox{11cm}{!}{\begin{tabular}{c|ccc}
+%& thermal capacitance & conduction & convection \\\hline
+%\rule{0pt}{14pt} Component law & $C\dot{T}=\dot{Q}$ & $T = R\dot{Q} $ & $\dot{m}c T = \dot{Q}$  \\\hline
+%\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform &  & & \\\hline
+%\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+%(force direction agrees with positive direction)\end{center}
+%\end{minipage}
+%& \input{figures/thermalcapimpedance.tex} & \input{figures/conductionimpedance.tex} & \input{figures/conductionimpedance.tex}
+%\end{tabular}}
+%\end{center}
+%\end{frame}
+
+\section{Application Example}
+
+Recall the wind turbine from the Application Example in Lecture \SolvingDifferentialEquationsIINumber: \SolvingDifferentialEquationsIIShortName \ (some information reprinted here for your convenience). Occasionally it is desirable to use the generator in reverse (as a motor providing torque \(\tau\)) to turn the rotor to a certain angular position \(\theta\) so that maintenance can be performed. An automatic controller can be designed to position the rotor, but before designing the controller first we need to be able \textit{to model the turbine in transfer function form}.
+
+\begin{center}
+	\includegraphics[height=2in]{figures/applicationExample/windturbine1.png}
+	\includegraphics[height=2in]{figures/applicationExample/windturbine2.png}
+\end{center}
+
+\noindent \textbf{Step 0:} to model the turbine's rotor, first determine which ideal components we need:
+
+a)	rotational mass with inertia \(J\)
+
+b)	rotational damper with damping constant \(b\) (to represent friction)\\
+Note that a wind turbine would not have a rotational spring \(k\). If it did, the spring would get more and more extended as the rotor rotated, and eventually it would need to unwind.\\
+
+\noindent \textbf{Step 1:} sketch the ideal element diagram
+\begin{center}
+	\includegraphics[width=3.1in]{figures/applicationExample/idealElementDiagram.png}
+\end{center}
+
+\noindent \textbf{Step 2:} sketch the required nodes (in this case: just one since there is only one rotational position)
+\begin{center}
+	\includegraphics[width=.8in]{figures/applicationExample/requiredNodes.png}
+\end{center}
+
+\noindent \textbf{Step 3:} connect the node to the ground with impedances for both the mass and damper
+\begin{center}
+	\includegraphics[width=2.6in]{figures/applicationExample/nodeGroundwithImpedences.png}
+\end{center}
+
+\noindent \textbf{Step 4:} add the source (torque is analogous to a current source). The current source goes into the node if a positive torque would tend to cause a positive \(\theta\).
+\begin{center}
+	\includegraphics[width=3.1in]{figures/applicationExample/positiveTorque.png}
+\end{center}
+
+Now that we have an impedance network, we can use circuit methods to find the transfer function. Note that the two impedances are in parallel; therefore, the total impedance is
+\begin{equation*}
+	Z_{eq}(s) = \frac{\big(\frac{1}{Js^2}\big)\big(\frac{1}{bs}\big)}{\frac{1}{Js^2}+\frac{1}{bs}} = \frac{1}{bs+Js^2}
+\end{equation*}
+From the impedance version of Ohm's law, we know that \(\theta(s) = \tau(s)Z_{eq}(s)\). Therefore, our transfer function from torque to position is
+\begin{equation*}
+	\frac{\theta(s)}{\tau(s)} = \frac{1}{Js^2+bs}
+\end{equation*}
+Now we have our ``plant'' (turbine) transfer function from our input signal $\tau$ to our output signal $\theta$. Later on this semester, we'll use information in this transfer function to design a proportional-integral-derivative (PID) feedback controller to achieve the desired position.
+
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Rotational mechanical systems are very similar to translational mechanical systems, with rotational inertia replacing mass, rotational dampers replacing translational dampers, rotational springs replacing translational springs, torque replacing force, and angular position replacing position. If you're struggling with a sign convention when determining a system's differential equation, you might try replacing each rotational system component with its analogous translational component to see if the signs make more sense.
+\end{enumerate}
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Two tanks are connected in series, with the supply at pressure $p_{in}$, measured relative to atmospheric pressure. Find the equations that describe the behavior of the tanks, including the height of the second tank, $h_{2}$.
+
+\begin{center}
+\input{quizfigures/fluidsystem.tex}
+\end{center}
+\item Find the transfer function relating $\tau$ to $\theta$ for the following system\vspace{.1in}\\
+\begin{center}
+\input{quizfigures/rotmechsystem.tex}
+\end{center}\vspace{.1in}
+
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item To find the equations, we can replace each element with the impedance equivalent, along with a ``pressure source''.  Note that there are three identifiable pressures - the pressure at the bottom of each tank, $p_{1}$ and $p_{2}$ and the atmospheric pressure $p_{a}$. Our circuit should thus have three identifiable voltage nodes (one of which will be ground)
+
+\begin{center}
+\input{figures/2tankmesh.tex}
+\end{center}
+
+The mesh equations for this system are
+\[
+\begin{bmatrix} P_{in}(s) \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} \frac{\rho g}{sA_{1}} & -\frac{\rho g}{sA_{1}} & 0 \\
+-\frac{\rho g}{sA_{1}} & \frac{\rho g}{sA_{1}} +R_{1} + \frac{\rho g}{sA_{2}} & -\frac{\rho g}{sA_{2}} \\
+0 & -\frac{\rho g}{sA_{2}} & \frac{\rho g}{sA_{2}} +R_{2} \end{bmatrix} \begin{bmatrix} Q_{1}(s) \\ Q_{2}(s) \\ Q_{out}(s) \end{bmatrix}
+\]
+To find the relationship with $h_{2}$, we can write
+\[
+P_{2}(s) = R_{2}Q_{out}(s),
+\]
+and use the fact that
+\[
+H_{2}(s) = \frac{ P_{2}(s)}{\rho g}.
+\]
+\newpage\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=4in]{quizfigures/2soln}
+\end{center}
+
+\end{enumerate}
+
+\section{Resources}
+
+\subsection{Books}
+Mechanical impedance is nothing more than using the Laplace Transform of the mechanical component laws, but this connection is not always emphasized in introductory textbooks. This is often done via the graphical modeling technique of bond graphs, which are an alternate way of drawing impedance networks. For those who are interested, the following textbook covers modeling from this point of view.
+\begin{itemize}
+\item Javier A. Kypuros {\em System Dynamics and Control with Bond Graph Modeling}, CRC Press, 2013
+\end{itemize}
+
+\subsection{Web resources}
+There are also some web resources that cover modeling mechanical systems. If you find something useful, or if you find a link that no longer works, please inform your instructor!
+
+\begin{itemize}
+\item \url{http://web.mit.edu/2.151/www/Handouts/Impedances.pdf}: A handout from a system dynamics course at MIT. Note that they use velocity as the across variable, but this is just the derivative of position. 
+\end{itemize}
+
+
+
+
+\end{document}
+
+

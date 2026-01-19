@@ -1,0 +1,19 @@
+Find the differential equation that describes the following system. Put all terms involving $x$ on the left side of the equal sign, and all terms involving $f_{in}$  on the right.
+\begin{center}
+\begin{tikzpicture}
+
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-2,0) node (gnd1) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-.5,0) node (D1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (D1) node[below=14pt] {$k$};
+\draw (1.5,0) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick] (M1) {$m$};
+
+\draw[|->] (M1.90) ++(0,.15) node[above] {$x$} -- ++(.5,0);
+\draw[very thick] (D1.180) -- (gnd1.0);
+\draw[very thick] (D1.0) -- (M1.180);
+\draw[->] (M1.0)  -- ++(0.75,0) node[above] {$f_{in}(t)$};
+
+
+\end{tikzpicture}
+
+\end{center}
+

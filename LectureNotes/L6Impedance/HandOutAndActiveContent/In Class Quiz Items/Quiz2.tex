@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage[graphics,tightpage,active]{preview}
+\usepackage[width=5in, height=9in]{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{circuits.ee.IEC}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usepackage{enumerate}
+\usetikzlibrary{decorations.pathmorphing}
+
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\begin{preview}
+The impedance of electrical components are:
+
+\begin{enumerate}[(a)]
+\item Resistor: $R$, Capacitor: $\frac{1}{sC}$, Inductor: $sL$
+\item Resistor: $sR$, Capacitor: $sC$, Inductor: $sL$
+\item Resistor: $R$, Capacitor: $C$, Inductor: $L$
+\item Resistor: $R$, Capacitor: $sC$, Inductor: $\frac{1}{sL}$
+\item None of the above
+\end{enumerate}
+\end{preview}
+
+\end{document}  

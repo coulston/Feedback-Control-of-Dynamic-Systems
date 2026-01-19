@@ -1,0 +1,24 @@
+Plugging in the equation for $\tau_c$ into the first equation and rearranging, we obtain
+\[
+J \dot{\omega} +2K \omega = \tau_{aero}
+\]
+Taking the Laplace Transform and recalling that $J = 1$, we have the relationship
+\[
+s \Omega(s) - \omega(0^-) + 2K \Omega(s) = \tau_{aero}(s) 
+\]
+but since the turbine is stopped initially, we know that $\omega(0^-) = 0$.  We also know that the Laplace Transform of the aerodynamic torque is given by 
+\[
+\tau_{aero}(s) = \frac{10}{s}
+\]
+Therefore, we see that
+\[
+\Omega(s) = \frac{10}{s(s+2K)}
+\]
+which leads to the partial fraction expansion 
+\[
+\Omega(s) = \frac{A}{s} + \frac{B}{(s+2K)}
+\]
+and we can solve for $A = \frac{10}{2K}$ and $B = \frac{-10}{2K}$.  Therefore,
+\[
+\omega(t) = \frac{10}{2K} - \frac{10}{2K} e^{-2Kt}, t \geq 0
+\]

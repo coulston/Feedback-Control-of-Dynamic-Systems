@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+
+\draw[->] (-4,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (-2,2) node {$\times$};
+\draw (0,2) ++(-.1,0) -- ++(.2,0) node[right] {$j\omega_{n}\sqrt{1-\zeta^{2}}$};
+\draw (0,-2) ++(-.1,0) -- ++(.2,0) node[right] {$-j\omega_{n}\sqrt{1-\zeta^{2}}$};
+\draw (-2,0) ++(0,.1) -- ++(0,-.2) node[below] {$-\zeta\omega_{n}$}; 
+\draw (-2,-2) node {$\times$};
+\draw (0,0) -- node[pos=.5,above right] {$\omega_{n}$} (-2,2);
+\draw (0,0) ++(-.5,0) node[above left] {$\beta$};
+\draw (0,0) ++(0,.3) node[above left] {$\theta$};
+\draw (-5,1.5) node {$\beta = \cos^{-1}(\zeta)$};
+\draw (-5,1) node {$\theta = \sin^{-1}(\zeta)$};
+\end{tikzpicture}

@@ -1,0 +1,87 @@
+\documentclass[letter]{article}
+\input{../../../commonheader.tex}
+\setboolean{PrintExample}{false}
+
+
+\title[Lectures~\FirstOrderResponseNumber-\SecondOrderResponseNumber~Handout] % (optional, use only with long paper titles)
+{\course: Lectures~\FirstOrderResponseNumber-\SecondOrderResponseNumber~Handout} %\license}
+
+
+
+\begin{document}
+	
+\maketitle
+
+\section{Key Points}
+
+These provide measures we can use for controller design, especially to improve transient performance. As we go through the content of Lectures~\FirstOrderResponseNumber-\SecondOrderResponseNumber, fill in the following table with the key information needed to predict the time response characteristics.
+
+\begin{center}
+\begin{tabular}{| p{3cm} || p{5cm} | p{5cm} | }
+	\hline
+	\begin{center} \textbf{Characteristic} \end{center} & \begin{center} \textbf{First Order Systems} \end{center} & \begin{center} \textbf{Second Order Systems} \end{center} \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}Standard Equation} &   & \\\hline %$G(s)=K \frac{\sigma}{s+\sigma}$
+	\textbf{{\rule{0pt}{1.6cm}}Terms} & & \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}Time Constant}  & & \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}Settling Time} & & \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}Rise Time} & & \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}Percent Overshoot} & & \\\hline
+	\textbf{{\rule{0pt}{1.6cm}}DC Gain} & & \\\hline
+\end{tabular}
+	
+\end{center}
+
+
+
+\newpage
+\section{Reference: Key Plots}
+
+\subsection{First Order Response (to a Step Input)}
+
+\begin{center}
+\begin{minipage}{3.2in}
+	\begin{center}
+		Settling time \\
+		\includegraphics[height=2in]{../figures/stepresponse}
+	\end{center}
+\end{minipage}
+\begin{minipage}{3.2in}
+	\begin{center}
+		Rise time \\
+		\includegraphics[height=2in]{../figures/stepresponse2}
+	\end{center}
+\end{minipage}
+\end{center}
+
+\subsection{Second Order Response (to a Step Input)}
+
+\noindent \textbf{Rise time, settling time, and overshoot:}
+\begin{center}
+	\includegraphics[width=3.0in]{../../L11SecondOrderResponse/figures/stepreseponsespecifications}
+\end{center}
+
+\vspace{0.1in}
+\noindent \textbf{Under-damped poles in the complex plane:} 
+
+Consider the complex pole pair below. Label the axes with relevant information about the pole locations based on the standard second-order transfer function form. Consider both polar and rectangular coordinates. 
+\vspace{0.1in}
+\begin{center}
+\begin{tikzpicture}
+
+\draw[->] (-4,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (-2,2) node {$\times$};
+%\draw (0,2) ++(-.1,0) -- ++(.2,0) node[right] {$j\omega_{n}\sqrt{1-\zeta^{2}}$};
+%\draw (0,-2) ++(-.1,0) -- ++(.2,0) node[right] {$-j\omega_{n}\sqrt{1-\zeta^{2}}$};
+%\draw (-2,0) ++(0,.1) -- ++(0,-.2) node[below] {$-\zeta\omega_{n}$}; 
+\draw (-2,-2) node {$\times$};
+%\draw (0,0) -- node[pos=.5,above right] {$\omega_{n}$} (-2,2);
+%\draw (0,0) ++(-.5,0) node[above left] {$\beta$};
+%\draw (0,0) ++(0,.3) node[above left] {$\theta$};
+%\draw (-5,1.5) node {$\beta = \cos^{-1}(\zeta)$};
+%\draw (-5,1) node {$\theta = \sin^{-1}(\zeta)$};
+\end{tikzpicture}
+\end{center}
+
+
+\end{document}  

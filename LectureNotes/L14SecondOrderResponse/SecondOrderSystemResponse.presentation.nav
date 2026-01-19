@@ -1,0 +1,35 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\sectionentry {1}{Pre-requisite Material}{2}{Pre-requisite Material}{0}}
+\headcommand {\beamer@sectionpages {2}{1}}
+\headcommand {\beamer@subsectionpages {2}{1}}
+\headcommand {\sectionentry {2}{Second Order Systems}{2}{Second Order Systems}{0}}
+\headcommand {\slideentry {2}{0}{1}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\sectionentry {3}{Second Order Step Response}{3}{Second Order Step Response}{0}}
+\headcommand {\beamer@sectionpages {3}{2}}
+\headcommand {\beamer@subsectionpages {3}{2}}
+\headcommand {\sectionentry {4}{Second Order Step Response Specifications}{3}{Second Order Step Response Specifications}{0}}
+\headcommand {\slideentry {4}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{4}{Overshoot}}
+\headcommand {\beamer@subsectionpages {4}{3}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{4}{Settling Time}}
+\headcommand {\beamer@subsectionpages {4}{3}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{4}{Rise Time}}
+\headcommand {\slideentry {4}{3}{1}{4/4}{Rise Time}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {4}{3}{2}{5/5}{Rise Time}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {4}{3}{3}{6/6}{Rise Time}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@partpages {1}{6}}
+\headcommand {\beamer@subsectionpages {7}{6}}
+\headcommand {\beamer@sectionpages {7}{6}}
+\headcommand {\beamer@documentpages {6}}
+\headcommand {\gdef \inserttotalframenumber {6}}

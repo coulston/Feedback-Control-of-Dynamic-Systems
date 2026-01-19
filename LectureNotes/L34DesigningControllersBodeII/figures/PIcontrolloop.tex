@@ -1,0 +1,13 @@
+\begin{tikzpicture}[scale=1,inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+
+\draw (1.25,0) node[draw,circle] (sum1) {$\rule{0pt}{18pt}$};
+\draw (4,0) node[sysblock] (Kp) {$K_{p} + \frac{K_{i}}{s}$};
+\draw (7.25,0) node[sysblock] (G) {$G(s)$};
+
+\draw[->] (0,0) node[above=2pt] {$R(s)$} -- (sum1.180) node[above left=2pt] {$+$};
+\draw[->] (sum1.0) --  node[above=2pt,pos=.5] {$E(s)$} (Kp);
+\draw[->] (Kp) -- node[above=2pt,pos=.4] {$U(s)$}  (G);
+\draw[->] (G) -- ++(2.5,0) node[above=2pt] {$Y(s)$};
+\draw[->] (G) ++(1.5,0) -- ++(0,-1.5) -| (sum1.-90) node[below right=2pt] {$-$};
+\end{tikzpicture}

@@ -1,0 +1,32 @@
+In our transfer function, $\sigma = 2$.
+
+(a) The step response settling time can be determined from \\
+\[
+t_s=\frac{4.6}{\sigma} = 2.3 \mbox{ seconds}
+\]
+\\
+The step response rise time can be determined from \\
+\[
+t_r=\frac{2.2}{\sigma} = 1.1 \mbox{ seconds}
+\]
+\\
+(b) The Matlab plot can be created using the following code \\
+>> sys=tf(6,[1 2]) \\
+>> step(sys) \\
+after which the rise time and settling time can be labeled by hand.  If you want to include lines and labels within Matlab, you can use the following code: 
+
+>> [y,t]=step(sys); \% does not produce a plot, but rather two vectors t and y containing the plot information \\
+>> tr10=0.0528; \% find the 10\% rise time by zooming in on the plot \\
+>> tr90=1.151; \% find the 90\% rise time by zooming in on the plot \\
+>> ts=2.3; \% find the 1\% settling time by zooming in on the plot \\
+>> xlabel('Time (s)');ylabel('Step Response') \\
+>> hold on;plot([0 tr10],[0.3 0.3],'k--',[0 tr90],[2.7 2.7],'k--') \% Plot horizontal rise time lines as dashed black lines \\
+>> hold on;plot([tr10 tr10],[0 0.3],'k--',[tr90 tr90],[0 2.7],'k--') \% Plot vertical rise time lines as dashed black lines \\
+>> hold on;plot([0 ts],[2.97 2.97],'r:',[ts ts],[0 2.97],'r:') \% Plot settling time lines as red dotted lines \\
+You can use the ``gtext'' command to place text on a plot with your cursor. \\
+
+\includegraphics[width=4.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem03.png}
+
+(c) From the Matlab plot, we can zoom in to find that $y = 0.3$ (10\% of the final value) occurs at time $t = 0.053$ and $y = 2.7$ (90\% of the final value) occurs at time $t = 1.15$, which means that the rise time is $t_r = 1.1$ seconds.  Similarly, by zooming in we can verify that the settling time is $t_s = 2.3$ seconds. 
+
+

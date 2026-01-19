@@ -1,0 +1,30 @@
+\begin{tikzpicture}[scale=1.75,inner sep=0pt,outer sep=0pt,very thick]
+
+\draw (1,0) node (M1) {\input{../../../Tikzmodeling/MechanicalElements/inertia.tex}};
+\draw (1,0) node {$J_{1}$} ++(0,-.6) node {\small arm};
+\draw[->] (M1.135) node[above] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (M1.135) ++(-.3,0) node[above=2pt] {$\tau$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (M1.45) ++(.2,0) node[above right=2pt] {$\tau_{k}+\tau_{d}$} ++(.1,-.1) .. controls  ++(.15,-.3) and ++(.15,.3) ..  ++(0,-.8);
+\draw (4,1) node (K) {\input{../../../Tikzmodeling/MechanicalElements/spring.tex}};
+\draw (K.180) -- ++(-.2,0);
+\draw (K.0) -- ++(.2,0);
+\draw[->] (K.135) ++(-.3,0) node[above=2pt] {$\tau_{k}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (K.135) node[above=2pt] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (K.45) ++(.4,0) node[above right=2pt] {$\tau_{k}$} ++(.1,-.1) .. controls  ++(.15,-.3) and ++(.15,.3) ..  ++(0,-.8);
+\draw[->] (K.45) ++(.3,0) node[above=2pt] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (4,-1) node (D) {\input{../../../Tikzmodeling/MechanicalElements/damper.tex}};
+\draw (D.180) -- ++(-.2,0);
+\draw (D.0) -- ++(.2,0);
+\draw[->] (D.135) ++(-.3,0) node[above=2pt] {$\tau_{d}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (D.135) node[above=2pt] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (D.45) ++(.4,0) node[above right=2pt] {$\tau_{d}$} ++(.1,-.1) .. controls  ++(.15,-.3) and ++(.15,.3) ..  ++(0,-.8);
+\draw[->] (D.45) ++(.3,0) node[above=2pt] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (4,1) node[above=.25in] {$k$};
+\draw (4,-1) node[above=.25in] {$b$};
+\draw (7,0) node (M2) {\input{../../../Tikzmodeling/MechanicalElements/inertia.tex}};
+\draw[->] (M2.135) ++(-.2,0) node[above=2pt] {$\tau_{k}+\tau_{d}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (7,0) node {$J_{2}$} ++(0,-.6) node {\small read head};
+\draw[->] (M2.0) ++(.2,.5) node[above] {$\theta_{2}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+
+
+\end{tikzpicture}

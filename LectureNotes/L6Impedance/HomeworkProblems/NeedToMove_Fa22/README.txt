@@ -1,0 +1,1 @@
+many problems involved both transfer functions and solving differential equations so were moved to the new combined solving diff eqs lecture

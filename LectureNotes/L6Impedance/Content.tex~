@@ -1,0 +1,348 @@
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usetikzlibrary{decorations.pathmorphing}
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[Rotational Systems] % (optional, use only with long paper titles)
+{EGGN307: Impedance\license}
+
+\subtitle
+{} % (optional)
+
+\author% (optional, use only with lots of authors)
+{Tyrone Vincent}
+%{T. Vincent\inst{1} \and S.~Another\inst{2}}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[CSM] % (optional, but mostly needed)
+{Division of Engineering\\
+  Colorado School of Mines}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{Lecture 7}
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=1.1cm]{university-logo}{UniversityLogo}
+%\logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+\section{Impedance}
+
+In the last lecture, we saw that Laplace Transforms are useful to find how dynamical systems respond to inputs. Our process was to first find the differential equation describing the system, transform the equation to the Laplace domain, then solve for the output using Laplace Transform techniques.  However, when the initial conditions are zero, then the output is related to the input simply by the {\em transfer function}. Since zero initial conditions are a typical case in control systems, in the remainder of the course, we will focus on techniques to find the Transfer Function. In this case, rather than first using algebra to find a differential equation and then using Laplace Transforms, we will do the reverse: find the Laplace Transform of all components, and then use our algebraic rules to solve for the transfer function. This is best explained using examples. 
+
+We will start by looking at electrical systems. We have the following component laws:
+\begin{frame}{Electrical Impedance}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor \\\hline
+\rule{0pt}{14pt} Component law & $v=iR$ & $C\frac{dv}{dt} = i$ & $v=L\frac{di}{dt}$ \\
+\rule{0pt}{14pt} Laplace Transform & $V(s)= RI(s)$ & $CsV(s) = I(s)$ & $V(s) = LsI(s)$
+ \end{tabular}
+\end{center}
+
+\begin{definition}
+The {\em impedance} of an electrical element is the ratio of the Laplace Transform of the voltage over the Laplace Transform of the current
+\end{definition}
+\end{frame}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor \\\hline
+\rule{0pt}{14pt} Impedance & $\frac{V(s)}{I(s)}=R$ & $\frac{V(s)}{I(s)} = \frac{1}{sC}$ & $\frac{V(s)}{I(s)} = Ls$ \\
+ \end{tabular}
+\end{center}
+
+Once in the Laplace domain, the relationship between current and voltage is algebraic for all elements. 
+
+\begin{example}
+Find the transfer function relating $v_{in}$ to $v_{out}$.
+\begin{frame}{Circuit}
+\begin{center}
+\input{figures/seriescircuit}
+\end{center}
+\end{frame}
+
+First, convert all variables to Laplace variables and all elements to impedances
+\end{example}
+\begin{frame}{Impedance Circuit}
+\begin{center}
+\input{figures/seriescircuitimpedance}
+\end{center}
+\end{frame}
+
+Since the relationship between variables and components is now algebraic, we can use any circuit solution technique valid for resistors. For example,
+
+\begin{frame}{Impedances in series}
+\begin{center}
+\input{figures/seriesimpedance.tex}
+\end{center}
+\end{frame}
+
+\begin{frame}{Impedances in parallel}
+\begin{center}
+\input{figures/parallelimpedance.tex}
+\end{center}
+\end{frame}
+
+\begin{frame}{Voltage Divider}
+\begin{center}
+\input{figures/voltagedivider.tex}
+\end{center}
+\end{frame}
+
+Using the series impedance rule and voltage divider rule, we can easily find the transfer function of interest.
+
+\begin{frame}{Circuit Solution}
+\begin{center}
+\input{figures/seriescircuitsolution}
+\end{center}
+\end{frame}
+
+\section{Mechanical Impedance}
+
+Impedance can also be used in other modeling domains. While some textbooks define mechanical impedance as the ratio of the Laplace transform of  force to position, we will {\em not} use this definition, as it is not compatible with electrical systems. Instead, we will make the following general definition of impedance.
+
+\begin{definition}
+The {\em impedance} of an element is the ratio of the Laplace Transform of the across variable over the Laplace Transform of the through variable
+\end{definition}
+
+In mechanical systems, the across variable is position, while the through variable is force, so we have the impedances in the following table.
+\begin{frame}{Mechanical Impedance}
+\begin{center}
+\resizebox{10cm}{!}{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{figures/mass.tex} & \input{figures/spring.tex} & \input{figures/damper.tex}\\\hline
+\rule{0pt}{14pt} Component law & $M\ddot{x}=f$ & $f = kx$ & $f=b\dot{x}$  \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $X(s)= \frac{1}{Ms^{2}}F(s)$ & $X(s) = \frac{1}{k}F(s)$ & $X(s) = \frac{1}{bs}F(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(force direction agrees with positive direction)\end{center}
+\end{minipage}
+& \input{figures/massimpedance.tex} & \input{figures/springimpedance.tex} & \input{figures/damperimpedance.tex}
+ \end{tabular}}
+\end{center}
+\end{frame}
+Note that since the position of the mass is relative to a fixed measurement frame, one end of the mass impedance element is {\em always} commented to ground. Rather than give an example of impedance modeling now, let's move on for the moment to rotational mechanical systems
+
+\section{Rotational Mechanical Systems}
+
+Previously, we modeled translational motion in one direction. When objects rotate, the modeling process is similar. An example of a rotational mechanical system is the hard disk drive read head, which is an important application of control systems. The control system must move the read head over the correct track within a few milliseconds, and hold it there despite disturbances such as external shocks or disk irregularities.
+
+\begin{frame}{Hard Disk Drive Read Head}
+
+\begin{center}
+\includegraphics[width=2.2in]{figures/Hard_disk_labeled}\input{figures/diskdrivepicture.tex}
+\end{center}
+{\tiny Photo attribution: By Ed g2s, via Wikimedia Commons}
+\end{frame}
+
+
+For rotational Mechanical system, the variables that we are modeling are 
+\begin{itemize}
+\item torque, which has units of Newtons (Nm), and
+\item angular position, which has units of radians (rad). 
+\end{itemize}
+Unless otherwise specified, we will always assume that the torque and position variables have these units.
+We will use the following elements to describe rotational mechanical systems. 
+
+\subsection{Components}
+
+%\begin{frame}{Inertia}
+When objects rotate, they follow the rotational version of Newton's law, which relates applied torque to angular acceleration.
+\begin{center}
+\input{figures/inertia.tex}
+\end{center}
+%\end{frame}
+
+%\begin{frame}{Damping}
+Viscous friction also applies in the rotational case. In this case, each of the ends of the damper can rotate in response to an applied torque.  
+\begin{center}
+\input{figures/rotdamper.tex}
+\end{center}
+%\end{frame}
+Note that the applied torque is always {\em equal and opposite} on both ends of the damper. 
+
+%\begin{frame}{Spring}
+A rotational spring.  Each of the ends of the spring can rotate in response to an applied torque.  
+\begin{center}
+\input{figures/rotspring.tex}
+\end{center}
+%\end{frame}
+Like the damper, the applied torque is always {\em equal and opposite} on both ends of the spring. 
+
+\subsection{Connection Rules and Boundary Conditions}
+
+The connection rules and boundary conditions are the same as in the translational case
+\begin{itemize}
+\item When two elements are connected, the two components share the same {\em angular position}. 
+\item When two elements are connected, the torques at the connection {\em sum to zero}. 
+\item A ground fixes the position of that terminal to zero.
+\item A force or position input prescribes the force or position of that terminal.
+\end{itemize}
+
+\subsection{Impedances}
+We note that the algebraic laws that relate rotational mechanical elements are {\em identical} to that of translational mechanical elements, with angular position as the across variable and torque as the through variable. We can use the following impedance elements.
+
+\begin{center}
+\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{figures/inertia.tex} & \input{figures/rotspring.tex} & \input{figures/rotdamper.tex}\\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(force direction agrees with positive direction)\end{center}
+\end{minipage}
+& \input{figures/inertiaimpedance.tex} & \input{figures/rotspringimpedance.tex} & \input{figures/rotdamperimpedance.tex}
+ \end{tabular}
+\end{center}
+Note that for the spring and damper, we have used $\theta = \theta_{1} - \theta_{2}$.
+\subsection{Example}
+The process of finding the transfer function using impedances is straightfoward.
+\begin{itemize}
+\item Draw a diagram of ideal elements
+\item Identify all of the independent nodes (across variables) which for mechanical systems are positions. Add a ground node, or identify a fixed node as ground
+\item Connect elements between nodes, with masses and inertias always connected between one node and ground
+\item Add boundary conditions as sources
+\end{itemize}
+
+Let's try this process for the hard disk drive system given above. Since the arm is thin, it is flexible. This can be modeled with ideal elements by splitting the inertia between the arm and the read head, and connecting these inertias with a spring and damper. The motor applies the torque $\tau$. $J_{1}$ is the inertia of the motor axis, while $J_{2} = mr^{2}$, where $m$ is the mass of the read head, and $r$ is the radius at which it rotates. $k$ and $b$ are constants that describe the stiffness and damping characteristics of the actuator arm.
+
+
+\begin{itemize}
+\item[Step 1] Diagram of ideal elements
+\begin{frame}{Hard Disk Drive Ideal Elements}
+\begin{center}
+\input{figures/diskdrivediagram.tex}
+\end{center}
+\end{frame}
+\item[Step 2] For this problem, there are two independent positions: $\theta_{1}$ and $\theta_{2}$. Neither of these are fixed, so we also add a ground node.
+\begin{frame}{Nodes}
+\begin{center}
+\input{figures/diskdrivecircuit1}
+\end{center}
+\end{frame}
+\item[Step 3] Connect the correct impedance elements between nodes
+\begin{frame}{Disk Drive Impedance Network}
+\begin{center}
+\input{figures/diskdrivecircuit2}
+\end{center}
+\end{frame}
+\item[Step 4] The applied torque is a boundary condition. Since torque is a through variable, we should add a current source to the $\theta_{1}$ node. The current source goes {\em into} the node if a positive torque would tend to cause a positive $\theta_{1}(s)$.
+\begin{frame}{Disk Drive Complete Circuit}
+\begin{center}
+\input{figures/diskdrivecircuit3}
+\end{center}
+\end{frame}
+\end{itemize}
+
+We can now find the transfer function from $\tau(s)$ to either $\theta_{1}(s)$ or $\theta_{2}(s)$ using our standard circuit methods.
+%Draw the free body diagram, applying the connection rules\vspace{.1in}\\
+%\tryit{
+%\begin{boxedminipage}{6.5 in}
+%\rule{0pt}{12pt}\vspace{1.5in}
+%\color{lightgray}\begin{center}\input{figures/diskdrivefbd.tex}\end{center}
+%\end{boxedminipage}\\
+%}{\begin{boxedminipage}{6.5 in}
+%\begin{center}\input{figures/diskdrivefbd.tex}\end{center}
+%\end{boxedminipage}\\
+%}
+%\newpage
+%Write two differential equations that represent the equations of motion in terms of $\theta_{1}$, $\theta_{2}$, and $\tau$.\vspace{.1in}\\
+%\tryit{
+%\begin{boxedminipage}{6.5 in}
+%\rule{0pt}{12pt}\vspace{2in}
+%\color{lightgray}\begin{align*}
+%J_{1}\frac{d^2\theta_{1}}{dt} &= -b \left(\frac{d\theta_{1}}{dt} - \frac{d\theta_{2}}{dt}\right) - k\left(\theta_{1} - \theta_{2}\right) + \tau \\
+%J_{2}\frac{d^2\theta_{2}}{dt} &= b \left(\frac{d\theta_{1}}{dt} - \frac{d\theta_{2}}{dt}\right) +  k\left(\theta_{1} - \theta_{2}\right)\\
+%\end{align*}
+%\end{boxedminipage}\\
+%}
+%{
+%\begin{boxedminipage}{6.5 in}
+%\begin{align*}
+%J_{1}\frac{d^2\theta_{1}}{dt} &= -b \left(\frac{d\theta_{1}}{dt} - \frac{d\theta_{2}}{dt}\right) - k\left(\theta_{1} - \theta_{2}\right) + \tau \\
+%J_{2}\frac{d^2\theta_{2}}{dt} &= b \left(\frac{d\theta_{1}}{dt} - \frac{d\theta_{2}}{dt}\right)   + k\left(\theta_{1} - \theta_{2}\right)\\
+%\end{align*}
+%\end{boxedminipage}\\
+%}
+%
+
+
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Find the transfer function relating $\tau$ to $\theta$ for the following system\vspace{.1in}\\
+\begin{center}
+\input{quizfigures/rotmechsystem.tex}
+\end{center}\vspace{.1in}
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=4in]{quizfigures/2soln}
+\end{center}
+
+\end{enumerate}
+
+\end{document}
+
+

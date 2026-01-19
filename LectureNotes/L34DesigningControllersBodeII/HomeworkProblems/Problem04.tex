@@ -1,0 +1,59 @@
+You are designing the control system for a hard disk drive read head, which has the lumped system model shown below. The specifications for the control system are 
+
+\begin{center}
+\noindent\begin{minipage}{3.5in}
+\begin{itemize}
+\item Unit step reference steady state error < $1 \times 10^{-6}$
+\item $\tr \leq 1.1 \times 10^{-4}$ s
+\item $\OS \leq 10\%$
+\end{itemize}
+\end{minipage}\hspace{.2in}
+\begin{minipage}{3in}
+\resizebox{3in}{!}{
+\begin{tikzpicture}[scale=1.75,inner sep=0pt,outer sep=0pt,very thick]
+\draw (-1,-1) node (a) {}; 
+
+\draw (-1,0) node (Va) { \input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (-1,0) node[left=.35in] {$v_{a}$};
+\draw (1,0) node[circle,draw] (Vb) {\rule{0pt}{30pt}};
+\draw (0,1) node (R) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (0,1) node[above=.25in] {$R_{a}$};
+\draw (0,1) node[below=.15in] {$\begin{matrix} \longrightarrow \\ i_{a}\end{matrix}$};
+\draw (2.5,0) node (M1) {\input{\mainfolder/DrawingElements/MechanicalElements/inertia.tex}};
+\draw (2.5,0) node {$J_{1}$} ++(0,-.6) node {\small arm};
+\draw[->] (M1.135) node[above] {$\theta_{1}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw[->] (M1.135) ++(-.3,0) node[above=2pt] {$\tau$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (4,.5) node (K) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (4,-.5) node (D) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (4,.5) node[above=.25in] {$k$};
+\draw (4,-.5) node[above=.25in] {$b$};
+\draw (5.5,0) node (M2) {\input{\mainfolder/DrawingElements/MechanicalElements/inertia.tex}};
+\draw (5.5,0) node {$J_{2}$} ++(0,-.6) node {\small read head};
+\draw[->] (M2.0) ++(.2,.5) node[above] {$\theta_{2}$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+
+\draw (M1.0) |- (D.180);
+\draw (M1.0) |- (K.180);
+\draw (M2.180) |- (D.0);
+\draw (M2.180) |- (K.0);
+\draw (1,0) -- (M1.180);
+\draw (R.0) -| (Vb.90);
+\draw (Va.90) |- (R.180);
+\draw (Va) -- (a);
+\draw (a.0) -| (Vb.-90);
+\end{tikzpicture}}
+\end{minipage}
+\end{center}
+
+The Bode plot of the transfer function $\frac{\theta_{2}(s)}{V_{a}(s)}$ is shown below
+
+
+\begin{center}
+\includegraphics[width=5.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem04/bodefig.pdf}
+\end{center}
+
+\begin{enumerate}[(a)]
+\item Estimate the low frequency gain, crossover frequency and phase margin required to meet the specifications
+\item Determine a proportional controller gain $K$ such that the rise time specification is met, irrespective of the other specifications.
+\item To meet all specifications is P, PI or PD control required? Draw the block diagram for the control system, using $G(s)$ for the transfer function of the hard drive read head
+\end{enumerate}
+

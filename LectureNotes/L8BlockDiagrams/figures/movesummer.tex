@@ -1,0 +1,21 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw (2,0) node[draw,circle] (sum2) {$\rule{0pt}{18pt}$};
+\draw[<-] (sum.180) node[above left=4pt] {$+$} -- ++(-1,0) node[above=4pt] {$R(s)$};
+\draw[<-] (sum.-90) node[below right=4pt] {$+$} -- ++(0,-1) node[left=4pt] {$S(s)$};
+\draw[->] (sum.0) -- (sum2.180);
+\draw[<-] (sum2.-90) node[below right=4pt] {$+$} -- ++(0,-1) node[left=4pt] {$T(s)$};
+\draw[->] (sum2.0) -- ++(1,0) node[above=4pt] {$Y(s)$};
+\draw (1,-2) node {$Y(s)=\left(R(s)+S(s)\right)+T(s)$};
+
+\draw (6,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw (8,0) node[draw,circle] (sum2) {$\rule{0pt}{18pt}$};
+\draw[<-] (sum.180) node[above left=4pt] {$+$} -- ++(-1,0) node[above=4pt] {$R(s)$};
+\draw[<-] (sum.-90) node[below right=4pt] {$+$} -- ++(0,-1) node[left=4pt] {$T(s)$};
+\draw[->] (sum.0) -- (sum2.180);
+\draw[<-] (sum2.-90) node[below right=4pt] {$+$} -- ++(0,-1) node[left=4pt] {$S(s)$};
+\draw[->] (sum2.0) -- ++(1,0) node[above=4pt] {$Y(s)$};
+\draw (7,-2) node {$Y(s)=\left(R(s)+T(s)\right)+S(s)$};
+
+\end{tikzpicture}

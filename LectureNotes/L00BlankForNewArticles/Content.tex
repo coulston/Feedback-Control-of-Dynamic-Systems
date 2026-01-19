@@ -1,0 +1,88 @@
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\BlankNewArticleShortName] % (optional, use only with long paper titles)
+{\course: \BlankNewArticleName\license}
+
+\subtitle
+{Lecture \BlankNewArticleNumber} % (optional)
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+\section{\textcolor{red}{Section Heading}}
+
+\textcolor{red}{I (Katie) created these files as a template for creating new lecture articles and presentations (with homework and quiz yourself problems) in Fall 2022. The folder can be copied as a whole and then new content added.}
+
+
+\begin{frame}{\textcolor{red}{Frame Content for Presentation File}}
+\begin{center}
+\mode<article>{\input{figures/templateframecontent.tex}}
+\mode<presentation>{\resizebox{3in}{!}{\input{figures/templateframecontent.tex}}}
+\end{center}
+\end{frame}
+
+
+\section{Application Example}
+
+\textcolor{red}{Application example goes here, if one exists.}
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \textcolor{red}{Make list here...}
+\end{enumerate}
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \input{quizfigures/quizyourself1.tex} 
+\end{enumerate}
+
+\subsection{Solutions}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\  % use this \rule command to correctly align solutions given as images
+\begin{center}
+\includegraphics[width=4.5in]{quizfigures/emptyfig.png}
+\end{center}\newpage
+\end{enumerate}
+
+
+
+\end{document}
+
+

@@ -1,0 +1,49 @@
+(a) Use Matlab to plot the open-loop poles and zero:
+
+\texttt{
+>> gs=10*tf([1 5],[1 3 10]) \\
+>> pzmap(gs) \\
+>> axis([-18 2 -6 6]) \% set the axis (according to part (d)) \\
+}
+(the pole zero map is shown as part of (c))
+\vspace{10pt}
+
+(b) Then, use Matlab to generate and plot the closed-loop poles quickly for the selected values of $K$:
+
+\texttt{
+>> K=[0.1; 0.4; 0.8; 1.2; 1.5; 1.59; 1.6; 2] \\
+>> for i=1:length(K) \\
+>> p(i,:)=pole(feedback(K(i)*gs,1))'; \\
+>> end \\
+>> hold on \\
+>> plot(real(p(:,1)),imag(p(:,1)),'rs',real(p(:,2)),imag(p(:,2)),'gs') \% plot the poles as squares \\
+>> xlabel('Real Axis');ylabel('Imaginary Axis')\\
+}
+
+The plot is shown with the connections sketched in part (c).
+
+\begin{table*}[h]
+	\centering
+		\begin{tabular}{c | c | c}
+			$K_d$ & Closed Loop Pole 1 & Closed Loop Pole 2 \\ \hline
+			0.1 & $-2-j3.3$ & $-2+j3.3$\\ \hline
+			0.4 & $-3.5-j4.2$ & $-3.5+j4.2$\\ \hline
+			0.8 & $-5.5-j4.4$ & $-5.5+j4.4$\\ \hline
+			1.2 & $-7.5-j3.7$ & $-7.5+j3.7$\\ \hline
+			1.5 & $-9-j2$ & $-9+j2$ \\ \hline
+			1.59 & $-9.45-j0.4$ & $-9.45+j0.4$\\ \hline
+			1.6 & $-10$ & $-9$\\ \hline
+			2 & $-16.2$ & $-6.8$ \\ \hline
+		\end{tabular}
+\end{table*}
+
+
+(c) \\
+\begin{center}
+\includegraphics[width=5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem06soln1.jpg}
+\end{center}
+
+(d) \\
+\begin{center}
+\includegraphics[width=4.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem06soln2.png}
+\end{center}

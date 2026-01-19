@@ -1,0 +1,33 @@
+You are to design a Proportional/Integral (PI) control system for an oven that has a heater with controllable heat flow input $\dot{Q}_{in}$. This is for an industrial process that requires the oven to precisely follow desired temperature trajectories. \vspace{.1in}
+
+\begin{minipage}{3.5in}
+The desired specifications are:
+\begin{itemize}
+\item Settling time equal to 10 seconds
+\item Overshoot of 20\%
+\item Zero steady state error for unit step reference 
+\end{itemize}
+\end{minipage}
+\begin{minipage}{3in}
+\begin{center}
+\begin{tikzpicture}
+\draw[pattern=bricks]  (-2,-2) -- ++(0,4) -- ++(4,0) -- ++(0,-4)  -- cycle (-1.75,-1.75) -- ++(3.5,0) -- ++(0,3.5) -- ++(-3.5,0) -- cycle;
+
+\draw (-1,0) node[rectangle,draw,inner sep=2pt,outer sep=0,rotate=90,pattern=north west lines] (coil) {\rule{1in}{0pt}};
+%\draw[very thick] (coil.0) -- ++(0,.01) -- ++(-2,0) node [left=4pt] {$+$};
+%\draw[very thick] (coil.180) -- ++(0,-.01) -- ++(-2,0) node [left=4pt] {$-$};
+\draw[->,very thick] (-1.25,0) -- ++(.5,0) node[right] {$\dot{Q}_{in}$};
+\draw (.85,0) node {$T_{o}$};
+\draw (3,0) node {$T_{a}$};
+
+\end{tikzpicture}\end{center}
+\end{minipage}\vspace{.1in}
+
+The oven has a thermal capacitance of $100$ J/K, and the thermal resistance to the ambient temperature $T_{a}$ is $25$  K/W. 
+\begin{enumerate}[(a)]
+\item Find the transfer function for the oven from input $\dot{Q}_{in}$ to output $T_{o}$. (We will ignore variations in $T_{a}$ for this problem.) 
+\item Draw a block diagram that represents the PI feedback control system. Include the reference signal for the desired temperature $T_{d}(s)$.
+\item Determine the acceptable damping ratio and undamped natural frequency of the closed loop poles to achieve the desired closed loop specifications. Assume no effect due to zeros.
+\item Find the gains for your controller that achieve the pole locations for part (c).
+\item Implement your feedback system in Simulink, following the example in the PID Control lecture. Plot the response to a reference step input.
+\end{enumerate}

@@ -1,0 +1,168 @@
+%%
+%% This is file `samplecards.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% flashcards.dtx  (with options: `sample')
+%%
+%% FlashCards LaTeX2e Class for Typesetting Double Sided Cards
+%% Copyright (C) 2000  Alexander M. Budge <ambudge@mit.edu>
+%%
+%% This program is free software; you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation; either version 2 of the License, or
+%% (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%
+%% You should have received a copy of the GNU General Public License
+%% along with this program (the file COPYING); if not, write to the
+%% Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+\ProvidesFile{samplecards.tex}
+\documentclass[avery5371,grid,frame]{flashcards}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\cardfrontstyle[\large\slshape]{headings}
+\cardbackstyle{empty}
+
+\begin{document}
+
+\cardfrontfoot{Complex Algebra}
+
+\begin{flashcard}[Rectangular to Polar]{$z=a+jb$ \\ Find $z$ in polar form}
+\[
+z=(\sqrt{a^2+b^2})e^{j\theta}
+\]
+where
+\[
+\theta=
+\begin{cases}
+\tan^{-1}(b/a), & \mbox{if }a\geq 0 \\
+\pm\pi + \tan^{-1}(b/a), &  \mbox{if } a < 0
+\end{cases}
+\]
+\begin{itemize}
+\item Use four quadrant inverse tangent
+\end{itemize}
+
+\end{flashcard}
+
+\begin{flashcard}[Polar to Rectangular]{$z=r\angle\theta=re^{j\theta}$ \\ Find $z$ in rectangular form}
+\[
+z=r\cos(\theta)+jr\sin(\theta)
+\]
+\begin{itemize}
+\item Use Euler's Formula
+\end{itemize}
+
+\end{flashcard}
+
+\begin{flashcard}[Definition]{Euler's Formula}
+\[
+e^{j\theta}=cos(\theta)+jsin(\theta)
+\]
+
+\end{flashcard}
+
+\begin{flashcard}[Exponents]{$e^{a+jb}e^{c+jd}$}
+\[
+e^{(a+c)+j(b+d)}
+\]
+\begin{center}
+\begin{itemize}
+\item
+Exponents add
+\end{itemize}
+\end{center}
+\end{flashcard}
+
+\begin{flashcard}[Complex Addition]{$(a+jb)+(c+jd)$}
+\[
+(a+c)+j(b+d)
+\]
+\begin{itemize}
+\item
+Real parts add and imaginary parts add.
+\item
+Convert polar form to rectangular form before adding.
+\end{itemize}
+\end{flashcard}
+
+\begin{flashcard}[Complex Multiplication]{$z_1=ae^{j\theta}\,\,\,z_2=be^{j\phi}$\\Find $z_1z_2$}
+\[
+abe^{j(\theta+\phi)}
+\]
+\begin{itemize}
+\item
+Magnitudes multiply, angles add.
+\end{itemize}
+\end{flashcard}
+
+\begin{flashcard}[Complex Subtraction]{$(a+jb)-(c+jd)$}
+\[
+(a-c)+j(b-d)
+\]
+\begin{itemize}
+\item
+Real parts subtract and imaginary parts subtract.
+\item
+Convert polar form to rectangular form before subtracting.
+\end{itemize}
+\end{flashcard}
+
+\begin{flashcard}[Complex Division]{$z_1=ae^{j\theta}\,\,\,z_2=be^{j\phi}$\\Find $\frac{z_1}{z_2}$}
+\[
+\frac{a}{b}e^{j(\theta-\phi)}
+\]
+\begin{itemize}
+\item
+Magnitudes divide and angles subtract.
+\end{itemize}
+\end{flashcard}
+
+\begin{flashcard}[Roots]{$z^{n}=re^{j\theta}$\\ Solve for $z$}
+\[
+z=r^{1/n}e^{j\left(\frac{\theta}{n}+\frac{2\pi\ell}{n}\right)} \,\,\, \ell=0,1,\dots,n
+\]
+\begin{itemize}
+\item
+n different solutions
+\end{itemize}
+\end{flashcard}
+
+\begin{flashcard}[Conjugate]{$z=a+jb$ \\ Find $z^{*}$}
+\[
+z^{*}=a-jb
+\]
+\begin{itemize}
+\item
+Imaginary part changes sign
+\end{itemize}
+\end{flashcard}
+
+\end{document}
+\endinput
+%%
+%% End of file `samplecards.tex'.

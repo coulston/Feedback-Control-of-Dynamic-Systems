@@ -1,0 +1,75 @@
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+%USEFUL REF:
+%https://latexdraw.com/block-diagram-in-latex-step-by-step-tikz-tutorial/
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, name=input] {};
+    \node [sum, right of=input] (sum) {};
+    \node [block, right of=sum, node distance=2.5cm] (controller) {Human};
+    \node [block, right of=controller, node distance=3.0cm] (actuator) {Insulin Pump};
+    %\node [sum, right of=controller, node distance=2.5cm] (sum2) {}; %ESG
+    \node [sum, right of=actuator, node distance=3.0cm] (disturbance) {}; %ESG
+    \node [block, right of=actuator,
+            node distance=6cm] (system) {Human};
+   \node [block, below of = controller,
+            node distance=1.5cm] (sensor) {Glucose Monitor};
+    % We draw an edge between the controller and system block to 
+    % calculate the coordinate u. We need it to place the measurement block. 
+    %\draw [->] (controller) -- node[name=x] {$X(s)$} (sum2); %ESG THIS ONE IS GOOD
+    %\draw [->] (sum2) -- node[name=f] {$F(s)$} (disturbance); %ESG THIS ONE IS GOOD
+    \draw [->] (disturbance) -- node[name=u] {$U(s)$} (system); %ESG
+    \node [input, above of=disturbance, node distance=1cm] (g_d) {$G_d(s)$};
+    \node [input, below of=controller, node distance=1.5cm] (fdb) {};
+    \node [output, right of=system] (output) {};
+    %\node [block, below of=disturbance] (Kd) {$K_ds$};
+
+    % Once the nodes are placed, connecting them is easy. 
+    %\draw [draw,->] (input) -- node {$R(s)$} (sum); %THIS ONE IS GOOD
+    \draw [->] (sum) -- node {$E(s)$} (controller);
+     \draw [->] (system) -- node [name=y] {}(output); %THIS IS GOOD
+    %  \draw [->] (system) -- node[at end,right] [name=y] {$Y$}(output);
+    % \draw [->] (g_d) -- node {$D(s)$} (disturbance); %ESG THIS IS GOOD
+    %\draw [->] (y) |- (Kd);
+   % \draw [->] (y) |- (fdb);
+   % \draw [->] (y) |- (sensor);
+     \draw [->] (controller) -- (actuator);
+    %\draw [->] (Kd) -| node[pos=0.99] {$-$} 
+    %    node [near end] {} (sum2);
+    \draw [->] (sensor) -| node[pos=0.99] {$-$} 
+        node [near end] {} (sum);
+        
+    \draw [->] (input) -- node[pos=0.99] {$+$} 
+        node[at start, left] {$R(s)$} (sum);
+% \draw [->] (controller) -- node[pos=0.99] {$+$} 
+%         node {$X(s)$} (sum2);
+  %      \draw [->] (controller) -- node[pos=0.9] {$+$} 
+  %      node[name=f] {$X(s)$} (disturbance);
+        \draw [->] (actuator) -- node[pos=0.9] {$-$} 
+        node[name=f] {$I(s)$} (disturbance);
+        \draw [->] (g_d) -- node[pos=0.7, left] {$+$} 
+       node[at start,above]{$D(s)$} (disturbance); 
+        %node {$D(s)$} (disturbance);
+        \draw [->] (system) -- node[pos=0.99] {} 
+        node[at end, right] {$Y(s)$} (output);
+        
+        \node[below of = sensor, node distance = 0.75cm] at (sensor) {Sensor};
+    \node[above of = system, node distance = 0.75cm] at (system) {Plant};
+       \node[above of = controller, node distance = 0.75cm] at (controller) {Controller};
+        \node[above of = actuator, node distance = 0.75cm] at (actuator) {Actuator};
+         %\node[below of = input, node distance = 0.75cm] at (input) {120 mg/dL};
+\node[circle,fill,minimum size=5mm, below of = actuator, node distance = 0.85cm] (head) {};
+\node[rounded corners=2pt,minimum height=1.3cm,minimum width=0.4cm,fill,below of = head, node distance=0.95cm] (body) {};
+\draw[line width=1mm,round cap-round cap] ([shift={(2pt,-1pt)}]body.north east) --++(-90:6mm);
+\draw[line width=1mm,round cap-round cap] ([shift={(-2pt,-1pt)}]body.north west)--++(-90:6mm);
+\draw[thick,white,-round cap] (body.south) --++(90:5.5mm);
+
+\draw[dashed,->] (y) |- (sensor) ;
+    \draw[dashed,blue] (-1,-3) rectangle (5,1.5 );
+ \node[below of = controller, node distance = 2.75cm] at (controller) {\color{blue} Human};
+\end{tikzpicture}

@@ -1,0 +1,28 @@
+figure(1)
+clf
+set(1,'position',[300 400 600 300])
+axes
+set(gca,'xscale','log','fontsize',14,'xtick',[.01 .1 1 10 100])
+axis([.01 100 -200 10])
+xlabel('Frequency \omega (rad/s)')
+ylabel('Magnitude (dB)')
+grid
+
+sys=tf([1],[1 1]);
+figure(2)
+clf
+ha=axes;
+[mag,phase]=bode(sys,[.01 .1 1 10 100]);
+mag=squeeze(mag);
+phase=squeeze(phase);
+semilogx([.01 .1 1 10 100],phase,'.','markersize',20);
+hold on
+[mag,phase,w]=bode(sys);
+mag=squeeze(mag);
+phase=squeeze(phase);
+semilogx(w,phase,'-','linewidth',2);
+axis([.01 100 -100 10]);
+set(gca,'xtick',[.01 .1 1 10 100],'fontsize',14);
+xlabel('Frequency \omega (rad/s)')
+ylabel('Phase (degrees)')
+grid

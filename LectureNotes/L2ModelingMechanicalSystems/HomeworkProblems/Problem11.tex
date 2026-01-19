@@ -1,0 +1,14 @@
+Find the differential equation that describes the following system
+\begin{center}
+\begin{tikzpicture}
+\draw (1.5,0) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick] (M1) {$m_{1}$};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (3.5,0) node (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (K1) node[below=14pt] {$b$};
+
+\draw[very thick] (M1.0) -- (K1.180);
+\draw[very thick] (K1.0) -- ++(1,0) node[circle,fill,inner sep=0] {\rule{0pt}{4pt}};
+\draw[|->] (M1.90) ++(0,.15) node[above] {$x_{1}$} -- ++(.5,0);
+\draw[|->] (K1.0) ++(1,.25) node[above] {$x_{in}$} -- ++(.5,0);
+\end{tikzpicture}
+\end{center}
+

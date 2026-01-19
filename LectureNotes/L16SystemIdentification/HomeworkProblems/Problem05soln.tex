@@ -1,0 +1,25 @@
+(a) It would be reasonable to use the median rise time, $t_r = 12.05 s$, from which to compute $\sigma = \frac{2.2}{t_r} = 0.18$.
+
+(b) Looking at a few of the step responses, we can describe the system's behavior qualitatively. For example:\\
+\begin{itemize}
+\item At time $t = 100$ s, a negative step pitch input $-3u(t)$ deg is applied, and the rotor power increases. This implies a negative gain (different ``directions'' for the input and output).
+\item At time $t = 200$ s, a positive step pitch input $2u(t)$ deg is applied, and the rotor power also increases. This implies a positive gain.
+\item At time $t = 300$ s, a positive step pitch input $2u(t)$ deg is applied, and the rotor power again decreases. This implies a negative gain.
+\end{itemize}
+
+Therefore, we conclude that we cannot determine the sign of the transfer function's DC gain $K$ from this series of experiments. (In fact, what is actually happening is that the relationship from blade pitch angle $\beta$ to power $P$ is nonlinear, so it's not actually possible to fully represent it using a single transfer function.)
+
+(c) The Matlab commands\\
+\ttfamily
+>> sigma=0.18;\\
+>> gs=tf(-sigma,[1 sigma])\\
+>> step(gs)\\
+\rmfamily
+
+result in the plot
+
+\begin{center}
+\includegraphics[width=4.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem05soln1.pdf}\\
+\end{center}
+
+From the data markers, the rise time is $t_r \approx 12.3$ s as expected, and the negative gain $K$ results in the power decreasing as shown in the problem's figure. However, the magnitude of $K$ is clearly wrong, since this figure shows a change in amplitude of just 1 kW and the problem's figure shows a change in amplitude of approximately 20 kW.

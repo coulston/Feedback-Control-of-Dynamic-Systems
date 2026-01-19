@@ -1,0 +1,44 @@
+\begin{enumerate}[(a)]
+\item \rule{0pt}{0pt} \\
+\includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem09soln1.pdf}
+\item \rule{0pt}{0pt} There are many possible design specifications, so consider these as one example.
+  \begin{enumerate}
+  \item To limit the risk of overfilling the tank, limit the overshoot to \%OS $\leq 10\%$.
+  \item To balance between pump needs (faster pumps are more expensive and may need more maintenance because they are worked harder) and people's patience, let's fill the tank with a rise time of between 10-15 min, or $600 \leq t_r \leq 900$ s.
+  \item Finally, we want the water level to be very close to its desired height $H_d$, so let's limit the steady state error to the step input $r(t) = H_d u(t)$ to $e_{ss} \leq 0.05 H_d$.
+  \end{enumerate}
+\item \rule{0pt}{0pt} \\
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem09soln2.pdf}
+\item \rule{0pt}{0pt} The \%OS requirement implies that $\zeta \geq 0.59$ and the rise time requirement gives us $0.0024 \leq \omega_n \leq 0.0037$.  Regarding the steady-state error, we're in luck in this case: using PI control results in a Type 1 system, which gives us $e_{ss} = 0$ to a step input with no further analysis required.
+\item \rule{0pt}{0pt} \\
+The closed-loop transfer function is given by
+\[
+\frac{H(s)}{H_d(s)} = \frac{0.01 (K_p s + K_I)}{s^2 + (0.245 + 0.01 K_p)s + 0.01 K_I}
+\] 
+comparing to our standard second-order transfer function, we have
+\[
+\omega_n^2 = 0.01 K_I \Rightarrow 0.00058 \leq K_I = \leq 0.0013
+\]
+\[
+2 \zeta \omega_n = 0.245+0.01K_p \Rightarrow K_p \geq 100 \left(0.59(2)\omega_n - 0.0245 \right) 
+\]
+If we select $\omega_n = 0.003$ (and therefore $K_I = 0.0009$), this results in $K_p \geq -24$.
+
+Although these values line up well with our standard second-order denominator, in the end it is difficult to select values of $K_P$ and $K_I$ such that the closed loop zero (at $-frac{K_I}{K_P}$) is more than 10x further from the origin than the complex poles, meaning that we may not be able to achieve these rise time and \%OS requirements with this PI control architecture.
+
+%KEJ Note: numbers could be wrong in the below due to typos corrected from earlier sections
+%Note we could also use root locus design after re-writing the PI controller as 
+%\[
+%C(s) = \frac{s+\frac{K_I}{K_p}}{s}
+%\]
+%and evaluating possible root loci for three cases:
+  %\begin{enumerate}
+	%\item $\frac{K_p}{K_I} \leq \omega_n$, in which case one locus would go from the open loop pole at zero to the open loop zero at $\frac{K_p}{K_I}$, which is not within the allowable region for rise time.  In this case, we know we could not meet the design requirements.  Therefore, we need $\frac{K_p}{K_I} \geq \omega_n$.
+	%\item $\omega_n \leq \frac{K_p}{K_I} \leq 0.245$, in which case we have two loci on the real axis and the possibility of meeting design requirements given appropriate choice of $K_p$.
+	%\item $\frac{K_p}{K_I} \geq 0.245$, in which case we have some complex loci and still the possibility to meet the closed-loop pole requirements.
+	%\end{enumerate}
+%The allowable pole locations and loci for the three cases are shown below.	\\
+%\includegraphics[width=3in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem09soln3.png} \\
+%\includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem09soln4.png}
+
+\end{enumerate}

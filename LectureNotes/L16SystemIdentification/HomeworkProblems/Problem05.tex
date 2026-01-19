@@ -1,0 +1,19 @@
+Some wind energy control systems engineers performed a series of system identification ``experiments'' (in simulation) in 2009 to characterize the relationship between a wind turbine's ``blade pitch angle'' $\beta$ [deg] and the power $P$ [kW] produced by the turbine. A plot of some of their results is shown below.
+
+\begin{center}
+\includegraphics[width=5.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem05figure.pdf}\\
+\small{Creaby, Justin, Yaoyu Li, and John Seem, ``Maximizing Wind Turbine Energy Capture using Multivariable Extremum Seeking Control,'' \textit{Wind Engineering}, \textbf{33}:4, 2009, pp. 361-388.}
+\end{center}
+
+% time constant ranged from 5.2-5.7 s
+The researchers found that the 10\% to 90\% rise time for the step responses ranged from 11.5-12.6~s. One hypothesis is that the transfer function from $\beta(s)$ to $P(s)$ is first order; that is,
+
+\begin{center}
+$\frac{P(s)}{\beta(s)}=K \frac{\sigma}{s+\sigma}$\\
+\end{center}
+
+\begin{enumerate}
+  \item From the results, find a reasonable approximation for $\sigma$.
+	\item Based on the numerous step responses shown in the figure, can you determine the sign of the gain $K$? If so, do so. If not, explain what contradictions prevent it.
+	\item Letting $K = -1$ (not the true value), use Matlab to plot the step response for the $\sigma$ you found. Compare your results to the figure's results from time 300 s to 350 s and describe in what ways they are similar and different.
+\end{enumerate}

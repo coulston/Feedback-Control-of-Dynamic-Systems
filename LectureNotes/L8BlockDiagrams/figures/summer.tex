@@ -1,0 +1,9 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw[<-] (sum.180) node[above left=4pt] {$-$} -- ++(-1,0) node[above=4pt] {$\inptLT_{1}(s)$};
+\draw[<-] (sum.-90) node[below right=4pt] {$+$} -- ++(0,-1) node[left=4pt] {$\inptLT_{2}(s)$};
+\draw[->] (sum.0) -- ++(1,0) node[above=4pt] {$\outptLT(s)$};
+\draw (0,-2) node {$\outptLT(s)=-\inptLT_{1}(s)+\inptLT_{2}(s)$};
+\draw (0,1) node {Summing Junction};
+\end{tikzpicture}

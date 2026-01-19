@@ -1,0 +1,61 @@
+num=[0 -1 1.4];
+den=[1 2 2 1];
+rho=100;
+i=1;
+figure(1)
+clf
+ha=axes;
+axis([-.4 1.0 -1 1])
+set(ha,'visible','off')
+set(ha,'dataaspectratio',[1 1 1])
+arrow([-.4 0],[1.4 0]);
+text(1.3,-.1,'\fontname{times}\fontsize{14}Re\{{\its}\}')
+text(-.3,.95,'\fontname{times}\fontsize{14}Im\{{\its}\}')
+arrow([0 -1],[0 1]);
+s=-.7:.0001:.7;
+s1=j*s';
+s=[s1];
+hold on
+plot(s,'linewidth',2)
+arrow([0 .2],[0 .21],'width',0,'length',10,'baseangle',45,'tipangle',40,'edgecolor','b','facecolor','b')
+line([-.05 .05],[-.7 -.7],'color','k')
+line([-.05 .05],[.7 .7],'color','k')
+line([-.05 .05],[.3 .3],'color','k')
+%text(-.2,-.7,['\fontname{times}\fontsize{14}{\itj}',num2str(rho)])
+%text(-.23,.7,['\fontname{times}\fontsize{14}{\it-j}',num2str(rho)])
+text(-.16,.7,'\fontname{times}\fontsize{14}{\itj}\rho')
+text(-.19,-.7,'\fontname{times}\fontsize{14}{\it-j}\rho')
+text(-.16,.3,'\fontname{times}\fontsize{14}{\itj}\omega')
+%text(.03,-.74,'\fontname{times}\fontsize{14}\itb')
+%text(.03,.76,'\fontname{times}\fontsize{14}\ita')
+plot(s1(end),'.','markersize',20,'linewidth',2,'color','y')
+plot(s1(1),'.','markersize',20,'linewidth',2,'color','r')
+plot(0+eps*j,'.','markersize',20,'color','g')
+hold off
+
+figure(2)
+clf
+hb=axes;
+axis([-1.1 1 -1 1])
+set(hb,'visible','off')
+set(hb,'dataaspectratio',[1 1 1])
+arrow([-1.1 0],[1.1 0]);
+text(1.1,-.1,'\fontname{times}\fontsize{14}Re\{{\its}\}')
+text(-.3,.95,'\fontname{times}\fontsize{14}Im\{{\its}\}')
+arrow([0 -1],[0 1]);
+s1=rho*s1.';
+G1=(num*[s1.^2;s1;ones(size(s1))])./(den*[s1.^3;s1.^2;s1;ones(size(s1))]);
+G=[G1];
+hold on
+plot(G/2,'-','linewidth',2)
+line([-.5 -.5],[-.05 .05],'color','k')
+% line([-.05 .05],[-.5 -.5],'color','k')
+% line([-.05 .05],[.5 .5],'color','k')
+% line([.5 .5],[-.05 .05],'color','k')
+text(-.54,-.1,'\fontname{times}\fontsize{14}-1')
+plot(G(end)/2,'.','markersize',20,'color','y')
+plot(G(1)/2,'.','markersize',20,2,'color','r')
+plot(num(1)/den(1)+eps*j,'.','markersize',20,'color','g')
+% text(.46,-.1,'\fontname{times}\fontsize{14}3')
+% text(.06,-.5,'\fontname{times}\fontsize{14}3j')
+% text(.06,.5,'\fontname{times}\fontsize{14}-3j')

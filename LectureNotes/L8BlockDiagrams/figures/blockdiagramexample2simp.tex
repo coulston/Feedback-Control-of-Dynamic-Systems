@@ -1,0 +1,10 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (0,0)  node[sysblock] (G1) {$H+1$};
+\draw (2,0) node[sysblock]  (G2) {$\frac{\plant_{1}}{1-\plant_{2}\plant_{1}}$};
+\draw (4,0)  node[sysblock] (G3) {$\frac{1}{\plant_{1}} +1$};
+\draw[->] (G1.180) ++(-1.5,0) node[above=4pt] {$\inptLT(s)$} -- (G1.180);
+\draw[->] (G1.0) -- (G2.180);
+\draw[->] (G2.0) -- (G3.180);
+\draw[->] (G3.0) -- ++(1.5,0) node[above=4pt] {$\outptLT(s)$};
+\end{tikzpicture}

@@ -1,0 +1,29 @@
+\documentclass[11pt]{article}
+\usepackage{beamerarticle}
+\input{../../../commonheader.tex}
+\usepackage{fullpage}
+
+\begin{document}
+\begin{center}
+Homework Problems
+\end{center}
+
+
+\newcommand{\lecturefolder}{L7BlockDiagrams}
+\newcommand{\homework}[1]{\item \input{Problem#1.tex}
+
+\textbf{Solution:}
+\input{Problem#1solnonly.tex}}
+
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\homework{01}	\newpage
+\homework{02}	\newpage
+\homework{05}	\newpage
+\homework{06}	\newpage
+\homework{07}	\newpage
+\homework{08}	
+\end{enumerate}
+\end{document}  

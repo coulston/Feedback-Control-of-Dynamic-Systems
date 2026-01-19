@@ -1,0 +1,33 @@
+The following circuit models a transmission line, with generator voltage $v_{in}$ and voltage $v_{out}$ appearing across the load. Find the transfer function if the input is $v_{in}$ and the output is $v_{out}$.\vspace{.1in}
+\begin{center}
+\begin{tikzpicture}[scale=1.25,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node (a) {}; 
+\draw (4,0) node (c) {};
+\draw (0,-2) node (d) {};
+\draw (4,-2) node (f) {};
+ 
+\draw (1,0) node (R1) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (R1) node[above=.2in,text depth=0pt] {$R_{1}$};
+\draw (3,0) node (L) {\input{\mainfolder/DrawingElements/CircuitElements/inductor.tex}};
+\draw (L) node[above=.2in,text depth=0pt] {$L$};
+\draw (4,-1) node[rotate=90] (C) {\input{\mainfolder/DrawingElements/CircuitElements/capacitor.tex}};
+\draw (C) node[left=.2in,text depth=0pt] {$C$};
+\draw (6,-1) node[rotate=90] (R2) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (R2) node[left=.2in,text depth=0pt] {$R_{2}$};
+\draw (6,0) node[right=.3in] {$+$};
+\draw (6,-1) node[right=.3in] {$v_{out}$};
+\draw (6,-2) node[right=.3in] {$-$};
+\draw (0,-1) node (V) {\input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (0,-1) node[left=.3in]{$v_{in}$};
+
+
+\draw (a) -- (R1);
+\draw (R1) -- (L);
+\draw (L) -| (C);
+\draw (L) -| (R2);
+\draw (R2) |- (d);
+\draw (C) -- (f);
+\draw (a) -- (V);
+\draw (d) -- (V);
+\end{tikzpicture}
+\end{center}\vspace{.1in}

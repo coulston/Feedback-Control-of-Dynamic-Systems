@@ -1,0 +1,38 @@
+Draw the impedance network that represents the following system. The fluid density is $\rho$ and the gravitational constant is $g$. Label all nodes on your network.
+\begin{center}
+
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank1) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (tank1.90) ++(-1.2,-1) -- ++(2.38,0);
+\draw (.75,-4) node[above] (tank2) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (tank2.90) ++(-1.2,-1) -- ++(2.38,0);
+
+\draw (tank1.0) ++(.3,-.64) node (pipe2) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (tank1.-180) ++(-.3,-.64) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (tank1.-90) node{Tank Area: $A_{1}$};
+\draw (tank1.-90) ++(0,.75) node[above] {$p_{1}$};
+\draw (tank1.90) ++(0,-.75) node[above] {$p_{a}$};
+
+\draw (tank2.0) ++(.3,-.64) node (pipe3) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (tank2.-180) ++(-.3,-.64) node (pipe4) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (tank2.-90) node{Tank Area: $A_{2}$};
+\draw (tank2.-90) ++(0,.75) node[above] {$p_{2}$};
+\draw (tank2.90) ++(0,-.75) node[above] {$p_{a}$};
+
+\draw (pipe1.-180) node[left=-.1in] (pipe0_1) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (pipe1.-180) ++(-.25,-.9) node[rotate=90] (pipe0_2) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (pipe0_2.-180) ++(0,-.5) node[rotate=90] (pipe0_3) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (pipe0_3.-180) ++(0,0) node[rotate=90] (pipe0_4) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (pipe0_4.-180) ++(.18,.17) node[rotate=-90] (pipe0_5) {\input{\mainfolder/DrawingElements/FluidElements/elbow.tex}};
+
+%\draw (pipe1.180) node[left] {$p_{in}$};
+\draw (pipe1.90) node[above] {$R_{1}$};
+\draw (pipe2.90) node[above] {$R_{1}$};
+\draw[->] (pipe2.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{1}$};
+\draw(pipe2.0) ++(1,0) node[right] {$p_{a}$};
+\draw[->] (pipe3.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{2}$};
+\draw (pipe3.90) node[above] {$R_{2}$};
+\draw (pipe4.90) node[above] {$R_{2}$};
+\draw(pipe3.0) ++(1,0) node[right] {$p_{a}$};
+\draw[->] (pipe0_1) ++(-.5,0) node[left] {$q_{in}$} -- ++(.5,0);
+\end{tikzpicture}\end{center}

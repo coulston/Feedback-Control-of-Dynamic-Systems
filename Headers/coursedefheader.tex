@@ -1,0 +1,336 @@
+
+\newboolean{PrintExample}
+\setboolean{PrintExample}{false}
+\newcommand{\tryit}[2]{\ifthenelse{\boolean{PrintExample}}{{{\color{gray} #2}}}{#1}}
+\definecolor{lightgray}{rgb}{.85,.85,.85}
+
+%
+% Course Information
+% 
+\newcommand{\instituteshort}{CSM}
+\newcommand{\institutelong}{Department of Electrical Engineering\\Colorado School of Mines}
+\newcommand{\instructorshort}{}
+\newcommand{\instructorlong}{Dr. Christopher Coulston}
+\newcommand{\semester}{Spring}
+\newcommand{\courseyear}{2026}
+\newcommand{\semesteryear}{\semester~\courseyear}
+\newcommand{\semesteryearlink}{\semester\courseyear}
+\newcommand{\course}{EENG307}
+\newcommand{\coursename}{Intro to Feedback Control}
+\newcommand{\LearningManagementSystem}{Canvas}
+\newcommand{\license}{\footnote{\tiny This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}}
+\newcommand{\credits}{\footnote{\tiny Developed and edited by Tyrone Vincent and Kathryn Johnson, Colorado School of Mines, with contributions from Salman Mohagheghi, Chris Coulston, Kevin Moore, CSM and Matt Kupilik, University of Alaska, Anchorage }}
+
+%
+% Lecture Names and Numbers
+%
+\newcommand{\BlankNewArticleNumber}{0}
+\newcommand{\BlankNewArticleName}{\textcolor{red}{New Article Template}}
+\newcommand{\BlankNewArticleShortName}{\textcolor{red}{New Article Template}}
+
+\newcommand{\IntroduceCourseMaterialNumber}{1}
+\newcommand{\IntroduceCourseMaterialName}{Course Introduction}
+\newcommand{\IntroduceCourseMaterialShortName}{Course Introdution}
+
+\newcommand{\ModelingMechanicalSystemsNumber}{2}
+\newcommand{\ModelingMechanicalSystemsName}{Modeling Mechanical Systems}
+\newcommand{\ModelingMechanicalSystemsShortName}{Mechanical Systems}
+
+\newcommand{\ElectricalSystemsNumber}{3}
+\newcommand{\ElectricalSystemsName}{Modeling Electrical Systems}
+\newcommand{\ElectricalSystemsShortName}{Electrical Systems}
+
+\newcommand{\LaplaceTransformReviewNumber}{3}
+\newcommand{\LaplaceTransformReviewName}{Laplace Transform Review}
+\newcommand{\LaplaceTransformReviewShortName}{Laplace Transform Review}
+
+\newcommand{\ImpedanceNumber}{6}
+\newcommand{\ImpedanceName}{Impedance and Transfer Functions}
+\newcommand{\ImpedanceShortName}{Impedance}
+
+\newcommand{\IntroToSimulinkNumber}{6}
+\newcommand{\IntroToSimulinkName}{Mechanical Impedance and Introduction to Modeling with Simulink}
+\newcommand{\IntroToSimulinkShortName}{Intro to Simulink}
+
+\newcommand{\SolvingDifferentialEquationsAndStabilityNumber}{7}
+\newcommand{\SolvingDifferentialEquationsAndStabilityName}{Solving Differential Equations using Laplace Transforms and Stability}
+\newcommand{\SolvingDifferentialEquationsAndStabilityShortName}{Solving Diff Eqs and Stability}
+
+\newcommand{\BlockDiagramsNumber}{8}
+\newcommand{\BlockDiagramsName}{Block Diagrams}
+\newcommand{\BlockDiagramsShortName}{Block Diagrams}
+
+\newcommand{\ControlAndStabilityNumber}{9}
+\newcommand{\ControlAndStabilityName}{Introduction to Control Concepts and More on Stability}
+\newcommand{\ControlAndStabilityShortName}{Control and Stability}
+
+\newcommand{\FirstOrderResponseNumber}{13}
+\newcommand{\FirstOrderResponseName}{Time Response of First Order Systems}
+\newcommand{\FirstOrderResponseShortName}{First Order Systems}
+
+\newcommand{\SecondOrderResponseNumber}{14}
+\newcommand{\SecondOrderResponseName}{Time Response of Second Order Systems}
+\newcommand{\SecondOrderResponseShortName}{Second Order Systems}
+
+\newcommand{\HigherOrderResponseNumber}{15}
+\newcommand{\HigherOrderResponseName}{Time Response of Higher Order Systems}
+\newcommand{\HigherOrderResponseShortName}{Higher Order Systems}
+
+\newcommand{\PDControlTransientNumber}{13}
+\newcommand{\PDControlTransientName}{Proportional-Derivative (PD) Control to Improve Transient Response}
+\newcommand{\PDControlTransientShortName}{PD Control for Transient Response}
+
+\newcommand{\FluidSystemsNumber}{10}
+\newcommand{\FluidSystemsName}{Fluid Systems and System Analogies} 
+\newcommand{\FluidSystemsShortName}{Fluid Systems}
+
+\newcommand{\RotationalSystemsNumber}{11}
+\newcommand{\RotationalSystemsName}{Rotational Mechanical Impedance} 
+\newcommand{\RotationalSystemsShortName}{Rotational Systems}
+
+\newcommand{\DisturbancesandSteadyStateErrorNumber}{18}
+\newcommand{\DisturbancesandSteadyStateErrorName}{Disturbances and Steady State Error}
+\newcommand{\DisturbancesandSteadyStateErrorShortName}{Steady State Error}
+
+\newcommand{\ReferenceSteadyStateErrorNumber}{19}
+\newcommand{\ReferenceSteadyStateErrorName}{References, Steady State Error, and System Type}
+\newcommand{\ReferenceSteadyStateErrorShortName}{Reference SSE}
+
+\newcommand{\PIDControlDesignNumber}{17}
+\newcommand{\PIDControlDesignName}{Proportional-Integral-Derivative (PID) Control Design, Simulation, and Evaluation}
+\newcommand{\PIDControlDesignShortName}{PID Control Design}
+
+\newcommand{\RootLocusINumber}{20}
+\newcommand{\RootLocusIName}{Introduction to Root Locus}
+\newcommand{\RootLocusIShortName}{Root Locus I}
+
+\newcommand{\RootLocusIINumber}{21}
+\newcommand{\RootLocusIIName}{Root Locus Examples}
+\newcommand{\RootLocusIIShortName}{Root Locus II}
+
+\newcommand{\RootLocusIIINumber}{22}
+\newcommand{\RootLocusIIIName}{PD Design Using Root Locus}
+\newcommand{\RootLocusIIIShortName}{PD Design}
+
+\newcommand{\MotorModelingNumber}{12}
+\newcommand{\MotorModelingName}{Modeling DC Motors}
+\newcommand{\MotorModelingShortName}{Motors}
+
+\newcommand{\MotorControlNumber}{12}
+\newcommand{\MotorControlName}{Controlling DC Motors}
+\newcommand{\MotorControlShortName}{Motor Control}
+
+\newcommand{\ApplicationExampleINumber}{22}
+\newcommand{\ApplicationExampleIName}{Application Example \#1}
+\newcommand{\ApplicationExampleIShortName}{Application Example \#1}
+
+\newcommand{\SystemIdentificationNumber}{16}
+\newcommand{\SystemIdentificationName}{System Identification}
+\newcommand{\SystemIdentificationShortName}{System Identification}
+
+\newcommand{\ApplicationIINumber}{20}
+\newcommand{\ApplicaitonIIName}{Application Example II - Solar Array}
+\newcommand{\ApplicationIIShortName}{Application II}
+
+\newcommand{\ApplicationIIINumber}{23}
+\newcommand{\ApplicaitonIIIName}{Application Example III - Glucose Monitor}
+\newcommand{\ApplicationIIIShortName}{Application III}
+
+\newcommand{\SinusoidalSteadyStateNumber}{23}
+\newcommand{\SinusoidalSteadyStateName}{Sinusoidal Steady State}
+\newcommand{\SinusoidalSteadyStateShortName}{Sinusoidal Steady State}
+
+\newcommand{\BodePlotsINumber}{24}
+\newcommand{\BodePlotsIName}{Bode Plots for First Order Systems}
+\newcommand{\BodePlotsIShortName}{Bode Plots I}
+
+\newcommand{\BodePlotsIINumber}{25}
+\newcommand{\BodePlotsIIName}{Bode Plots for Second Order Systems}
+\newcommand{\BodePlotsIIShortName}{Bode Plots II}
+
+\newcommand{\BodePlotsIIINumber}{26}
+\newcommand{\BodePlotsIIIName}{Bode Plots for Higher Order Systems}
+\newcommand{\BodePlotsIIIShortName}{Bode Plots III}
+
+\newcommand{\BodePlotsIVNumber}{27}
+\newcommand{\BodePlotsIVName}{Bode Plot Examples}
+\newcommand{\BodePlotsIVShortName}{Bode Plots IV}
+
+\newcommand{\ApplicationIVNumber}{28}
+\newcommand{\ApplicationIVName}{Application Example IV - Electronic Filters}
+\newcommand{\ApplicationIVShortName}{Application IV}
+
+\newcommand{\NyquistStabilityTheoremNumber}{29}
+\newcommand{\NyquistStabilityTheoremName}{Nyquist Stability Theorem}
+\newcommand{\NyquistStabilityTheoremShortName}{Nyquist I}
+
+\newcommand{\NyquistStabilityAnalysisNumber}{30}
+\newcommand{\NyquistStabilityAnalysisName}{Nyquist Stability Analysis}
+\newcommand{\NyquistStabilityAnalysisShortName}{Nyquist II}
+
+\newcommand{\GainandPhaseMarginNumber}{31}
+\newcommand{\GainandPhaseMarginName}{Gain and Phase Margin}
+\newcommand{\GainandPhaseMarginShortName}{Gain and Phase Margin}
+
+\newcommand{\TimeFrequencyNumber}{31}
+\newcommand{\TimeFrequencyName}{Time/Frequency Relationships and Control Performance Measures}
+\newcommand{\TimeFrequencyShortName}{Time/Frequency}
+
+\newcommand{\BodeControlDesignINumber}{33}
+\newcommand{\BodeControlDesignIName}{Designing Controllers Using Bode Plots, Part 1}
+\newcommand{\BodeControlDesignIShortName}{Bode-Based Control 1}
+
+\newcommand{\SystemswithTimeDelayNumber}{32}
+\newcommand{\SystemswithTimeDelayName}{Systems with Time Delay}
+\newcommand{\SystemswithTimeDelayShortName}{Time Delay}
+
+\newcommand{\BodeControlDesignIINumber}{34}
+\newcommand{\BodeControlDesignIIName}{Designing Controllers Using Bode Plots, Part 2}
+\newcommand{\BodeControlDesignIIShortName}{Bode-Based Control, Part 2}
+
+% Fall 2022 - First Attempt (Revised 11/3/22)
+%\newcommand{\GainandPhaseMarginBodeNumber}{28}
+%\newcommand{\GainandPhaseMarginBodeName}{Gain and Phase Margin Using Bode Plots}
+%\newcommand{\GainandPhaseMarginBodeShortName}{Gain and Phase Margin I}
+%
+%\newcommand{\TimeFrequencyNumber}{29}
+%\newcommand{\TimeFrequencyName}{Time/Frequency Relationships and Control Performance Measures}
+%\newcommand{\TimeFrequencyShortName}{Time/Frequency}
+%
+%\newcommand{\BodeControlDesignNumber}{30}
+%\newcommand{\BodeControlDesignName}{Designing Controllers Using Bode Plots}
+%\newcommand{\BodeControlDesignShortName}{Bode-Based Control}
+%
+%\newcommand{\NyquistStabilityTheoremNumber}{31}
+%\newcommand{\NyquistStabilityTheoremName}{Nyquist Stability Theorem}
+%\newcommand{\NyquistStabilityTheoremShortName}{Nyquist I}
+%
+%\newcommand{\NyquistStabilityAnalysisNumber}{32}
+%\newcommand{\NyquistStabilityAnalysisName}{Nyquist Stability Analysis}
+%\newcommand{\NyquistStabilityAnalysisShortName}{Nyquist II}
+%
+%\newcommand{\GainandPhaseMarginNyquistNumber}{33}
+%\newcommand{\GainandPhaseMarginNyquistName}{Gain and Phase Margin Using Nyquist}
+%\newcommand{\GainandPhaseMarginNyquistShortName}{Gain and Phase Margin II}
+%
+%\newcommand{\SystemswithTimeDelayNumber}{34}
+%\newcommand{\SystemswithTimeDelayName}{Systems with Time Delay}
+%\newcommand{\SystemswithTimeDelayShortName}{Time Delay}
+%
+
+\newcommand{\ApplicationExampleIINumber}{35}
+\newcommand{\ApplicationExampleIIName}{Application Example \#2}
+\newcommand{\ApplicationExampleIIShortName}{Application Example \#2}
+
+\newcommand{\ControlDesignReviewNumber}{36}
+\newcommand{\ControlDesignReviewName}{Semester Review \& Recap: Key Takeaways}
+\newcommand{\ControlDesignReviewShortName}{Control Design Review}
+
+
+
+%% Pre- Fall 2022 Lecture Names and Numbers
+\newcommand{\ExampleCarParkingNumber}{9}
+\newcommand{\ExampleCarParkingName}{Application Example I - Car Parking}
+\newcommand{\ExampleCarParkingShortName}{Applicaiton I}
+
+\newcommand{\MechanicalImpedanceNumber}{7}
+\newcommand{\MechanicalImpedanceName}{Translational Mechanical Impedance}
+\newcommand{\MechanicalImpedanceShortName}{Translational Mechanical Impedance}
+
+\newcommand{\MechanicalRotImpedanceNumber}{11}
+\newcommand{\MechanicalRotImpedanceName}{Rotational Mechanical Impedance}
+\newcommand{\MechanicalRotImpedanceShortName}{Rotational Mechanical Impedance}
+
+\newcommand{\ThermalSystemsNumber}{11}
+\newcommand{\ThermalSystemsName}{Thermal Systems}
+\newcommand{\ThermalSystemsShortName}{Thermal Systems}
+
+\newcommand{\StabilityandRouthHurwitzNumber}{17}
+\newcommand{\StabilityandRouthHurwitzName}{Stability and Routh Hurwitz Criterion}
+\newcommand{\StabilityandRouthHurwitzShortName}{Stability}
+
+%\newcommand{\PIDControlNumber}{21}
+%\newcommand{\PIDControlName}{Proportional, Integral, and Derivative (PID) Control}
+%\newcommand{\PIDControlShortName}{PID Control}
+%\newcommand{\BodePlotsIVNumber}{29}
+%\newcommand{\BodePlotsIVName}{Bode Plot Examples}
+%\newcommand{\BodePlotsIVShortName}{Bode Plots IV}
+
+\newcommand{\PidControlApplicationINumber}{35}
+\newcommand{\PidControlApplicationIName}{PID Control Application I}
+\newcommand{\PidControlApplicationIShortName}{PID Control Application I}
+
+\newcommand{\PidControlApplicationIINumber}{36}
+\newcommand{\PidControlApplicationIIName}{PID Control Application II}
+\newcommand{\PidControlApplicationIIShortName}{PID Control Application II}
+
+%
+% Matlab compatible quote symbol
+%
+\newcommand{\T}{\textquotesingle\ignorespaces}
+
+% Notation
+\newcommand{\steparg}[1]{u(#1)}
+\providecommand{\define}[3]{\newcommand{#1}{{#2}}}
+
+\define{\control}{C}{Controller, represented as transfer function}
+\define{\controlimp}{c}{Controller, represented as impluse response} 
+\define{\inpt}{r}{Variable to use when representing a generic input}
+\define{\inptLT}{R}{Variable to use when representing the Laplace Transform of the input}
+\define{\outpt}{y}{Variable to use when representing a generic output}
+\define{\outptLT}{Y}{Variable to use when representing the Laplace Transform of the output}
+\define{\plant}{G}{System to be controlled, represented as transfer function}
+\define{\plantimp}{g}{System to be controlled, represented as impulse response}
+\define{\state}{x}{State variable, in time domain}
+\define{\stateLT}{X}{State variables in Laplace domain}
+\define{\s}{s}{Laplace variable}
+\define{\q}{q}{Unit delay operator}
+\define{\step}{u}{Variable for unit step signal}
+\define{\tr}{t_{r}}{Step response rise time}
+\define{\treqone}{\frac{2.2}{\sigma}}{Equation for rise time, 1st order system}
+\define{\treqtwo}{\frac{2.2}{\omega_{n}}}{Equation for rise time, 2nd order system}
+\define{\ts}{t_{s}}{Step response settling time}
+\define{\tseqone}{\frac{4.6}{\sigma}}{Equation for settling time, 1st order system}
+\define{\tseqtwo}{\frac{4.6}{\zeta\omega_{n}}}{Equation for settling time, 2nd order system}
+\define{\OS}{\%OS}{Step response percent overshoot}
+\define{\OSeq}{e^{-\zeta\pi/\sqrt{1-\zeta^2}}\times 100\%}{Equation for overshoot}
+\define{\PM}{\phi_{PM}}{Phase margin}
+\define{\GM}{k_{GM}}{Gain margin (default units)}
+\define{\GMdB}{GM_{dB}}{Gain margin (decibels)}
+\define{\wco}{\omega_{co}}{Crossover frequency}
+
+
+%
+% titleformat
+%
+\author[\instructorshort]% (optional, use only with lots of authors)
+{\instructorlong\credits}
+%{T. Vincent\inst{1} \and S.~Another\inst{2}}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[\instituteshort] % (optional, but mostly needed)
+{\institutelong}
+
+\date{\semesteryear} % 
+
+%
+% Slide formats
+%
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+

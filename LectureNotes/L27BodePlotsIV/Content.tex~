@@ -1,0 +1,312 @@
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usetikzlibrary{decorations.pathmorphing}
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[Bode Plots IV] % (optional, use only with long paper titles)
+{EGGN307: Bode Plots for Higher Order Systems\license}
+
+\subtitle
+{} % (optional)
+
+\author% (optional, use only with lots of authors)
+{Tyrone Vincent}
+%{T. Vincent\inst{1} \and S.~Another\inst{2}}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[CSM] % (optional, but mostly needed)
+{Division of Engineering\\
+  Colorado School of Mines}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{Lecture 27}
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=1.1cm]{university-logo}{UniversityLogo}
+%\logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+\section{Systematic Method for Sketching Bode Plots}
+
+We will explain a systematic method for sketching Bode plots, using the system
+\[
+G(s) = \frac{5(s+1)(s-50)}{s^{2}(s^{2}+10s+100}
+\]
+as a working example
+\begin{itemize}
+\item Step 1: Factor out constant terms
+\begin{align*}
+G(s) &= \frac{5(-50)}{100s^{2}}\frac{(s+1)(\frac{s}{-50}+1)}{\left(\left(\frac{s}{10}\right)^{2}+\frac{s}{10}+1\right)}\\
+& = \frac{-2.5}{s^{2}}\frac{(s+1)(\frac{s}{-50}+1)}{\left(\left(\frac{s}{10}\right)^{2}+\frac{s}{10}+1\right)}
+\end{align*}
+the term $\frac{-2.5}{s^{2}}$ is called the {\em low frequency term}
+\item Step 2: List break frequencies and important info
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Break Frequency & Type & Magnitude Slope & Phase Slope\\\midrule
+1 rad/s & 1 LHP zero & 20 dB/dec & 45$^{\circ}$/dec \\
+10 rad/s & 2 LHP poles & -40 dB/dec &  -90$^{\circ}$/dec \\
+50 rad/s & 1 RHP zero & 20 dB/dec & -45$^{\circ}$/dec \\\bottomrule
+\end{tabular}
+\end{center}
+\item Step 3: Calculate gain and phase of low frequency term ($2.5/s^{2}$). To calculate the magnitude, we pick a frequency less than or equal to all break frequencies. In this case 1 rad/s is convenient, so we plug in $s=j\omega$ with $\omega=1$:
+\[
+\left|-\frac{2.5}{s^{2}}\right|_{s=j} = \frac{|-2.5|}{|j^{2}|} = \frac{2.5}{1} = 2.5
+\]
+Thus, at 1 rad/s, the magnitude is $20\log_{10}(2.5) = 7.96$. To calculate low frequency phase, you can always just plug in $j$ 
+\[
+\angle \left.-\frac{2.5}{s^{2}}\right._{s=j} = \angle \frac{-2.5}{j^{2}} = \angle \frac{-2.5}{-1} = \angle 2.5 = 0^{\circ}
+\]
+In this case, the low frequency phase is $0^{\circ}$.
+
+\item Step 4: Draw magnitude plot, starting from lowest frequencies. If the low  frequency term is just a gain, mark that gain at the lowest frequency, otherwise follow the first two steps below
+\begin{center}
+\begin{minipage}{1.5in}
+Plot point at 1 rad/s and 7.96 db
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\includegraphics[width=3in]{figures/magprocedure1}
+\end{minipage}
+
+\begin{minipage}{1.5in}
+Draw line with slope of -20 dB/dec for each pure integrator term
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure2}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\end{tikzpicture}
+\end{minipage}
+
+\begin{minipage}{1.5in}
+Since 1 rad/s is a break frequency with one LHP zero, change slope by +20 dB/dec or a net -40+20=-20 dB/dec and extend to next highest break frequency 
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure3}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\draw(-0.15,0.8) node[above right]{$-20$ \textsf{dB/dec}};
+\draw[thick] (-0.15,0.8) -- ++(.2,0) -- ++(0,-.1);
+\end{tikzpicture}
+\end{minipage}
+
+\begin{minipage}{1.5in}
+Continue changing slope after each break frequency as dictated by pole or zero type
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure4}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\draw(-0.15,0.8) node[above right]{$-20$ \textsf{dB/dec}};
+\draw[thick] (-0.15,0.8) -- ++(.2,0) -- ++(0,-.1);
+\draw(1.4,0) node[above right]{$-60$ \textsf{dB/dec}};
+\draw[thick] (1.4,0) -- ++(.2,0) -- ++(0,-.2);
+\draw[thick] (2.3,-.75) -- ++(.2,0) -- ++(0,-.17);
+\draw[thick] (2.3,-.75)  node[above right] {$-40$ \textsf{dB/dec}};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+When drawing the plot, it can be convenient to calculate the magnitudes at the break frequencies. For example, we know that at 1 rad/s the magnitude is 7.96 dB. Since the linear approximation decreases by -20 dB/dec from this point, the magnitude at 10 rad/s is
+\[
+\text{Mag at 10 rad/s} = 7.96\mbox{dB}. - 20 \mbox{dB/dec} \times 1 \mbox{decade} = -12.04\mbox{dB}.
+\]
+The next break frequency is at 50 rad/s. Note that 
+\[
+\log_{10}(50) = 1.7
+\]
+and
+\[
+\log_{10}(10)= 1
+\]
+Thus 50 rad/s is 1.7-1 = 0.7 of a decade from 10 rad/s. The magnitude at 50 rad/s is then
+\[
+\text{Mag at 50 rad/s} = -12.04\mbox{dB}. - 60 \mbox{dB/dec} \times 0.7 \mbox{decade} = -54.04\mbox{dB}.
+\]
+
+\item Step 5: Indicate regions on phase plot where slope is non-zero. To do this, draw a line above the phase plot for each break frequency listed in the table above. This line will extend from one decade below to one decade above the break frequency. On each line, list the slope that is associated with that term. 
+\begin{center}
+\begin{minipage}{1.5in}
+Draw lines centered at 1, 10 and 50 rad/s
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure1}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+\item Step 6: Draw the phase plot, starting from the lowest frequencies, and determining the proper slope by adding up at each frequency
+\begin{center}
+\begin{minipage}{1.5in}
+From calculation above, low frequency phase is 0$^{\circ}$, so start there, and follow slope indicated by lines
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure2}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{1.5in}
+at 5 rad/s, the phase will be $45 - 45\times (\log_{10}(5) - \log_{10}(1)) = 13.5^{\circ}$
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure3}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\draw(-.5,1.32) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (-.5,1.32) -- ++(.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{1.5in}
+The slope changes as each line ``turns on'' or ``turns off'\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure4}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\draw(-.5,1.32) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (-.5,1.32) -- ++(.2,0) -- ++(0,-.07);
+\draw(.5,1) node[above right]{$-90^{\circ}$\textsf{/dec}};
+\draw[thick] (.5,1) -- ++(.2,0) -- ++(0,-.15);
+\draw(1.6,.1) node[above right]{$-135^{\circ}$\textsf{/dec}};
+\draw[thick] (1.6,.1) -- ++(.2,0) -- ++(0,-.2);
+\draw(3,-.86) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (3,-.86) -- ++(.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+\end{itemize}
+
+\begin{frame}{Matlab Results}
+  \begin{center}
+ \resizebox{12cm}{!}{\input{bode_ex}}
+  \end{center}
+\end{frame}
+
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Sketch the Bode plot for the following systems. Label your sketch with the magnitude and phase at each break point. Verify your results using MATLAB. In order to select the frequency range of the Bode plot, you can use the second argument: \texttt{bode(sys,\{wmin, wmax\})}, where you replace \texttt{wmin} with the minimum desired frequency and \texttt{wmax} with the maximum frequency. You will need to include the curly brackets.
+\begin{enumerate}
+\item
+\[
+G(s) = \frac{(s+10)}{s(s+1)(s+2)(s+20)}
+\]
+\item 
+\[
+G(s) = \frac{10(s-1)}{s(s^{2}+20s+100)}
+\]
+\item 
+\[
+G(s) = \frac{900(s+10)}{(s+30)(s^{2}-s+1)}
+\]
+\end{enumerate}
+\end{enumerate}
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item[1a] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=6in]{quizfigures/1asoln}\\
+\includegraphics[width=6in]{quizfigures/1bsoln}\\
+\includegraphics[width=6in]{quizfigures/1csoln}\\
+\includegraphics[width=5in]{quizfigures/1dsoln}
+\end{center}
+\newpage
+\item[1b] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=5in]{quizfigures/2asoln}\\
+\includegraphics[width=6in]{quizfigures/2bsoln}\\
+\includegraphics[width=5in]{quizfigures/2csoln}
+\end{center}
+\item[1c] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=5in]{quizfigures/3asoln}\\
+\includegraphics[width=6in]{quizfigures/3bsoln}\\
+\includegraphics[width=5in]{quizfigures/3csoln}
+\end{center}
+\end{enumerate}
+
+
+\end{document}
+
+

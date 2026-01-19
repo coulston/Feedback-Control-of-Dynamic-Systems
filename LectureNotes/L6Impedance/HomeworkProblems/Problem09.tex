@@ -1,0 +1,35 @@
+Find the transfer function from input $i_{in}$ to output $v_{out}$ for the following circuit
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node (a) {};
+\draw (0,0) node (b) {}; 
+\draw (2,0) node (c) {};
+\draw (3,0) node (d) {};
+\draw (2,-2) node (e) {};
+\draw (3,-2) node (f) {};
+ 
+\draw (1.5,0) node (R1) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (R1) node[above=.2in] {$3$ $\Omega$};
+\draw (3,-1) node[rotate=90] (C2) {\input{\mainfolder/DrawingElements/CircuitElements/capacitor.tex}};
+\draw (C2) node[left=.25in] {$2$ F};
+\draw (4.5,-1) node[rotate=90] (R2) {\input{\mainfolder/DrawingElements/CircuitElements/inductor.tex}};
+\draw (R2) node[left=.25in] {$1$ H};
+
+\draw (4.5,0) node[right=.3in] {$+$};
+\draw (4.5,-1) node[right=.3in] {$v_{out}(t)$};
+\draw (4.5,-2) node[right=.3in] {$-$};
+\draw (0,-1) node (V) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}};
+\draw (V) node[left=.3in]{$i_{in}(t)$};
+
+
+\draw (a) -- (R1.180);
+\draw (d) -- (R1.0);
+\draw (a) -- (V);
+\draw (f) -| (V);
+\draw (d) -- (C2);
+\draw (C2) -- (f);
+\draw (c) -| (R2.0);
+\draw (e) -| (R2.180);
+\end{tikzpicture}
+\end{center}

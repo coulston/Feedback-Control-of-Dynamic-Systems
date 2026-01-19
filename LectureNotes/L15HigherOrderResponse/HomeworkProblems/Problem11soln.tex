@@ -1,0 +1,34 @@
+(a) 
+We can complete the square of the transfer function to find that 
+\[
+G(s) = \frac{1}{(s+a)^2 + 1^2}
+\]
+Noting that $f(t) = \delta(t) \Rightarrow F(s) = 1$, we end up with $Y(s) = G(s)$ and can use the Laplace transform table to find that
+\[
+y(t) = e^{-at}sin(t)u(t)
+\]
+
+Thus, for $a = {-0.1, 0, 0.1}$ (in order):
+\[
+y(t) = e^{0.1t}sin(t)u(t) 
+\]
+\[
+y(t) = sin(t)u(t) 
+\]
+\[
+y(t) = e^{-0.1t}sin(t)u(t) 
+\]
+
+(b) - (c)
+
+Poles in each case are plotted on the pole-zero map in the background. Plots are overlaid for each case using Matlab's \texttt{impulse} function. The plots are consistent with both part (a), which shows that 
+
+\begin{itemize}
+	\item $a > 0$ leads to a sinusoidal function that increases in amplitude with time,
+	\item $a = 0$ leads to a sinusoidal function that maintains constant amplitude with time, and
+	\item $a < 0$ leads to a sinusoidal function that decreases in amplitude with time.
+\end{itemize}
+
+They are also consistent (qualitatively) with the ``Pole map with responses'' on p. 3 of Lecture 14: Higher Order System Response.
+
+\includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem11soln1.pdf}\\

@@ -1,0 +1,14 @@
+You are creating specifications for a robot that will be used in close proximity to people. For simplicity we will abstract the robot as a single rotational joint. 
+For safety, the specifications for the step response require that the kinetic energy is bounded. Thus, the unit step rise time should be greater than 1 second. However, it is desired that the settling time be less than 4 seconds. Suppose  you design a feedback control that results in the closed loop transfer function
+\[
+\frac{\theta(s)}{\theta_{d}(s)} = K\frac{\omega_{n}^{2}}{s^{2}+2\zeta\omega_{n}s + \omega_{n}^{2}}
+\]
+where $\theta$ is the joint angle, and $\theta_{d}$ is the reference signal that defines the desired joint angle. Find the region in the complex plane where the closed loop poles may lie when the specifications are met. For full credit, the boundary of the region you draw should be completely specified (i.e. with scale markings and descriptions so that I could accurately re-draw it on another axis, if necessary)
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[->] (0,0) -- (10,0) node[above]{Re$\{s\}$};
+\draw[->] (8,-4) -- (8,4) node[right]{Im$\{s\}$};
+\end{tikzpicture}
+\end{center}
+
+

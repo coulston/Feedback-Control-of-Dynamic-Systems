@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\draw (7,0) node (R) {\begin{tikzpicture}
+\draw (0,0) node[circle,fill,inner sep=1pt,] {} node[above] {$P_{1}$};
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\draw (2.02,0) node[circle,fill,inner sep=1pt,] {} node[above] {$P_{2}$};
+\end{tikzpicture}
+};
+\draw (R) node[above=9pt] {$R$};
+\draw (6.1,.75) node[above] {$+$};
+\draw (7,.75) node[above] {$P(s)$};
+\draw (7.9,.75) node[above] {$-$};
+\draw[->] (6.5,-.5) -- node[pos=.5,below] {$Q(s)$} ++(1,0);  
+
+\end{tikzpicture}

@@ -1,0 +1,394 @@
+
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\SolvingDifferentialEquationsIIShortName] % (optional, use only with long paper titles)
+{\course: \SolvingDifferentialEquationsIIName\license}
+
+\subtitle
+{Lecture \SolvingDifferentialEquationsIINumber} % (optional)
+
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+
+\section{Pre-requisite Material}
+This lecture assumes that the reader is familiar with the following material:
+\begin{itemize}
+\item Lecture \ModelingMechanicalSystemsNumber:~\ModelingMechanicalSystemsName
+\item Lecture \ElectricalSystemsNumber:~\ElectricalSystemsName
+\item Lecture \SolvingDifferentialEquationsINumber:~\SolvingDifferentialEquationsIName
+\end{itemize}
+
+
+
+\section{Inverse Laplace Transform with Repeated roots}
+Since polynomials can have repeated roots, we need to determine how to take the inverse Laplace Transform when the denominator roots are repeated.
+
+\subsection{Laplace Transform Pairs with repeated roots}
+\begin{frame}{Laplace Transform Pairs with repeated roots}
+Repeated roots occur when an exponential or sinusoid is multiplied by $t$ or $t^{n}$. First, let's derive the Laplace Transform of $t^{n}$. We already have established the Laplace Transform pair
+\[
+\step(t) \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s},
+\]
+and the integration theorem
+\[
+\mathcal{L}\left\{ \int_{0}^{t}f(\tau )d\tau \right\} =%
+\frac{1}{s}\mathcal{L}\left\{ f(t)\right\}. 
+\]
+\end{frame}
+\begin{frame}{Laplace Transform Pairs with repeated roots}
+Note that a ramp is the integral of a step. That is, the ramp function $t\step(t)$ can be defined via
+\[
+t\step(t) = \int_{0^{-}}^{t} \step(t) dt.
+\]
+Using the integration theorem gives us
+\[
+t\step(t) \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s^{2}}.
+\]
+Thus, a ramp has two poles at $s=0$. 
+\end{frame}
+\begin{frame}{Higher Powers}
+The Laplace Transform for higher powers of $t$ can be found via further integration. For example,
+\[
+\frac{1}{2}t^{2}\step(t) =  \int_{0^{-}}^{t} t\step(t) dt,
+\]
+which implies
+\[
+\frac{1}{2}t^{2}\step(t) \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{s^{3}}.
+\]
+and even higher orders of $t$ can be found similarly. What we see is that powers of $t$ give us a denominator with repeated roots at $s=0$. 
+\end{frame}
+Now, we can use the frequency shift theorem
+\[
+\mathcal{L}\left\{ e^{-s_{0}t}f(t)\right\}
+=F(s+s_{0})
+\]
+to show that
+\[
+te^{-at} \step(t)  \overset{\mathcal{L}}{\longleftrightarrow} \frac{1}{(s+a)^{2}}.
+\]
+Thus the product of a ramp and exponential will give a repeated real root.
+
+Repeated imaginary or complex roots occur when $t$ is multiplied by a sinusoid or decaying sinusoid. The following table is a partial list of the Laplace Transform pairs with repeated roots
+\begin{center}
+\begin{tabular}{l|l}
+$f(t)$ & $F(s)$ \\\hline
+$te^{-at}$ & $\frac{1}{(s+a)^{2}}$\\
+$\frac{t^{n}e^{-at}}{n!}$ & $\frac{1}{(s+a)^{n+1}}$ \\
+$t\sin(\omega t)$ & $\frac{2\omega s}{\left(s^{2} +\omega^{2}\right)^{2}}$ \\
+$te^{-at}\sin(\omega t)$ & $\frac{2\omega(s+a)}{\left((s+a)^{2} +\omega^{2}\right)^{2}}$
+\end{tabular}
+\end{center}
+
+\subsection{Partial Fraction Expansion with Repeated Roots}
+
+Suppose we had the Laplace Transform
+\[
+X(s) = \frac{s+3}{(s^{2}+2s+1)(s+2)},
+\]
+and we want to find the inverse Laplace Transform. The denominator of this function has roots at $-1, -1$ and $-2$. Thus, the root at $-1$ is repeated. In order to apply the partial fraction expansion correctly, we need one term for each root:
+\[
+ \frac{s+3}{(s+1)^{2}(s+2)} = \frac{A}{s+1} + \frac{B}{(s+1)^{2}} + \frac{C}{s+2}
+\]
+Since we have expanded our Laplace Transform pairs to include repeated roots, once we find the residues, the inverse Laplace Transform is easy. Thus, we have the general rule:
+
+\begin{center}
+\fbox{\begin{minipage}{4in}If the term $(s+a)^{n}$ appears in the denominator, then the partial fraction expansion will include the terms $(s+a)$, $(s+a)^{2}$, $\cdots$, $(s+a)^{n}$.\end{minipage}}
+\end{center}
+
+Of course, we still have to solve for the residues $A$, $B$, $C$. The good news is that the residue formula will hold for the highest power, as well as all other terms. So we have
+\begin{align*}
+B & = \left.(s+1)^{2}\frac{s+3}{(s+1)^{2}(s+2)}\right|_{s=-1} = \frac{2}{1} = 2\\
+C & = \left.(s+2)\frac{s+3}{(s+1)^{2}(s+2)}\right|_{s=-2} = \frac{1}{1} = 1
+\end{align*}
+However, the residue formula will {\em not} hold for $A$. There is an alternate residue formula, but it is usually easier to simply return to putting the right hand side over a common denominator, substituting in the values for $B$ and $C$ found above.
+\begin{align*}
+ \frac{s+3}{(s+1)^{2}(s+2)} &= \frac{A(s+1)(s+2) + 2(s+2) + 1(s+1)^2}{(s+1)^{2}(s+2)} \\
+ & = \frac{As^{2}+3As+2A + 2s+4 + s^{2}+2s+1}{(s+1)^{2}(s+2)} 
+\end{align*}
+Solve for $A$ by equating coefficients for powers of $s$. For example, using the coefficients for $s^{2}$,
+\[
+0 = A +1
+\] 
+which implies $A=-1$. The final partial fraction expansion becomes
+\[
+X(s)= \frac{-1}{s+1} + \frac{2}{(s+1)^{2}} + \frac{1}{s+2}
+\]
+The inverse Laplace Transform is then
+\[
+x(t) = \left(-e^{-t} + 2te^{-t} + e^{-2t}\right)\step(t)
+\]
+\section{Differential Equation Examples}
+Let's try some examples to solidify the process of solving differential equations using Laplace Transforms.
+
+\subsection{Example 1}
+\begin{frame}{Spring and Damper}
+A spring with spring constant $k=4$ N/m and damper with damping coefficient $b=2$ Ns/m is connected in parallel to a wall. A force of $f_{in}=1$ N is applied for  $t\geq0$. If the initial displacement of the right side of the spring and damper is $x=1$ m at $t=0$, find $x(t)$ for $t\geq 0$
+\begin{center}
+\input{figures/springanddamper.tex}
+\end{center}
+\end{frame}
+This system is governed by the differential equation
+\[
+b \dot{x} + k x = f_{in}  \\
+\]
+Thus, we can ask: what is the solution to the differential equation
+\[
+2 \dot{x} + 4 x = 1 \qquad x(0)=1 \\
+\]
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{2in}
+\color{lightgray}
+\[
+x(t) = \left(\frac{1}{4} + \frac{3}{4}e^{-2t}\right)\step(t)
+\]
+\end{boxedminipage}\\
+}{\begin{boxedminipage}{6.5in}
+Take the Laplace Transform of both sides:
+\[
+2(sX(s) - 1) + 4X(s) = \frac{1}{s}
+\]
+Solve for X(s):
+\begin{align*}
+(2s+4)X(s) &= \frac{2s+1}{s} \\
+X(s) = \frac{s +\frac{1}{2} }{s(s+2)}
+\end{align*}
+Find partial fraction expansion:
+\begin{align*}
+\frac{s +\frac{1}{2} }{s(s+2)} = \frac{A}{s} + \frac{B}{s+2}
+\end{align*}
+where
+\begin{align*}
+A &= \left.\frac{s +\frac{1}{2} }{s+2}\right|_{s=0} = \frac{1}{4}\\
+B &= \left.\frac{s +\frac{1}{2}}{s}\right|_{s=-2} = \frac{3}{4}\\
+\end{align*}
+Giving inverse Laplace Transform
+\[
+x(t) = \left(\frac{1}{4} + \frac{3}{4}e^{-2t}\right)\step(t)
+\]
+\end{boxedminipage}
+}
+
+\subsection{Example 2}
+\begin{frame}{Circuit Problem}
+\begin{center}
+An LRC circuit has applied voltage $v_{in}=1$ for $t\geq0$. If $v_{out}(t)$ was zero for $t\leq0$, find $v_{out}(t)$ for $t\geq 0$.\\
+\input{figures/seriescircuit.tex}
+\end{center}
+\end{frame}
+
+Previously, we found that this system was governed by the differential equation
+\[
+CL\ddot{v}_{out}+CR\dot{v}_{out} + v_{out} = v_{in}
+\]
+Thus, we can ask: what is the solution to the differential equation
+\begin{equation*}
+\frac{1}{4}\ddot{v}_{out}+\dot{v}_{out}+v_{out}=1\qquad v_{out}(0)=0,\text{ }\dot{v}_{out}(0)=0
+\end{equation*}%
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{2in}
+\color{lightgray}
+\[
+v_{out}(t) = (1 - e^{-2t} -2te^{-2t})\step(t)
+\]
+\end{boxedminipage}\\
+}{\begin{boxedminipage}{6.5in}
+First, take the Laplace Transform of both sides (noting that initial conditions are zero):
+\[
+\frac{1}{4}s^{2}V_{out}(s) + sV_{out}(s) + V_{out}(s) = \frac{1}{s}.
+\]
+Then, solve for $V_{out}(s):$
+\begin{align*}
+V_{out}(s) &= \frac{4}{(s^{2}+4s+4)s} \\
+ &= \frac{4}{s(s+2)^{2}} \\
+\end{align*}
+Find partial fraction expansion:
+\[
+V_{out}(s) = \frac{A}{s} +\frac{B}{s+2} + \frac{C}{(s+2)^{2}}
+\]
+Residues:
+\begin{align*}
+A &= \left.\frac{4}{(s+2)^{2}}\right|_{s=0} = 1\\
+C & =\left.\frac{4}{s}\right|_{s=-2} = -2 
+\end{align*}
+Solve for remaining coefficients
+\[
+\frac{4}{s(s+2)^{2}} = \frac{(s^{2}+4s+4) + B(s^{2}+2s) - 2s}{s(s+2)^{2}} 
+\]
+Thus $B=-1$, and
+\[
+v_{out}(t) = (1 - e^{-2t} -2te^{-2t})\step(t)
+\]
+\end{boxedminipage}}
+
+\section{Laplace Transform Table}
+
+Here is a summary of the Laplace Transforms and other results derived in the last few lectures. 
+
+\input{Laplacetable.tex}
+
+\section{Application Example} %new
+
+A wind turbine is a rotational mechanical system that has a spinning ``rotor'' (blades plus their connections) with a large rotational inertia \textit{J}. Although most of the time the turbine is expected to spin continuously to produce electricity, occasionally it is desirable to use the generator in reverse (as a motor providing torque \(\tau \))to turn the rotor to a certain angular position \(\theta \) so that maintenance can be performed.
+
+\begin{center}
+	\includegraphics[height=2in]{figures/windturbine1.png}
+	\includegraphics[height=2in]{figures/windturbine2.png}
+\end{center}
+
+The differential equation relating the input torque to the output position (angular acceleration and velocity) is given by
+\begin{equation*}
+	J\ddot{\theta} + b\dot{\theta} = \tau ,
+\end{equation*}
+where $b$ is the rotational damping coefficient. You decide to try to achieve a constant angular position \(\theta(t) = \theta_{setpoint}\) by applying a unit step torque input \(\tau = u(t), t \geq 0\), as shown in this block diagram. Is this a successful approach?
+\begin{center}
+	\includegraphics[width=3.5in]{figures/windturbineDiagram.png}
+\end{center}
+
+\textbf{\underline{Solution}}
+
+Replace the torque $\tau$ with the unit step function and then take the Laplace transform of the equation:
+\begin{equation*}
+	\theta(s)(Js^2+bs)=\frac{1}{s}
+\end{equation*}
+Solve for \(\theta (s) \):
+\begin{equation*}
+	\theta(s)=\frac{1}{s(Js^2+bs)}=\frac{1}{s^2(Js+b)}
+\end{equation*}
+Use partial fraction expansion 
+\begin{equation*}
+	\frac{1}{s^2(Js+b)} = \frac{A}{s}+\frac{B}{s^2}+\frac{C}{Js+b}
+\end{equation*}
+and solve for the numerator coefficients by picking useful values of $s$:
+\begin{equation*}
+	1 = As(Js+b)+B(Js+b)+Cs^2
+\end{equation*}
+\begin{equation*}
+	s=0: \indent  1=Bb \indent \Rightarrow B=\frac{1}{b}
+\end{equation*}
+\begin{equation*}
+	s=\frac{-b}{J}: \indent  1=A(0)+B(0)+C \bigg( \frac{-b}{J}\bigg)^2  \indent \Rightarrow C=\frac{J^2}{b^2} 
+\end{equation*}
+\begin{equation*}
+	s=1: \indent 1=A(J+b)+B(J+b)+C \indent \Rightarrow 1=A(J+b)+\frac{1}{b}(J+b)+\frac{J^2}{b^2} \indent \Rightarrow A=\frac{-J}{b^2}
+\end{equation*}
+Plug these values for $A$, $B$, and $C$ into the expanded $\theta(s)$
+\begin{eqnarray*}
+	\theta (s) & = & \frac{\frac{-J}{b^2}}{s}+\frac{\frac{1}{b}}{s^2}+\frac{\frac{J^2}{b^2}}{Js+b}\\
+	&=&\frac{\frac{-J}{b^2}}{s}+\frac{\frac{1}{b}}{s^2}+\frac{\frac{J}{b^2}}{s+\frac{b}{J}}
+\end{eqnarray*}
+and finally take the inverse Laplace Transform:
+\begin{equation*}
+	\theta(t)=\frac{-J}{b^2}+\frac{1}{b}t+\frac{J}{b^2}e^{-\frac{b}{J}t}, t \geq 0
+\end{equation*}
+
+\noindent Although the first term in the solution $\theta(t)$ is a constant and the third term decays toward zero, the second term, $\frac{1}{b}t$, grows toward infinity as time goes to infinity. Therefore, \textit{using a unit step torque input is not an effective way to make a wind turbine go to a constant angular position.} This result makes sense: as long as there is a constant, nonzero torque applied to this rotational system, we expect it to keep moving; in fact, that's what's happening when the wind is applying a torque to the system for power production.\\
+
+\textbf{\underline{Challenge}}
+
+How does the answer change if the turbine has a non-zero initial velocity \(\dot{\theta}(0^-) = -\pi \) rad/s?\\
+
+\textbf{\underline{Challenge Approach}}
+
+The initial velocity is handled when we first take the Laplace transform, recalling that
+\begin{equation*}
+	L \bigg\{\frac{d^2}{dt^2}f(t)\bigg \} = s^2F(s)-sf(0^-)-\frac{df}{dt}(0^-)
+\end{equation*}
+Therefore, we have
+\begin{equation*}
+	s^2J\theta(s) +\pi + sb\theta(s) = \frac{1}{s}
+\end{equation*}
+\begin{equation*}
+	\theta(s)(Js^2+bs)=\frac{1-\pi s}{s}
+\end{equation*}
+\begin{equation*}
+\theta(s)=\frac{1-\pi s}{s(Js^2+bs)}
+\end{equation*}
+
+\noindent And we complete the problem in the same manner as the initial problem - using partial fraction expansion, solving for numerator coefficients, and taking the inverse Laplace Transform with this new numerator.
+
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item When the Laplace domain function has repeated roots in the denominator, the structure of the partial fraction expansion requires a term for each root. In this case, solving for the coefficients in the partial fraction expansion requires a little more care than in the previous lecture.
+\item If there are repeated roots in the Laplace domain, you will find the multiplier $t$ in your time domain solution.
+\end{enumerate}
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+% \item Find the solution to the differential equation
+% \[
+% \ddot{x} + 2 \dot{x} +3x = 1 \quad x(0)=1,\dot{x}(0)=0
+% \]
+% 
+% \item Consider the following rotational system. A torque is applied as shown in the figure. If the system is initially at rest at $t=0$ and a torque of $\tau=1$ Nm is applied for $t\geq 0$, what is the time response of the angular position of the spring?\vspace{.1in}
+% \begin{center}
+% \input{quizfigures/rotmechsystem.tex}
+% \end{center}\vspace{.1in}
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+%\item \rule{0pt}{12pt}\\
+% \begin{center}
+% \includegraphics[width=5in]{quizfigures/1asoln}\\
+% \includegraphics[width=5in]{quizfigures/1asoln}
+% \end{center}
+% \item \rule{0pt}{12pt}\\
+% \begin{center}
+% \includegraphics[width=4in]{quizfigures/2asoln}\\
+% \includegraphics[width=4in]{quizfigures/2bsoln}\\
+% \includegraphics[width=4in]{quizfigures/2csoln}\\
+% \includegraphics[width=4in]{quizfigures/2dsoln}
+% \end{center}
+\end{enumerate}
+
+\section{Resources}
+Since this lecture is a continuation of Lecture \SolvingDifferentialEquationsINumber,~\SolvingDifferentialEquationsIName, see this lecture for the relevant resources.
+
+
+\end{document}
+
+

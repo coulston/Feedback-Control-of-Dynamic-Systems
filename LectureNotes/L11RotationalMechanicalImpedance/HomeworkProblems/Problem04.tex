@@ -1,0 +1,26 @@
+Find the transfer function from input torque $\tau$ to output $\theta$ for the following rotational mechanical system.
+\begin{center}
+\begin{tikzpicture}[scale=1.75,inner sep=0pt,outer sep=0pt,very thick]
+ 
+\draw (-.5,0) node (in) {} -- ++(.8,0) node(in2) {};
+\draw (1,.5) node (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (1,-.5) node (D1) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (K1) node[above=.2in] {$k$};
+\draw (D1) node[above=.2in] {$b_{1}$};
+\draw (2.5,0) node (M1) {\input{\mainfolder/DrawingElements/MechanicalElements/inertia.tex}};
+\draw (2.5,0) node {$J$};
+\draw[->] (M1.135) node[above] {$\theta$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (4,0) node (D) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (4,0) node[above=.25in] {$b_{2}$};
+\draw (5,0) node[rotate=180] (gnd1) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+
+
+\draw (gnd1) -- (D);
+\draw (K1) -| (M1.180);
+\draw (D1) -| (M1.180);
+\draw (K1) -| (in2);
+\draw (D1) -| (in2);
+\draw (M1.0) -- (D.180);
+\draw (D.0) -- ++(.5,0); 
+\draw[->] (in) ++(.5,.5) node[above] {$\tau$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\end{tikzpicture}\end{center}

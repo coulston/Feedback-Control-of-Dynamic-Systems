@@ -1,0 +1,31 @@
+The following circuit implements a low-pass filter, in that the output $v_{out}$ is reduced when the input is a high frequency sinusoid. 
+\begin{center}
+\begin{tikzpicture}[scale=1.5,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node (a) {}; 
+\draw (4,0) node (c) {};
+\draw (0,-2) node (d) {};
+\draw (4,-2) node (f) {};
+ 
+\draw (1,0) node (C1) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (C1) node[above=.2in] {$R$};
+\draw (2,-1) node[rotate=90] (R1) {\input{\mainfolder/DrawingElements/CircuitElements/capacitor.tex}};
+\draw (R1) node[left=.25in] {$C$};
+\draw (2,0) node[right=.3in] {$+$};
+\draw (2,-1) node[right=.3in] {$v_{out}$};
+\draw (2,-2) node[right=.3in] {$-$};
+\draw (0,-1) node (V) {\input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (0,-1) node[left=.3in]{$v_{in}$};
+
+
+\draw (a) -- (C1);
+\draw (C1) -| (R1);
+\draw (R1) |- (d);
+\draw (a) -- (V);
+\draw (d) -- (V);
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[(a)]
+\item Let $R=100$ $\Omega$ and $C=.01$ F. Find the transfer function $\frac{V_{out}(s)}{V_{in}(s)}$.
+\item Sketch the Bode plot for this system
+\item According to your sketch, at what frequency is the magnitude of the output 10 times smaller than the magnitude of the input?
+\end{enumerate}

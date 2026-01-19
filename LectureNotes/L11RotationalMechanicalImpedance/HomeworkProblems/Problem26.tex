@@ -1,0 +1,13 @@
+A small wind turbine that provides electricity to a remote village can be approximated using the differential equation
+\[
+J \dot{\omega} = \tau_{aero} - \tau_c
+\]
+where $J$ is the rotational inertia of the turbine, $\omega$ is its rotational speed, $\tau_{aero}$ is the aerodynamic torque caused by the wind, and $\tau_c$ is the control torque (used to control the turbine's speed).  Let $J = 1$ and assume that the control torque is given by
+\[
+\tau_c = 2K \omega
+\]
+where $K$ is a control constant.  Let the wind speed go suddenly from calm to windy such that the aerodynamic torque can be represented by the step function
+\[
+\tau_{aero} = 10 u(t)
+\]
+and solve the differential equation to find $\omega(t)$, the turbine's rotational speed. Your answer will be a function of $K$.  Assume the turbine is stopped before the wind gust arrives; that is, $\omega(0^-) = 0$ rad/s.	

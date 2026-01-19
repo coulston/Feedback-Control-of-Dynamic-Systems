@@ -1,0 +1,15 @@
+Consider the following feedback system
+\begin{center}
+\begin{tikzpicture}[scale=1,inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.25cm,minimum height=1.25cm,very thick}]
+\draw (2,0) node[draw,circle] (sum1) {$\rule{0pt}{18pt}$};
+\draw (3.5,0) node[sysblock] (Kp) {$ K$};
+\draw (7,0) node[sysblock] (G) {\Large $\frac{s+1}{s^{4}+18s^{3}+62s^{2}-160s+200}$};
+\draw[->] (0,0) node[above=2pt] {$R(s)$} -- (sum1.180) node[above left=2pt] {$+$};
+\draw[->] (sum1.0) --  (Kp);
+\draw[->] (Kp) -- (G);
+\draw[->] (G.0) -- ++(2,0) node[above=2pt] {$Y(s)$};
+\draw[->] (G.0) ++(1,0) -- ++(0,-1.5) -| (sum1.-90) node[below right=2pt] {$-$};
+\end{tikzpicture}
+\end{center}
+Find the range for $K$ that results in a stable closed loop system

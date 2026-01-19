@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+
+\draw[inner sep=0pt,outer sep=0pt,very thick] (0,-2) node[rotate=90] (gnd1) {\input{../../../Tikzmodeling/MechanicalElements/ground.tex}};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (1,0) node[rotate=90] (K1) {\input{../../../Tikzmodeling/MechanicalElements/spring.tex}};
+\draw (1,0) node[right=14pt] {$2$};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-1,0) node[rotate=90] (D1) {\input{../../../Tikzmodeling/MechanicalElements/damper.tex}};
+\draw (-1,0) node[left=14pt] {$3$};
+\draw (0,2) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick] (M1) {$1$};
+
+\draw[|->] (M1) ++(1.25,0) node[right] {$x$} -- ++(0,.5);
+
+\draw[very thick] (K1.180) -- ++(0,-.25) -| (gnd1.0);
+\draw[very thick] (D1.180) -- ++(0,-.25) -| (gnd1.0);
+\draw[very thick] (K1.0) -- ++(0,.25) -| (M1.-90);
+\draw[very thick] (D1.0) -- ++(0,.25) -| (M1.-90);
+\draw[->] (M1.90)  -- ++(0,0.75) node[above] {$f(t)$};
+
+
+\end{tikzpicture}

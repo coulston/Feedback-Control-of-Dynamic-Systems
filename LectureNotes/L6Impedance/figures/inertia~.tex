@@ -1,0 +1,6 @@
+\begin{tikzpicture}
+    \draw[very thick] (.5,0) node[cylinder,draw,shape aspect=.55,minimum width=1cm,minimum height=1.5cm] (J) {$J$};
+    \draw[->] (-.2,.5) node[above] {$\theta$}  .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-1);
+    \draw[->] (1.5,-.5) node[below] {$\tau$}  .. controls  ++(.15,.3) and ++(.15,-.3) ..  ++(0,1);
+    \draw (.5,-1) node {$J\ddot{\theta}=\tau$};
+\end{tikzpicture}

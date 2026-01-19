@@ -1,0 +1,24 @@
+Find two differential equations that describe the following system. For each equation, put all terms involving $x_{1}$ or $x_{2}$ on the left side of the equal sign, and all other terms on the right. 
+\begin{center}
+\begin{tikzpicture}
+
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-2,0) node (gnd1) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-.5,0) node (D1) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (D1) node[below=14pt] {$b$};
+\draw (1.5,0) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick] (M1) {$m_{1}$};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (3.5,0) node (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (K1) node[below=14pt] {$k$};
+\draw (5.5,0) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick]  (M2) {$m_{2}$};
+
+
+\draw[very thick] (D1.180) -- (gnd1.0);
+\draw[very thick] (D1.0) -- (M1.180);
+\draw[very thick] (M1.0) -- (K1.180);
+\draw[very thick] (K1.0) -- (M2);
+\draw[->] (M2.0)  ++(0,.45) -- ++(0.75,0) node[above] {$f_{in}(t)$};
+\draw[|->] (M1.90) ++(0,.15) node[above] {$x_{1}$} -- ++(.5,0);
+\draw[|->] (M2.90) ++(0,.15) node[above] {$x_{2}$} -- ++(.5,0);
+
+
+\end{tikzpicture}
+\end{center}

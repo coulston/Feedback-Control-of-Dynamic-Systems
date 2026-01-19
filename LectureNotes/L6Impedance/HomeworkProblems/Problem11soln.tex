@@ -1,0 +1,7 @@
+(a) We have previously taken the Laplace transform of the differential equation given a specific aerodynamic torque, but the transfer function allows for any input signal.  Therefore,
+\[
+J s \omega(s) + 2 K \omega(s) = \tau_{aero}(s)
+\Rightarrow \frac{\omega(s)}{\tau_{aero}(s)} = \frac{1}{J s + 2K}
+\]
+
+(b) The control torque acts more like a damper.  There are a couple of different ways of thinking about this.  The most straightforward is to notice that the constant $2K$ is multiplied by $\omega$, which is the rotational velocity, not position, and damping forces (or torques) are proportional to velocities.  We could also use logic related to the operation of a wind turbine to deduce that we would not want to attach a rotational spring to the turbine - if we did, the turbine would get wound up during operation and have to unwind to its original position.

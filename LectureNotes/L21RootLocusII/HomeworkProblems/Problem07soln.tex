@@ -1,0 +1,26 @@
+(a)
+
+Matlab Code
+
+\texttt{
+>> gs1=tf(10,[1 12 100]) \\
+>> gs2 = tf(15,[1 8 144]) \\
+>> rlocus(gs1,gs2)
+}
+
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln1.jpg} \\
+
+Since the tired case has loci (closed loop poles) a bit further from the real axis and closer to the imaginary, it is likely that the damping ratio $\zeta$ will be smaller, leading to higher percent overshoot.
+
+(b)
+
+The simulink model and step responses are shown below.
+
+\includegraphics[width=5.5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln2.jpg} \\
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln3.jpg} \\
+
+The ``tired'' case shows more overshoot than the ``not tired'' case, verifying our answer to (a) and indicating as might be expected that it may be harder to control a tired human body.
+
+(c)
+
+Decreasing the gain $K_p$ will move the closed-loop poles close to the open loop poles, which moves them closer to the real axis in this case and will decrease the percent overshoot. A derivative term also tends to increase damping and can therefore decrease overshoot; this term will change the shape of the root locus because it adds a zero.

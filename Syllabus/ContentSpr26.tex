@@ -1,0 +1,297 @@
+\mode<article>
+{
+\usepackage{fullpage}
+}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\mode<presentation>
+{
+  \usetheme{Boadilla}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+
+\title[Introduction] % (optional, use only with long paper titles)
+{\course: Introduction to Feedback Control Systems}
+
+\author[\instructorshort]% (optional, use only with lots of authors)
+{\instructorlong}
+
+\institute[\instituteshort] % (optional, but mostly needed)
+{\institutelong}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{Semester/Year: \semesteryear}
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=1.1cm]{university-logo}{UniversityLogo}
+%\logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<presentation>{
+\begin{frame}{Outline}
+  \tableofcontents
+  % You might wish to add the option [pausesections]
+\end{frame}}
+
+\mode<article>{
+\maketitle
+%\tableofcontents
+}
+
+\mode<presentation>{
+
+\begin{frame}{Examples of Dynamic Systems We Can Control}
+\begin{center}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Aerospace/ares_I-X.png}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Astronomy/"eso0733b.jpg}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Atomic_Force_Microscopy/"Compact_disk_data_layer_2d_3d.png}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Automotive/AutoEngine.png}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Semiconductor_Manufacturing/lithoscanner.png}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Smart_Grids/"512px-Giant_photovoltaic_array.jpg}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Steel_Mill/lossy-page1-640px-Block-Grobstrasse_Witten.jpg}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Surgery/articlepicture.jpg}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Wind_Turbines/Agucadoura_WindFloat_Prototype.jpg}
+	\includegraphics[height=1in]{\mainfolder/Control_System_of_the_Week/Kiva_systems/kiva.jpg}
+	
+\end{center}
+\end{frame}
+}
+
+\section{Syllabus}
+
+\begin{frame}{Course Info}
+\begin{itemize}
+\item Course Webpages:
+\LearningManagementSystem~(\url{http://elearning.mines.edu/}). All current CSM students should have a \LearningManagementSystem~account, and students registered for this course will be automatically enrolled. Check with CCIT if you do not have an account. \LearningManagementSystem~will be used to post homework assignments, submit homework assignments, view grades, and other section-specific material.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Instructor}
+
+\begin{itemize}
+
+  \item Section A - MWF 12:00 - 12:50 in W280 Brown
+\begin{itemize}
+	\item Instructor:  Christopher Coulston
+	\item Office: BB314E
+	\item Office hours: MWF 1:30 - 3:00 
+	\item Email: coulston@mines.edu
+\end{itemize}
+
+
+\end{itemize}
+
+\end{frame}
+
+\vspace{.1in}
+
+\noindent\textbf{Instructional Activity:} 3 hours lecture, 0 hours lab, 3 semester hours.\\
+
+%\noindent\textbf{Course designation:} Major Requirement (EE and ME)\\
+
+\noindent\textbf{Course description from the Bulletin:}
+\begin{quote}
+System modeling through an energy flow approach is presented, with examples from linear electrical, mechanical, fluid and/or thermal systems. Analysis of system response in both the time domain and frequency domain is discussed in detail. Feedback control design techniques, including PID, are analyzed using both analytical and computational methods. 
+\end{quote}
+
+\begin{frame}{The Textbook (Optional)}
+Gene F. Franklin, J. David Powell, Abbas Emami-Naeini, {\em Feedback Control of Dynamic Systems}, 7th Edition. ISBN  0133496597. 
+\mode<presentation>{\begin{center}
+\pgfimage<1>[height=5cm]{figures/book}
+\end{center}}
+\end{frame}
+
+
+\begin{frame}{Objectives}
+\begin{block}{Students will be able to:}
+\begin{itemize}
+\item Develop mathematical models for linear dynamic systems (mechanical, electrical, fluid, and/or thermal).
+\item Use time domain and frequency domain tools to analyze and predict the behavior of linear systems.
+\item Use time domain and frequency domain techniques to design feedback compensators to achieve a specified performance criterion.
+\item Use \textsc{Matlab} for system analysis and design.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%\begin{frame}{Topics Covered}
+%See Schedule at end of the Syllabus.
+%\end{frame}
+
+
+\begin{frame}{Letter Grades}
+Letter grades will be assigned as stipulated in the undergraduate bulletin \url{http://bulletin.mines.edu/undergraduate/undergraduateinformation/undergraduategradingsystem/}
+\begin{itemize}
+\setlength\itemsep{0pt}
+\setlength\parskip{0pt}
+\item              A  $\geq$ 93
+\item 93 $>$ A-  $\geq$ 90
+\item 90 $>$ B+ $\geq$ 87
+\item 87 $>$ B  $\geq$ 83
+\item 83 $>$ B- $\geq$ 80
+\item 80 $>$ C+ $\geq $ 77
+\item 77 $>$ C $\geq$ 73
+\item 73 $>$ C- $\geq$ 70
+\item 70 $>$ D+ $\geq$ 67
+\item 67 $>$ D $\geq$ 63
+\item 63 $>$ D- $\geq$ 60
+\item 60 $>$ F 
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Grading Scale}
+\begin{block}{Available Points}
+\hspace{1in}
+\begin{tabular}[t]{|r|cl|}\hline
+\multirow{2}{*}{Exam 1} & Prep Score & 12\% \\\cline{2-3}
+& Exam Score & 21\% \\\cline{1-3}
+\multirow{2}{*}{Exam 2} & Prep Score & 12\% \\\cline{2-3}
+& Exam Score & 21\% \\\cline{1-3}
+\multirow{2}{*}{Exam 3} & Prep Score & 12\% \\\cline{2-3}
+& Exam Score & 22\% \\\cline{1-3}
+Total & &  100 \% \\\hline
+\end{tabular}
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Prep Score}
+The course is split into three intervals, each one associated with an exam. During each interval there will be
+\begin{itemize}
+\item 4 Homework Assignments - 10 points each
+\item 2 Canvas Quizzes - 10 points each
+\end{itemize}
+
+Each prep score is out of 40 points, which includes the best 4 of the 6 scores from the group of homework and Canvas quizzes. 
+The exception to this policy is Homework \#12 whoses score cannot be
+droppped - you must complete this homework.
+\end{frame}
+
+
+\begin{frame}{Homework}
+\begin{itemize}
+\item Homework is assigned weekly.
+\item At least partial credit is given for each problem with a legitimate attempt.  Problems may be graded unequally.
+\item Homework is due at 11:59pm on the due date. 
+\item<2-> Homework must be turned in on Canvas/Gradescope. It must be submitted as a \textbf{single} .pdf file, readable, with \textbf{all pages right side up}. Files that are not submitted correctly will not be graded.
+\item<3-> \textbf{No late homework is accepted for any reason}. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exams}
+\begin{itemize}
+\item Mid-term exams: There will be three in class exams during the semester, with dates given in the schedule below. Note these dates and plan accordingly!
+\item No calculators are allowed in the exams. Graphs of important functions will be provided, but you will need to be able to do simple arithmetic by hand. You may not use your phone during exams. However, slide rules are allowed!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Absenteeism}
+\begin{itemize}
+\item<1-> Sports/Activities Policy
+\begin{itemize}
+\item Alternate scheduling will be made available for exams.
+\item Let your instructor know at least a week prior and they will work with you to make accommodations.
+\item No extension for Canvas quizzes. 
+\end{itemize}
+\item<2-> Sickness/Life Issues
+\begin{itemize}
+\item If you are ill, pleased do not attend class, labs, or exams.
+\item Complete the ``Request an Excused Absence'' form on the Mines website.
+\item If you are going to miss an exam, email your professor ASAP to make alternate arrangements.
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Academic Honesty}
+\mode<article>{The Colorado School of Mines affirms the principle that all individuals associated with the Mines academic community have a responsibility for establishing, maintaining and fostering an understanding and appreciation for academic integrity. In broad terms, this implies protecting the environment of mutual trust within which scholarly exchange occurs, supporting the ability of the faculty to fairly and effectively evaluate every student's academic achievements, and giving credence to the university's educational mission, its scholarly objectives and the substance of the degrees it awards. The protection of academic integrity requires there to be clear and consistent standards, as well as confrontation and sanctions when individuals violate those standards. The Colorado School of Mines desires an environment free of any and all forms of academic misconduct and expects students to act with integrity at all times.  
+
+Academic misconduct is the intentional act of fraud, in which an individual seeks to claim credit for the work and efforts of another without authorization, or uses unauthorized materials or fabricated information in any academic exercise. Student Academic Misconduct arises when a student violates the principle of academic integrity. Such behavior erodes mutual trust, distorts the fair evaluation of academic achievements, violates the ethical code of behavior upon which education and scholarship rest, and undermines the credibility of the university. Because of the serious institutional and individual ramifications, student misconduct arising from violations of academic integrity is not tolerated at Mines. If a student is found to have engaged in such misconduct sanctions such as change of a grade, loss of institutional privileges, or academic suspension or dismissal may be imposed.}  
+\\
+For this course, the following rules should be followed:
+\begin{itemize}
+\item<2-> All students must turn in individual homework (unless otherwise stated) and they must understand what they turn in.  
+\item<3-> Copying of solutions without understanding them is not allowed; if a student copies a solution and cannot explain it adequately this is considered academic dishonesty. 
+\item<4-> For computer exercises, each student is expected to generate his/her own solution (i.e. one cannot simply copy another person's computer solution and modify it slightly to make it look like it is your own work). 
+\item<5-> During exams students must do 100 percent of the work on their own.
+\item<6-> The nominal penalty for academic dishonesty is an 'F' in the course.
+\end{itemize} 
+\end{frame}
+
+
+
+\begin{frame}{MATLAB}
+\begin{itemize}
+\item A tool for technical computing with a programming like interface. (You should have already taken Fortran, C, or Java.)
+\item Easy access to highly optimized numerical methods.
+\item You are responsible for becoming familiar with the MATLAB interface. If you are unfamiliar with MATLAB, we would recommend purchasing an introductory text, or make use of the myriad tutorials on the internet.
+\item You will also find some introductory information about MATLAB in your textbook at the end of most chapters and in the appendix.
+\item Instructions for accessing MATLAB from your laptop (called remote access) can be found here: \url{http://inside.mines.edu/Matlab}.
+\end{itemize}
+\end{frame}
+
+\section{Resources}
+\begin{frame}{Resources}
+There are numerous resources available to help you learn the course material.  They include:
+\begin{itemize}
+\item Lectures (in class)
+\item Electronic lecture files (available on Canvas), with self quizzes at the end of each lecture
+\item Homework problems and solutions (posted on Canvas) 
+\item Your professors (office hours, email)
+\item We have teaching assistant(s) who will be holding office hours.  Times and locations to be announced.
+\item Students are encouraged to seek academic support if struggling with course material. Information on Tutoring, Academic Excellence Workshops, and Academic Coaching can be found at \url{http://academicservices.mines.edu}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Disability Support Statement:}
+The Colorado School of Mines is committed to ensuring the full participation of all students in its programs, including students with disabilities. If you are registered with Disability Support Services (DSS) and I have received your letter of accommodations, please contact me at your earliest convenience so we can discuss your needs in this course. For questions or other inquiries regarding disabilities, I encourage you to visit \url{http://disabilities.mines.edu} for more information.
+\end{frame}
+
+
+\newpage
+\section{Schedule} (Note: this schedule is subject to change) \begin{frame}
+ \begin{center}
+ {\small
+ \input{../schedulecontent-spring26.tex}}
+ \end{center}
+\end{frame}
+
+
+\end{document}
+

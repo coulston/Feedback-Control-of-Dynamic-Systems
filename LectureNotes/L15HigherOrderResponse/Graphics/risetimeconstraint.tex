@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3) rectangle (0,3);
+\draw[fill=white,dashed] (0,2) arc (90:270:2) -- cycle;
+%\draw[dashed] (0,2) arc (90:270:2);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (0,0) -- node[pos=.5,above right] {$\omega_{n}$} (135:2);
+\draw (-3.5,1) node[fill=white] {\begin{minipage}{1in}\begin{center}in this region, $\tr \leq \treqtwo$ \end{center}\end{minipage}};
+\end{tikzpicture}

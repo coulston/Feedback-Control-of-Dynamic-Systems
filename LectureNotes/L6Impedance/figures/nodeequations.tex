@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+
+\draw (-2,1.5) node  (text1) {\begin{minipage}{1in}\raggedright sum of admittances that touch node 1\end{minipage}};
+\draw[->] (text1.-90) -- (-1,.5);
+\draw (2,-1.5) node (text2) {\begin{minipage}{1in}\raggedright  sum of admittances that touch node 2\end{minipage}};
+\draw[->] (text2.90) -- (1.2,-.5);
+\draw (2,1.5) node  (text3) {\begin{minipage}{1in}\raggedright admittances that touch both nodes 1 and 2\end{minipage}};
+\draw[->] (text3.-90) -- (1.2,.5);
+
+\draw (-5.25,.25) node (text4) {Source into node 1};
+\draw[->] (text4.0) -- ++(.5,0);
+\draw (-5.25,-.25) node (text5) {Source into node 2};
+\draw[->] (text5.0) -- ++(.5,0);
+\draw (0,0) node {$
+\begin{bmatrix} I_{in}(s) \\ 0 \end{bmatrix} = \begin{bmatrix} \frac{1}{R} & -\frac{1}{R} \\ -\frac{1}{R} & \frac{1}{R} + sC +\frac{1}{sL} \end{bmatrix} \begin{bmatrix} V_{1}(s) \\ V_{2}(s) \end{bmatrix}$};
+
+\end{tikzpicture}
