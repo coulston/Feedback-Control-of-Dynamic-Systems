@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+%\draw (-2,-1.5) node[scale=.85,inner sep=0pt,outer sep=0pt] (a) {\input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (-.5,0) node[circle,fill=black,inner sep=0,minimum width=4pt] {} node[above] {$P_{1}$};
+%\draw (a) node[left=9pt] {$P_{in}(s)$};
+\draw (-2,0) node[circle,fill=black,inner sep=0,minimum width=1pt] (y) {};
+\draw (-2,-3) node[circle,fill=black,inner sep=0,minimum width=1pt] (z) {};
+\draw (-.5,-1.5) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (tank1) {};
+\draw (tank1) node[right=9pt] {$\frac{\rho g}{sA_{1}}$};
+\draw (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] (valve1) {};
+\draw (valve1) node[above=9pt] {$R_{1}$};
+\draw (3.5,0) node[circle,fill=black,inner sep=0,minimum width=4pt] (p2) {} node[above] {$P_{2}$};
+\draw (3.5,-1.5) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (tank2) {};
+\draw (tank2) node[right=9pt] {$\frac{\rho g}{sA_{2}}$};
+
+\draw (2.5,-1.5) node[inner sep=0,outer sep=0] (I1) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}} node[left=10pt] {$Q_{in}(s)$};
+
+\draw (5,0) node[rectangle,draw,minimum width=.1in,minimum height=.5in,rotate=90] (valve2) {};
+\draw (valve2) node[above=9pt] {$R_{2}$};
+\draw (6.5,-3) node[circle,fill=black,inner sep=0,minimum width=4pt] (pa) {} node[below] {$P_{a}$};
+\draw (3.5,-3) node[inner sep=0,outer sep=0] (pa2) {};
+\draw (-.5,-3) node[inner sep=0,outer sep=0] (pa3) {};
+%\draw[very thick] (a.90) |- (valve1.180);
+\draw[very thick] (tank1.90) |- (valve1.180);
+\draw[very thick] (valve1.0) -| (tank2.90);
+\draw[very thick] (valve1.0) -| (valve2.90);
+\draw[very thick] (valve2.-90) -| (pa) -| (tank2.-90);
+\draw[very thick] (tank2.-90) -- (pa2) -| (tank1.-90);
+%\draw[very thick] (tank1.-90) -- (pa3) -| (a.-90);
+\draw[very thick] (y) -- (z);
+\draw[very thick] (y) -| (tank1);
+\draw[very thick] (z) -- (pa3);
+
+\draw[very thick] (I1.90) -- (p2);
+\draw[very thick] (I1.-90) -- (pa2);
+
+\draw[->] (7,-1) -- node[pos=.5,right] {$Q_{out}(s)$} ++(0,-1);
+\end{tikzpicture}

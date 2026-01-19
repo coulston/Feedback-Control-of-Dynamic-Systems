@@ -1,0 +1,16 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick]
+\draw (1,0) node (gnd) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+\draw (3.5,0.5) node (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (K1) node[above=14pt] {$k$};
+\draw (3.5,-0.5) node (B1) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (B1) node[below=14pt] {$b$};
+
+
+\draw (K1.180) -- (K1.180 -| gnd.0);
+\draw (B1.180) -- (B1.180 -| gnd.0);
+\draw (K1.0) -- ++(0.5,0) |- ++(1,-.5) node[circle,fill,inner sep=0] (F) {\rule{0pt}{4pt}};
+\draw (B1.0) -- ++(0.5,0) |- ++(0,.5);
+\draw[|->,thick] (F) ++(0,.5) node[above=6pt] {$x$} -- ++(.5,0);
+\draw[->,thick] (F) -- ++(.75,0) node[right=2pt] {$f_{in}$}; 
+
+\end{tikzpicture}

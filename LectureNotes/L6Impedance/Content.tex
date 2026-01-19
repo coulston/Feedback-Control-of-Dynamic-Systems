@@ -1,0 +1,868 @@
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\ImpedanceShortName] 
+{\course: \ImpedanceName\license}
+
+\subtitle
+{Lecture \ImpedanceNumber}
+
+
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+\section{Pre-requisite Material}
+This lecture assumes that the reader is familiar with the following material:
+\begin{itemize}
+\item Lecture \ElectricalSystemsNumber:~\ElectricalSystemsName
+\item Lecture \LaplaceTransformReviewNumber:~\LaplaceTransformReviewName
+%\item \textcolor{red}{old list included solving diff eqs but some content imported}
+\end{itemize}
+
+Modeling systems using differential equations, as we have now done in Lectures~
+\ModelingMechanicalSystemsNumber~and \ElectricalSystemsNumber, can be useful for many purposes. However, classical control theory (the focus of this class) provides a lot of tools that we can use to model systems and design controllers in the Laplace domain. A first step toward being able to use these tools is finding a system's \textit{transfer function}, which we will do in this lecture.
+
+\section{Laplace Transforms and the Differentiation Property}
+
+Recall from Lecture \LaplaceTransformReviewNumber:~\LaplaceTransformReviewName~that the Laplace transform of the first derivative of a signal $f(t)$ with zero initial conditions (i.e., $f(0^-)~=~0$) is given by
+\begin{eqnarray*}
+\mathcal{L}\left\{ \frac{d}{dt}f(t)\right\} &=& \mathcal{L} \left\{ \dot{f}(t) \right\} \\
+&=& sF(s)
+\end{eqnarray*}
+
+Notice the use of the upper dot in the first line to indicate the first time derivative of the signal. We will also frequently use this dot notation for the 2nd derivative, i.e.,
+\[
+\frac{d^2}{dt^2}f(t) = \ddot{f}(t)
+\]
+
+The Laplace differentiation property says that if all of the initial conditions\footnote{Note that because we have defined the Laplace Transform with the lower limit of integration zero, we must always take the starting time as $0,$ which is no problem for linear constant coefficient differential equations.}, including higher-order derivatives like $\dot{f}(0^-)$, $\ddot{f}(0^-)$, etc. are zero, we can replace $n^{th}$ order differentiation with $s^{n}$, or
+
+\begin{eqnarray*}
+	\mathcal{L}\left\{ \frac{d^{n}}{dt^{n}}f(t)\right\} &=&s^{n}F(s).
+\end{eqnarray*}
+
+This is the foundational property of Laplace transforms used in transfer functions. 
+
+\section{Transfer Functions
+\label{sec:TFs}}
+It is very common  in control systems that the system is at rest before the control system is turned on, so that the initial conditions are zero. The modeling concept of transfer functions is (only) defined for the case with zero initial conditions.
+
+Suppose, for example, we had a system described by the following differential equation, where $\inpt(t)$ is the input signal and $\outpt(t)$ is the output signal:
+\[
+\ddot{\outpt} +3\dot{\outpt} +2\outpt= \inpt.
+\] 
+When the initial conditions are all zero (i.e. $\outpt(0)=0$ and $\dot{\outpt}(0)=0$), then the Laplace Transform of the equation is fairly easy: just turn each derivative into a power of $s$, as follows:
+\[
+s^{2}\outptLT(s) + 3s\outptLT(s) +2\outptLT(s) =  \inptLT(s).
+\]
+
+When we solve for $s$, we see that the Laplace Transform of the output is a function of $s$ times the Laplace Transform of the input. This function is called the {\em Transfer Function}
+\[
+\outptLT(s) = \underbrace{\frac{1}{s^{2}+3s+2}}_{\mbox{Transfer Function}}\inptLT(s).
+\]
+
+\mode<presentation>{
+\begin{frame}
+\[
+\ddot{\outpt} + 3\dot{\outpt} + 2\outpt = \inpt \quad \outpt(0)=0, \dot{\outpt}(0)=0
+\]
+\visible<2->{
+Laplace Transform Derivative Property: $\mathcal{L}\left\{\frac{d\outpt}{dt}\right\} = s\outptLT(s) - \cancelto{\tiny 0}{\outpt(0)}$
+}
+\begin{align*}
+\visible<3->{
+s^{2}\outptLT(s) + 3s\outptLT(s) +2\outptLT(s) &=  \inptLT(s)\\
+}
+\visible<4->{
+(s^{2}+3s+2)\outptLT(s) &=  \inptLT(s) \\
+}
+\end{align*}\vspace{-.5in}
+\visible<5->{
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) node {$\displaystyle\outptLT(s) = \frac{1}{s^{2}+3s+2}\inptLT(s)$};
+\visible<6->{\draw (0.25,-.1) node[circle,draw,color=red,minimum width=.75in,very thick] {};
+\draw (.25,1.1) node[color=red] {\textsf{Transfer Function}};}
+\end{tikzpicture}
+\end{center}
+}
+\end{frame}
+}
+
+In terms of our input and output signal and system block/arrow representation, we can visualize this example in the Laplace domain as
+\begin{frame}
+	\begin{center}
+		\input{figures/TFsystemandsignal2.tex}
+	\end{center}
+\end{frame}
+\noindent where $R(s)$ is the Laplace transform of the input signal, $Y(s)$ is the Laplace transform of the output signal, and the transfer function $G(s)  = \frac{1}{s^2 + 3s + 2}$ represents the system we are modeling. This diagram is an example of a \textit{block diagram}, which we will formalize in the upcoming Lecture~\BlockDiagramsNumber.
+
+\begin{frame}{Transfer function definition}
+\begin{definition}
+The {\em Transfer Function} ($G(s)$) of a (linear, time invariant) system is the ratio of the Laplace Transform of the output signal over the Laplace Transform of the input signal with zero initial conditions.
+\end{definition}
+\mode<presentation>{\[
+\visible<2->{\frac{\outptLT(s)}{\inptLT(s)} = \plant(s)} \quad \quad \visible<3->{\outptLT(s)= \plant(s)\inptLT(s)}
+\]}
+\end{frame}
+
+For the system described by the example differential equation above, the transfer function, $\plant(s)$ is
+\[
+\plant(s) = \frac{\outptLT(s)}{\inptLT(s)} = \frac{1}{s^{2}+3s+2}.
+\]
+Given the transfer function, and a system input $\inpt(t)$, we need only find the Laplace Transform, $\inptLT(s)$, and multiply it by $\plant(s)$ to get the Laplace Transform of the output, i.e.
+\[
+ \outptLT(s)= \plant(s)\inptLT(s).
+\]
+As we will see, the ability to use multiplication (algebra) instead of integration (calculus) to predict behavior of a system is one advantage of using transfer functions instead of differential equations in control systems. 
+
+\mode<presentation>{
+\begin{frame}{Finding the Transfer Function}
+\begin{itemize}[<+->]
+\item Current Method:
+\begin{itemize}
+\item Write down all the (differential) equations describing the system
+\item Eliminate all variables except input and output
+\item Find the Laplace Transform of the resulting differential equation
+\end{itemize}
+\item Impedance Method:
+\begin{itemize}
+\item Write down all the (differential) equations describing the system
+\item Take the Laplace Transform of these equations
+\item Eliminate all variables except input and output
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+}
+
+\section{Finding Transfer Functions Using Impedance
+\label{sec:findingTFs}}
+
+One way to find a transfer function is to first find the differential equation describing the system, transform the equation to the Laplace domain, then solve for the output using Laplace Transform techniques. However, rather than first using algebra to find a differential equation and then using Laplace Transforms, it is also possible to do the reverse: find the Laplace Transform of all components, and then use our algebraic rules to solve for the transfer function. This is best explained using examples. 
+
+We will start by looking at electrical systems. We have the following component laws:
+
+\begin{frame}{Electrical Components}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor \\\hline
+\rule{0pt}{14pt} Component law & $v=iR$ & $C\frac{dv}{dt} = i$ & $v=L\frac{di}{dt}$ \\
+\rule{0pt}{14pt} Laplace Transform & \visible<2->{$V(s)= RI(s)$} & \visible<3->{$CsV(s) = I(s)$} & \visible<4->{$V(s) = LsI(s)$}
+ \end{tabular}
+\end{center}
+\end{frame}
+
+Once in the Laplace domain, the relationship between current and voltage is algebraic for all elements. The ratio between the voltage and current for a particular element defines the behavior of that element.
+
+\begin{frame}
+\begin{definition}
+The {\em impedance} of an element is the ratio of the Laplace Transform of the across variable (voltage) over the Laplace Transform of the through variable (current)
+\end{definition}
+\end{frame}{}
+A common point of confusion arises from the fact that the ``block'' depiction of an impedance element looks similar to the block depiction of a system in a block diagram such as shown in Section~\ref{sec:TFs}. However, the two are not equivalent. In this lecture, we demonstrate the use of the impedance blocks to model system elements so they can be solved using circuit analysis concepts. 
+
+\mode<article>{\begin{frame}{Electrical Impedance}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor \\\hline
+\rule{0pt}{14pt} Impedance & $\frac{V(s)}{I(s)}=R$ & $\frac{V(s)}{I(s)} = \frac{1}{sC}$ & $\frac{V(s)}{I(s)} = Ls$ \\
+ \end{tabular}
+\end{center}
+\end{frame}}
+
+\mode<presentation>{\begin{frame}{Electrical Impedance}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor \\\hline
+ \rule{0pt}{14pt} Component law & $v=iR$ & $C\frac{dv}{dt} = i$ & $v=L\frac{di}{dt}$ \\
+\rule{0pt}{14pt} Laplace Transform & $V(s)= RI(s)$ & $CsV(s) = I(s)$ & $V(s) = LsI(s)$\\
+\rule{0pt}{14pt} Impedance & $\frac{V(s)}{I(s)}=R$ & $\frac{V(s)}{I(s)} = \frac{1}{sC}$ & $\frac{V(s)}{I(s)} = Ls$ \\
+ \end{tabular}
+\end{center}
+\end{frame}}
+
+
+\mode<presentation>{\begin{frame}
+\begin{center}
+\input{figures/seriescircuit}
+\end{center}
+\end{frame}}
+
+\mode<presentation>{\begin{frame}{Impedance Circuit}
+\begin{center}
+\input{figures/seriescircuitimpedance}
+\end{center}
+\end{frame}}
+
+
+The nice thing about using impedances is that since the relationship between variables and components is now algebraic, we can use any circuit solution technique valid for resistors. Some of the useful ones that you learned in your circuit class are the following:
+
+\begin{frame}{Impedances in series}
+\begin{center}
+\begin{tikzpicture}
+\draw (0,0) node (R1) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw (2,0) node (R2) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw (1,-1.5) node (R3) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+
+
+\draw (R1) node[above=6pt] {$Z_{1}(s)$};
+\draw (R2) node[above=6pt] {$Z_{2}(s)$};
+\draw (R1) -- (R2);
+
+\draw (R3) node[above=6pt] {$Z_{3}(s)$};
+\draw (4.5,-1.5) node {$Z_{3}(s) = Z_{1}(s)+Z_{2}(s)$};
+
+\end{tikzpicture}\end{center}
+\end{frame}
+
+\begin{frame}{Impedances in parallel}
+\begin{center}
+\begin{tikzpicture}
+\draw (-.24,0) node[inner sep=0pt, outer sep=0pt] (n1) {};
+\draw (2.25,0) node[inner sep=0pt, outer sep=0pt] (n2) {};
+\draw (1,.5) node[inner sep=0pt,outer sep=0pt] (R1) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw (1,-.5) node[inner sep=0pt,outer sep=0pt] (R2) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw (1,-2) node (R3) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+
+
+\draw (R1) node[above=6pt] {$Z_{1}(s)$};
+\draw (R2) node[above=6pt] {$Z_{2}(s)$};
+\draw[very thick] (R1.180) |- (n1);
+\draw[very thick] (R2.180) |- (n1);
+\draw[very thick] (R1.0) |- (n2);
+\draw[very thick] (R2.0) |- (n2);
+
+\draw (R3) node[above=6pt] {$Z_{3}(s)$};
+\draw (4.5,-2) node {$Z_{3}(s) =\displaystyle \frac{Z_{1}(s)Z_{2}(s)}{Z_{1}(s)+Z_{2}(s)}$};
+
+\end{tikzpicture}\end{center}
+\end{frame}
+
+\begin{frame}{Voltage Divider}
+\begin{center}
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+\draw (0,-1) node[scale=.75] (V) {\input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (1,0) node (R1) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw (2,-1) node (R2)[rotate=90] {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+
+
+
+\draw (R1) node[above=6pt] {$Z_{1}(s)$};
+\draw (R2) node[left=6pt] {$Z_{2}(s)$};
+\draw (V) node[left=12pt] {$V_{in}(s)$};
+\draw (R2) ++(.5,0) node[right] {$V_{out}(s)=\displaystyle\frac{Z_{2}(s)}{Z_{1}(s)+Z_{2}(s)}V_{in}(s)$};
+\draw (R2) ++(.5,1) node[right] {$+$};
+\draw (R2) ++(.5,-1) node[right] {$-$};
+\draw[very thick] (V.90) |- (R1.180);
+\draw[very thick] (R1.0) -| (R2.0);
+\draw[very thick] (R2.180) -| (V.-90);
+
+\end{tikzpicture}\end{center}
+\end{frame}
+
+\begin{frame}{Current Divider}
+\begin{center}
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+\draw (-1,-1) node[scale=.75] (V) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}};
+\draw (1,-1) node (R1)[rotate=90]  {\input{\mainfolder/DrawingElements/CircuitElements/impedance.tex}};
+\draw (3,-1) node (R2)[rotate=90] {\input{\mainfolder/DrawingElements/CircuitElements/impedance.tex}};
+
+
+
+\draw (R1) node[left=6pt] {$Z_{1}(s)$};
+\draw (R2) node[left=6pt] {$Z_{2}(s)$};
+\draw (V) node[left=12pt] {$I_{in}(s)$};
+\draw (R2) ++(.5,0) node[right] {$I_{out}(s)= \displaystyle \frac{Z_{1}(s)}{Z_{1}(s)+Z_{2}(s)}I_{in}(s)$};
+\draw (R2) ++(.35,0) node {$\downarrow$};
+\draw[very thick] (V.90) |- (R1.0);
+\draw[very thick] (R1.0) -| (R2.0);
+\draw[very thick] (R2.180) -| (V.-90);
+
+\end{tikzpicture}\end{center}
+\end{frame}
+
+Lets try and apply these to the following example:
+
+\begin{example}
+Find the transfer function relating $V_{out}(s)/V_{in}(s)$ for the following circuit.
+
+\begin{center}
+\input{figures/seriescircuit}
+\end{center}
+
+Step 1: Convert all variables to Laplace variables and all elements to impedances. 
+
+\begin{frame}{Impedance Circuit}
+\begin{center}
+\input{figures/seriescircuitimpedance}
+\end{center}
+\end{frame}
+
+
+Step 2: Using circuit simplification rules, eliminate all variables except input and output. For example, since $R$ and $sL$ are in series, they can be replaced with the equivalent impedance $R+sL$. IMPORTANT CHECK: this replacement does not eliminate the input $V_{in}(s)$ or $V_{out}(s)$ - we need these signals to remain!
+
+\begin{frame}{Circuit with Equivalent Impedance}
+\begin{center}
+\input{figures/seriescircuitsolution}
+\end{center}
+\mode<presentation>{\visible<2->{
+\[
+\frac{V_{out}(s)}{V_{in}(s)} = \frac{\frac{1}{sC}}{\frac{1}{sC} + R+sL} = \frac{1}{s^2LC + sRC +1}.
+\]}}
+\end{frame}
+
+Now the voltage divider rule can be used to find the desired transfer function
+\[
+\frac{V_{out}(s)}{V_{in}(s)} = \frac{\frac{1}{sC}}{\frac{1}{sC} + R+sL} = \frac{1}{s^2LC + sRC +1}.
+\]
+\end{example}
+
+
+The circuit analysis methods you learned in your introductory circuits course will be sufficient for this course. If you need a refresher, see the resources listed in Section \ref{sec:Resources}, and/or read about Nodal and Mesh analysis in the Appendix.
+
+\mode<presentation>{\backupbegin}
+
+Here are some more examples using circuit simplification rules, with both voltage and current sources.
+
+\begin{example} 
+Find the transfer function $V_{out}(s)/V_{in}(s)$ for the following circuit.
+\begin{frame}
+\begin{center}
+\input{figures/circuitdiagram.tex}
+\end{center}
+\end{frame}
+
+The equivalent impedance for the resistor and capacitor in parallel is
+\[
+Z_{eq}(s) = \frac{\frac{1}{sC_{1}}R_{1}}{\frac{1}{sC_{1}}+R_{1}} = \frac{R_{1}}{1+sR_{1}C_{1}}.
+\]
+Then, using the voltage divider rule,
+\[
+\frac{V_{out}(s)}{V_{in}(s)} = \frac{R_{2}}{R_{2}+\frac{R_{1}}{1+sR_{1}C_{1}}} = \frac{R_{2}+sR_{1}R_{2}C_{1}}{R_{1}+R_{2}+sR_{1}R_{2}C_{1}}.
+\]
+
+\end{example}
+
+
+\begin{example}Find the transfer function $V_{out}(s)/I_{in}(s)$ for the following circuit
+\begin{frame}
+\begin{center}
+\input{figures/circuitdiagram2.tex}
+\end{center}
+\end{frame}
+Our first step is to convert the elements to impedances. 
+\begin{frame}
+\begin{center}
+\input{figures/circuitdiagram2admittance.tex}
+\end{center}
+\end{frame}
+
+Our objective is to find the voltage $V_{out}(s)$. Since this is the voltage across all three elements, we can combine them without eliminating the variable of interest, so we do it!
+\begin{frame}
+\begin{center}
+\input{figures/circuitdiagram2admittance2.tex}
+\end{center}
+\end{frame}
+The voltage across an element is equal to the current through it, times the impedance, so we can write
+\begin{align*}
+V_{out}(s) &= \frac{1}{sC+\frac{1}{R}+\frac{1}{sL}}I_{in}(s)\\
+ &= \frac{sRL}{s^{2}RLC+sL+R}I_{in}(s)
+\end{align*}
+So our transfer function is
+\[
+\frac{V_{out}(s)}{I_{in}(s)} =  \frac{sRL}{s^{2}RLC+sL+R}
+\]
+
+\end{example}
+
+\section{System Analogies}
+Thus far, we have modeled translational mechanical and electrical systems using lumped, linear elements. Some commonalities between the two (that will also apply to other systems we model later) include:
+\begin{itemize}
+	\item Two variables are important.
+	\item Each element relates these two variables via a linear algebraic or differential relationship.
+	\item There are two connection rules that govern how the two variables are related at a connection point.
+\end{itemize}
+We can use these commonalities to come up with a modeling method that could applied to all of domains in the course. 
+
+\subsection{Generic Modeling Elements}
+Physical system modeling requires us to keep track of two variables. The one that is measured on each side of an element is called the {\em across} variable, and the one whose magnitude is the same on each side is the {\em through} variable. The component law is a linear algebraic or differential relationship between these two variables.
+\begin{frame}{Generic Lumped Element}
+\begin{center}
+	\input{figures/genericelement.tex}
+\end{center}
+\end{frame}
+
+When the components are connected, we apply generic connection rules to the across and through variables.
+\begin{frame}{Generic Connection Rules}
+\begin{center}
+\input{figures/genericconnection.tex}
+\end{center}
+\end{frame}
+\begin{itemize}
+\item When elements are connected, the two components share the same {\em across variable}. 
+\item When elements are connected, the {\em through variables} sum to zero. 
+\item Boundary conditions can set either the across or through variables on one side of a component
+\end{itemize}
+
+The following table lists the across and through variables for the modeling domains that we will discuss in this course.
+\begin{frame}{Across and Through Variables}
+\begin{center}
+\begin{tabular}{c|c|c}
+Domain & Across Variable & Through Variable \\\hline\hline
+Electrical & Voltage & Current \\\hline
+Translational Mechanical & Position & Force \\\hline
+Fluid & Pressure & Flow \\\hline
+Rotational Mechanical & Angular Position & Torque \\\hline
+Thermal & Temperature & Heat Flow \\\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+By utilizing variables that have the same function in different domains, we can come up with system analogies, which we will do in forthcoming lectures. We can then use impedance rules from Section~\ref{sec:findingTFs} to generate the transfer functions for systems in different domains.
+
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item A {\em transfer function} is a fundamental concept in control systems. It is a mathematical relationship (in the Laplace domain) between an input variable (signal) and an output variable (signal). 
+\item By definition, this transfer function is found with \textit{zero initial conditions}.
+\item Transfer functions can be found directly from differential equation models of systems. 
+\item In this class, we also introduce the Impedance technique for finding transfer functions. Impedance techniques allow us to use circuit analysis, which can sometimes provide more straightforward processes for finding transfer functions for more complex systems.
+\end{enumerate}
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Find the transfer function $\frac{V_{o}(s)}{V_{in}(s)}$
+\begin{center}
+\input{quizfigures/circuitdiagramalt.tex}
+\end{center}
+\item Find the transfer function $\frac{I_{out}(s)}{I_{in}(s)}$
+\begin{center}
+\input{quizfigures/circuitproblem2.tex}
+\end{center}
+\item The following circuit models transmission line. Find the transfer function from input voltage $v_{in}$ to output voltage $v_{out}$ (i.e. $V_{out}(s)/V_{in}(s)$.)
+\begin{center}
+\input{quizfigures/circuitproblem1.tex}
+\end{center}
+\item Find the transfer function $I_{out}(s)/I_{in}(s)$ for the following circuit.
+	\begin{center}
+		\input{quizfigures/circuitdiagram3.tex}
+	\end{center}
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=5in]{quizfigures/quiz1a}\\
+\includegraphics[width=5in]{quizfigures/quiz1b}
+\end{center}
+\item Solution is via current divider rule
+\begin{align*}
+I_{out}(s)& = \frac{\frac{1}{sC}}{R+\frac{1}{sC}}I_{in}(s) \\
+& =\frac{1}{sRC+1}I_{in}(s)
+\end{align*}
+Thus
+\[
+\frac{I_{out}(s)}{I_{in}(s)} = \frac{1}{sRC+1}
+\]
+\pagebreak
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=5in]{quizfigures/quiz2a}\\
+\includegraphics[width=5in]{quizfigures/quiz2b} \\
+\begin{flushleft}
+From the output equation (above):
+\end{flushleft}
+\[
+I_2(s) = \left( 2s+1 \right) V_{out}(s)
+\]
+\begin{flushleft}
+Plug into previous equation for $V_{in}(s)$ and simplify:
+\end{flushleft}
+\[
+V_{in}(s) = \frac{4s^2+6s+1-1}{2s} \left( 2s+1 \right) V_{out}(s) 
+\]
+\[
+\frac{V_{in}(s)}{V_{out}(s)} = \frac{\left( 4s^2+6s \right) \left( 2s+1 \right)}{2s} 
+\]
+\[
+\frac{V_{out}(s)}{V_{in}(s)} = \frac{1}{\left( 2s+3 \right) \left( 2s+1 \right)}
+\]
+\end{center}
+\item The equivalent impedance for the resistor and capacitor in parallel is
+\[
+Z_{eq}(s) = \frac{1}{sC+\frac{1}{R}} = \frac{R}{sCR+1}.
+\]
+Then, using the current divider rule,
+\[
+\frac{I_{out}(s)}{I_{in}(s)} = \frac{\frac{R}{sCR+1}}{sL+ \frac{R}{sCR+1}} = \frac{R}{s^{2}LCR + sL +R}.
+\]
+
+\end{enumerate}
+
+\section{Resources}\label{sec:Resources}
+
+\subsection{Books}
+As discussed in this lecture, impedance is simply a technique of applying the Laplace Transform to the component laws. This is a standard technique in circuits, and is covered in introductory controls and circuits textbooks.
+
+\begin{itemize}
+\item Norman S. Nise, {\em Control Systems Engineering}, Wiley
+\begin{itemize}
+\item 7th edition: Section 2.4
+\end{itemize}
+\item James W. Nilsson and Susan A. Riedel, {\em Electric Circuits}, Pearson
+\begin{itemize}
+\item 10th edition: Chapter 13
+\end{itemize}
+\end{itemize}
+
+\subsection{Web resources}
+There are also some web resources that cover impedance. If you find something useful, or if you find a link that no longer works, please inform your instructor!
+
+
+\begin{itemize}
+\item Some YouTube videos on circuits:
+\begin{itemize}
+\item \url{https://www.youtube.com/watch?v=-PiB2Xd3P94}
+\item \url{https://www.youtube.com/watch?v=CZgqGTxL9cA}
+\end{itemize}
+\item From MIT open courseware, a 50 minute \href{http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-002-circuits-and-electronics-spring-2007/video-lectures/lecture-17/}{introductory lecture} on impedance. 
+\end{itemize}
+
+\newpage
+\section{Appendix: Mesh and Nodal Equations}
+
+(This section is supplemental material.)
+
+Although we can always use our circuit simplification rules (elements in series, elements in parallel, voltage divider, etc.) to find a transfer function, these cannot always be used to solve every circuit. There are two systematic methods for writing down the algebraic equations that describe a system in a matrix/vector format that can always then be solved for the desired input/output relationship. The first method uses mesh equations.
+
+\subsection{Circuit Mesh}
+
+Any time a circuit forms a loop, the fact that voltages are uniquely defined at a node means that the voltages around the node sum to zero (also known as Kirchhoff's voltage law). For example, the following is a mesh.
+
+\begin{frame}{Mesh example}
+\begin{center}
+	\input{figures/genericmesh.tex}
+\end{center}
+\end{frame}
+As we add the voltages, we have to pay attention to the sign - whether the voltage is an increase or decrease as we go around the mesh. Starting from the low left corner and moving clockwise, we increase by voltage $v_{1}$, then decrease by $v_{2}$ and $v_{3}$. Thus, the mesh equation is
+\[
+v_{1} - v_{2} - v_{3} = 0.
+\]
+
+Impedances and meshes allow us to quickly write down the equations that define a circuit. This is best explained via an example.
+
+\subsubsection{Circuit Problem}
+
+\begin{frame}{Circuit problem}
+\begin{center}
+\input{figures/circuitproblem.tex}
+\end{center}
+\end{frame}
+
+This circuit has two (unique) meshes. One mesh is the loop containing the applied voltage, resistor and capacitor, while the second mesh is the loop that contains the capacitor and inductor. 
+
+To find the equations describing the circuit behavior, we convert the elements to impedances and define the currents around each mesh. Two equations can be written by summing the voltages around each mesh.
+
+\begin{frame}{Circuit problem in impedance form}
+\begin{center}
+\input{figures/circuitproblemimpedance.tex}
+\end{center}
+\end{frame}
+
+Now let's isolate each mesh.
+
+\begin{frame}{Two meshes}
+\begin{center}
+\input{figures/circuitproblem2mesh.tex}
+\end{center}
+\end{frame}
+Note that for the capacitor, the connection laws imply that the current through the capacitor is the difference between $I_{1}$ and $I_{2}$. 
+Since the voltage drop is always in the same direction as the current, in the left hand mesh, we go up $V_{in}$ volts, and then down $I_{1}(s)R$ and $(I_{1}(s)-I_{2}(s))\frac{1}{sC}$ volts, so that
+\[
+V_{in}(s) - I_{1}(s)R - (I_{1}(s)-I_{2}(s))\frac{1}{sC} = 0.
+\]
+For the right hand mesh, we go up $(I_{1}(s)-I_{2}(s))\frac{1}{sC}$ and down $I_{2}sL$, so that
+\[
+(I_{1}(s)-I_{2}(s))\frac{1}{sC} - I_{2}sL = 0.
+\]
+
+By putting these equations into matrix-vector form, some patterns become obvious that can help us write down the equations more quickly. To do this, first we collect terms that multiply the same current
+\begin{align*}
+V_{in}(s) - \left(R+\frac{1}{sC}\right)I_{1}(s) + \frac{1}{sC}I_{2}(s) &=0,\\
+\frac{1}{sC}I_{1}(s) - \left(\frac{1}{sC} + sL\right)I_{2}(s) & =0.
+\end{align*}
+By moving all the current terms to the other side of the equation, the mesh equations have the following form:
+\[
+\begin{bmatrix} V_{in}(s) \\ 0 \end{bmatrix} = \begin{bmatrix} R + \frac{1}{sC} & -\frac{1}{sC} \\ -\frac{1}{sC} & \frac{1}{sC} + sL \end{bmatrix} \begin{bmatrix} I_{1}(s) \\ I_{2}(s) \end{bmatrix}
+\]
+\begin{frame}{Patterns of mesh equations}
+\begin{itemize}
+\item the matrix is symmetric
+\item the diagonal terms are positive
+\item the off-diagonal terms are negative 
+\end{itemize}
+\begin{center}
+\input{figures/meshequations.tex}
+\end{center}
+\end{frame}
+Since the system output of interest is not one of the mesh currents, we need to augment these equations with an ``output equation'' that relates the mesh currents to the output,
+\[
+V_{out}(s) = sL I_{2}(s).
+\]
+
+Now we can find the transfer function from $V_{in}$ to $V_{out}$ by first solving for $I_{2}(s)$ in the mesh equations, and then plugging it into the output equations. For example, writing out the matrix/vector equations, we have
+\begin{align*}
+V_{in}(s) &= \left(R+\frac{1}{sC}\right)I_{1}(s) - \frac{1}{sC}I_{2}(s),\\
+0 &= -\frac{1}{sC}I_{1}(s) +\left(\frac{1}{sC}+sL\right)I_{2}(s).
+\end{align*}
+Using the second equation, we can solve for $I_{1}(s)$,
+\begin{align*}
+I_{1}(s) &= \frac{\left(\frac{1}{sC}+sL\right)}{\frac{1}{sC}}I_{2}(s), \\
+& = (1+s^{2}LC)I_{2}(s).
+\end{align*}
+Plugging into the first mesh equation,
+\begin{align*}
+V_{in}(s) &= \left(R+\frac{1}{sC}\right)\left(1+s^{2}LC\right)I_{2}(s) - \frac{1}{sC}I_{2}(s),\\
+&= \left(R+s^{2}RLC+sL\right)I_{2},
+\end{align*}
+so that the transfer function from $V_{in}$ to $I_{2}$ is
+\[
+\frac{I_{2}(s)}{V_{in}(s)} = \frac{1}{s^{2}RLC + sL +R}.
+\]
+Since the output equation gives us
+\[
+\frac{V_{out}(s)}{I_{2}(s)} = sL,
+\]
+the transfer function from input voltage to output voltage is
+\[
+\frac{V_{out}(s)}{V_{in}(s)} = \frac{V_{out}(s)}{I_{2}(s)}\frac{I_{2}(s)}{V_{in}(s)} = \frac{sL}{s^{2}RLC + sL +R}.
+\]
+\subsubsection{Another Circuit}
+
+\begin{frame}{A Circuit with three meshes}\vspace{-.2in}
+\begin{center}
+\input{figures/circuitproblem3mesh.tex}
+\end{center}
+\end{frame}
+Find the mesh equations for this circuit.\vspace{.1in}\\
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{1.5in}
+\color{lightgray}
+\begin{align*}
+\begin{bmatrix} V_{in}(s) \\ 0 \\ 0 \end{bmatrix} &= \begin{bmatrix} 1+\frac{1}{s} & -\frac{1}{s} & 0 \\
+-\frac{1}{s} & \frac{1}{s} +5 & -2 \\
+0 & -2 & 2+2s \end{bmatrix}\begin{bmatrix} I_{1}(s) \\ I_{2}(s) \\ I_{3}(s) \end{bmatrix}\\
+V_{out}(s) &= 2sI_{3}(s)
+\end{align*}
+
+\end{boxedminipage}\\
+}{\begin{boxedminipage}{6.5in}
+\begin{align*}
+\begin{bmatrix} V_{in}(s) \\ 0 \\ 0 \end{bmatrix} &= \begin{bmatrix} 1+\frac{1}{s} & -\frac{1}{s} & 0 \\
+-\frac{1}{s} & \frac{1}{s} +5 & -2 \\
+0 & -2 & 2+2s \end{bmatrix}\begin{bmatrix} I_{1}(s) \\ I_{2}(s) \\ I_{3}(s) \end{bmatrix}\\
+V_{out}(s) &= 2sI_{3}(s)
+\end{align*}
+\end{boxedminipage}
+}
+
+\subsection{Circuit Nodes}
+
+Any time two or more elements are connected, the common voltage defines a node. At this node, the currents sum to zero (also known as Kirchhoff's current law). For example, the following is a node
+
+\begin{frame}{Node example}
+\begin{center}
+\input{figures/genericnode.tex}
+\end{center}
+\end{frame}
+As we add the currents, we have to pay attention to the direction. All the currents that are directed into the node should have one sign, and all the currents that go out of the node have the opposite sign. Thus, the node equation is
+\[
+i_{1} + i_{2} - i_{3} = 0.
+\]
+
+Node equations can also be used to quickly write down the equations for a circuit. This is best explained via an example
+
+
+\subsubsection{Circuit Problem}
+
+\begin{frame}{Circuit problem}
+\begin{center}
+\input{figures/circuitproblem2.tex}
+\end{center}
+\end{frame}
+
+This circuit has three nodes, but only two of them will give us useful equations, as one node will play the role of a reference, or ground. 
+
+To find the equations describing the circuit behavior, we convert the elements to impedances and define the voltages at each node. Two equations can be written by summing the currents at each node.
+
+\begin{frame}{Circuit problem in impedance form}
+\begin{center}
+\input{figures/circuitproblemadmittance.tex}
+\end{center}
+\end{frame}
+
+Sometimes, you will also see the inverse of the impedance used. This is called the admittance.
+
+\begin{definition}
+The {\em admittance} of an element is the ratio of the Laplace Transform of the through variable (current) over the Laplace Transform of the across variable (voltage)
+\end{definition}
+
+\begin{center}
+\begin{tabular}{c|ccc}
+& resistor & capacitor & inductor \\\hline
+\rule{0pt}{14pt} Admittance & $\frac{I(s)}{V(s)}=\frac{1}{R}$ & $\frac{I(s)}{V(s)} = sC $ & $\frac{I(s)}{V(s)} =\frac{1}{Ls}$ \\
+\end{tabular}
+\end{center}
+
+
+At node $V_{1}(s)$, the current entering is $I_{in}(s)$, while the current leaving is $\frac{V_{1}(s) - V_{2}(s)}{R}$. Thus,
+\[
+I_{in}(s) - \frac{V_{1}(s) - V_{2}(s)}{R} = 0.
+\]
+At node $V_{2}(s)$,
+\[
+\frac{V_{1}(s) - V_{2}(s)}{R} - \frac{V_{2}(s)}{\frac{1}{sC}} - \frac{V_{2}(s)}{sL} = 0.
+\]
+
+By putting these equations into matrix-vector form, some patterns become obvious that can help us write the equations more quickly. To do this, first collect terms that multiply the sample voltage:
+\begin{align*}
+I_{in}(s) - \frac{1}{R}V_{1}(s) + \frac{1}{R}V_{2}(s) &= 0\\
+\frac{1}{R}V_{1}(s) - \left(\frac{1}{R} + sC +\frac{1}{sL}\right)V_{2}(s)& = 0
+\end{align*}
+By moving all the voltage terms to the other side of the equation, the node equations have the following form
+\[
+\begin{bmatrix} I_{in}(s) \\ 0 \end{bmatrix} = \begin{bmatrix} \frac{1}{R} & -\frac{1}{R} \\
+-\frac{1}{R} & \frac{1}{R} + sC + \frac{1}{sL} \end{bmatrix} \begin{bmatrix}V_{1}(s) \\ V_{2}(s) \end{bmatrix}
+\]
+
+\begin{frame}{Patterns of node equations}
+\begin{itemize}
+\item the matrix is symmetric
+\item the diagonal terms are positive
+\item the off-diagonal terms are negative 
+\end{itemize}
+\begin{center}
+\input{figures/nodeequations.tex}
+\end{center}
+\end{frame}
+
+The output equation in this case is easy:
+\[
+V_{out}(s) = V_{2}(s)
+\]
+
+To find the transfer function from $I_{in}(s)$ to $V_{out}(s)$, we simply need to eliminate $V_{1}(s)$ in the nodal equations
+
+%\tryit{
+%\begin{boxedminipage}{6.5 in}
+%\rule{0pt}{12pt}\vspace{1.5in}
+%\color{lightgray}
+%\begin{align*}
+%\frac{V_{out}(s)}{I_{in}(s)} & = \frac{V_{2}(s)}{I_{in}(s)} = \frac{sL}{s^{2}LC +1}
+%\end{align*}
+%\end{boxedminipage}\\
+%}{\begin{boxedminipage}{6.5in}
+\begin{align*}
+V_{1}(s) &= \left(1+sRC+\frac{R}{sL}\right)V_{2}(s)
+\end{align*}
+Thus
+\begin{align*}
+I_{in}(s) &=  \left(\frac{1}{R} + sC +\frac{1}{sL}\right)V_{2} - \frac{1}{R}V_{2}\\
+& =  \left( sC +\frac{1}{sL}\right)V_{2} 
+\end{align*}
+Thus
+\begin{align*}
+\frac{V_{out}(s)}{I_{in}(s)} & = \frac{V_{2}(s)}{I_{in}(s)} = \frac{sL}{s^{2}LC +1}
+\end{align*}
+%\end{boxedminipage}
+%}
+
+\mode<presentation>{\backupend}
+
+
+
+
+\end{document}
+
+

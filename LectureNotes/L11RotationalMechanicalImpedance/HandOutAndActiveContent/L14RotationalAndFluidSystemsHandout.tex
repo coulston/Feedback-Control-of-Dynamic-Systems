@@ -1,0 +1,66 @@
+\documentclass[letter]{article}
+\input{../../../commonheader.tex}
+\setboolean{PrintExample}{false}
+
+
+\title[Lecture~\RotationalAndFluidSystemsNumber~Handout] % (optional, use only with long paper titles)
+{\course: Lecture~\RotationalAndFluidSystemsNumber~Handout} %\license}
+
+
+
+\begin{document}
+	
+
+	\maketitle
+
+
+\section{Impedance Tables}
+
+\begin{frame}{Rotational Mechanical Systems}
+\begin{center}
+\resizebox{13cm}{!}{	
+	\begin{tabular}{c|ccc}
+			& mass & spring & damper \\\hline
+			Component & \begin{minipage}[b]{.75in}\input{../figures/inertia.tex}\\\vspace{.1in}\end{minipage} & \input{../figures/rotspring.tex} & \input{../figures/rotdamper.tex}\\\hline
+%			\rule{0pt}{12pt} Component Law & $J\ddot{\theta} = \tau$ & $\tau = k\theta$ & $\tau = b\dot{\theta}$ \\\hline
+%			\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+			\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+					(force direction agrees with positive direction)\end{center}
+			\end{minipage}
+			& \input{../figures/inertiaimpedance.tex} & \input{../figures/rotspringimpedance.tex} & \input{../figures/rotdamperimpedance.tex}
+	\end{tabular}
+}
+\end{center}
+\end{frame}
+
+\begin{frame}{Fluid Impedances}
+	\begin{center}
+\resizebox{13cm}{!}{	
+		\begin{tabular}{c|cc}
+				& valve & tank \\\hline
+				Component &\input{../figures/valve2.tex} & \input{../figures/tank2.tex} \\\hline
+%				\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Component law & $p=Rq$ & $\frac{A}{\rho g}\frac{dp}{dt} = q_{in} - q_{out}$ \\\hline
+%				\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $P(s)= RQ(s)$ & $\frac{A}{\rho g}sP(s) = Q_{in}(s)-Q_{out}(s)$ \\\hline
+				Impedance Component & \input{../figures/valveanalogycopy.tex} & \input{../figures/tankanalogycopy.tex}
+		\end{tabular}
+}
+	\end{center}
+\end{frame}
+
+
+\newpage
+
+\begin{tabular}[b]{|p{0.9in}|c|c|} \hline
+	 & Rotational Mechanical Example & Fluid Example \\\hline
+	Sketch an equivalent impedance network for the systems represented by: & \resizebox{2.45in}{!}{\input{../figures/diskdrivediagram.tex}}   
+	& %\textit{Example:} Find the equivalent impedance model of the tank and valve system below with input flow $q_{in}$ and output flow $q_{out}$. 
+	\resizebox{2.45in}{!}{\input{../figures/tankandvalve}}	 \\\hline
+	Step 1: Identify all necessary nodes & \rule{0pt}{0.6in} & \\\hline
+	Step 2: Sketch all nodes, including a ground node & \rule{0pt}{1.5in} & \\\hline
+	Step 3: Connect all elements, both passive and active (source), between the nodes they connect. Label impedances. & \rule{0pt}{2in} & \\\hline
+\end{tabular}
+
+In both cases, Step 4 would then usually be to use impedance rules (parallel, series, voltage division, and current division) to find the relevant transfer function(s).
+
+
+\end{document}  

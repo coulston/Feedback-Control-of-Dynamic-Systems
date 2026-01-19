@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\input{../commonheaderCC}
+\usepackage{lscape}
+\usepackage{longtable}
+
+%\setlength{\topmargin}{-.5in}
+%\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\evensidemargin}{-0.25in}
+%\setlength{\textwidth}{10in}
+
+
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{landscape}
+\begin{longtable}{l|l|p{2cm}|p{2cm}|p{3cm}|p{2.5cm}|l}
+Function & Canonical form & Parameters & Type & Roots & Performance & Graph  \\\hline
+$G_0 = \frac{10}{s+10}$ 				& 
+$G_0 = 1*\frac{10}{s+10}$ 				& 
+$\sigma = 10$ 								& 
+First order									&
+$s=-10$ 										& 
+$t_r = 2.2/10$ $t_s = 4.6/10$ 		& 
+\includegraphics{./figures/L13g0.pdf}	 \\ \hline
+
+$G_1 = \frac{100}{(s+10)^2}$ 						& 
+$G_1 = 1*\frac{10^2}{s^2+2*1*10s+10^2}$ 		& 
+$\omega_n = 10$   $\zeta=1$  $k=1$			& 
+Second order  critically damped							& 
+$s=-10$, $s=-10$ 										&  
+N/A											&
+\includegraphics{./figures/L13g1.pdf}	 \\ \hline
+
+$G_2 = \frac{50}{s^2+2s+100}$ 													& 
+$G_2 = \frac{1}{2}*\frac{10^2}{s^2 + 2*\frac{1}{20}*10s+10^2}$ 		& 
+$\omega_n = 10$  $\zeta=\frac{1}{20}$  $k=\frac{1}{2}$  & 
+Second order  under damped					&
+$s=-0.5\pm 10j$ 																			& 
+$t_r = 2.2/10$  $t_s = 4.2/ \frac{1}{2}$ 											& 
+\includegraphics{./figures/L13g2.pdf}	 \\ \hline
+
+$G_3 = \frac{10}{s^2+4}$ 														& 
+$G_3 = \frac{10}{4}*\frac{2^2}{s^2 + 2*0*2s+2^2}$ 					& 
+$\omega_n = 2$ $\zeta=0$  $k=\frac{10}{4}$ 								& 
+Second order  unstable						&
+$s=\pm 2j$ 																				& 
+N/A																		& 
+\includegraphics{./figures/L13g3.pdf}	 \\ \hline
+
+$G_4 = \frac{100}{s^2 - s + 100}$ 						& 
+$G_4 = 1*\frac{10^2}{s^2+2*\frac{-1}{20}*10s+10^2}$ 		& 
+$\omega_n = 10$  $\zeta=\frac{-1}{20}$  $k=1$					& 
+Second order  unstable							& 
+$s= 0.5 \pm 10j$ 										&  
+N/A											&
+\includegraphics{./figures/L13g4.pdf}	 \\ \hline
+
+$G_5 = \frac{10}{s-10}$ 				& 
+$G_5 = 1*\frac{10}{s-10}$ 				& 
+$\sigma = -10$ 								& 
+First order  unstable					&
+$s=10$ 										& 
+N/A 							& 
+\includegraphics{./figures/L13g5.pdf}	 \\ \hline
+
+$G_6 = \frac{32}{s^2+4s+16}$ 													& 
+$G_6 = 2*\frac{4^2}{s^2 + 2*\frac{1}{2}*4s+4^2}$ 		& 
+$\omega_n = 4$  $\zeta=\frac{1}{2}$  $k=2$ 				& 
+Second order under damped		&
+$s=-0.5\pm 3.46j$ 																			& 
+$t_r = 2.2/4$  $t_s = 4.2/13$ $k=2$ 											& 
+\includegraphics{./figures/L13g6.pdf}	 \\ \hline
+
+\end{longtable}
+\end{landscape}
+\end{document}

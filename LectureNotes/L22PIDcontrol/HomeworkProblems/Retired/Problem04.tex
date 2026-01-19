@@ -1,0 +1,24 @@
+You are to design a Proportional/Integral (PI) control system for an oven that has a heater with controllable heat input $\dot{Q}$. This oven is for industrial processes that require the oven to precisely follow desired temperature trajectories. The desired specifications are:
+\begin{itemize}
+\item Settling time equal to 10 seconds
+\item Steady state error for unit ramp input equal to 0.1 degrees
+\end{itemize}\vspace{.05in}
+\begin{center}
+\begin{tikzpicture}
+\draw[pattern=bricks]  (-2,-2) -- ++(0,4) -- ++(4,0) -- ++(0,-4)  -- cycle (-1.75,-1.75) -- ++(3.5,0) -- ++(0,3.5) -- ++(-3.5,0) -- cycle;
+
+\draw (-1,0) node[rectangle,draw,inner sep=2pt,outer sep=0,rotate=90,pattern=north west lines] (coil) {\rule{1in}{0pt}};
+%\draw[very thick] (coil.0) -- ++(0,.01) -- ++(-2,0) node [left=4pt] {$+$};
+%\draw[very thick] (coil.180) -- ++(0,-.01) -- ++(-2,0) node [left=4pt] {$-$};
+\draw[->,very thick] (-1.25,0) -- ++(.5,0) node[right] {$\dot{Q}_in$};
+\draw (.85,0) node {$T_{o}$};
+\draw (3,0) node {$T_{a}$};
+
+\end{tikzpicture}\end{center}
+The oven has a thermal capacitance of $10$ J/K, and the thermal resistance to the outside is $44$  (m$^2$K)/W. 
+\begin{enumerate}
+\item Find the transfer function for the oven from input $\dot{Q}_{in}$ to output $T_{o}$. (We will ignore variations in $T_{a}$ for this problem) 
+\item Draw a block diagram that represents the PI feedback control system. Include the reference signal for the desired temperature $T_{d}(s)$
+\item Find the gains for your controller that achieve the desired closed loop specifications
+\item Implement your feedback system directly in Matlab or using Simulink.  Plot the response to a reference step input. %For Simulink help, follow the example in Sections 5 and 6 of Lecture \PIDControlNumber (\PIDControlName). 
+\end{enumerate}

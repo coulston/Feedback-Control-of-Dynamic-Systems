@@ -1,0 +1,28 @@
+\begin{tikzpicture}[>=latex,scale=.8]
+\draw[->] (-1,0) -- (4,0) node[below=3pt] {$x$};
+\draw[->] (0,-1) -- (0,3) node[left=3pt] {$f$};
+\draw (3,-.1) node[below=4pt] (opx) {$\bar{x}$} -- ++(0,.2);
+\draw (2,-1.5) node (opxtext) {operating point};
+\draw (-.1,2) node[left=4pt] (opf) {$\bar{f}$} -- ++(.2,0);
+\draw (-1.5,1) node (opftext) {\begin{minipage}{1in}\begin{center}operating\\<all>point\end{center}\end{minipage}};
+\draw[->] (opxtext.90) -- (opx);
+\draw[->] (opftext.90) -- (opf);
+\draw (-1,-.5) .. controls (-.4,-.4) .. (0,0) ..  controls (1,1) and (2,1.5) .. (3,2) .. controls (3.5,2.2) .. (4,2.4);
+\draw[very thick] (3,2) ++(-.75,-.34) -- ++(1.5,.68);
+
+\draw (3,2) ++(.35,.35) node[very thick, draw=green, circle,outer sep=0] (circ1) {\rule{0cm}{2.25cm}};
+\draw (8.5,1) node[very thick, draw=green, circle,outer sep=0] (circ2) {\rule{0cm}{4cm}};
+
+\draw[->] (3,2) ++(-.5,0) -- ++(1.8,0) node[below=1pt] {$\delta x$};
+\draw[->] (3,2) ++(0,-.5) -- ++(0,1.8) node[left=1pt] {$\delta f$};
+
+\draw[color=green] (circ1.90) -- (circ2.90);
+\draw[color=green] (circ1.-120) -- (circ2.-120);
+
+\draw[->] (7.5,.25) ++(-1,0) -- ++(4,0) node[below=3pt] {$\delta x$};
+\draw[->] (7.5,.25) ++(0,-1) -- ++(0,3.5) node[left=3pt] {$\delta f$};
+\draw[very thick] (7.5,.25) ++(204.3:1) -- ++(24.3:4);
+\draw (7.5,.25) ++(0.75,1.3) node {$\left.\frac{df}{dx}\right|_{x=\bar{x}}$};
+\draw (7.5,.25) ++(24.3:1) -- ++(0,.2) -- ++(.44,0);
+
+\end{tikzpicture}

@@ -1,0 +1,153 @@
+\textcolor{red}{commented items for mass-spring-damper PD control that have been incorporated into the new PD control lecture in Fa'22}
+%\mode<article>{An intuitive fix for the oscillatory response that proportional control can cause is to change our control so that it implements additional damping. Using mechanical components, we could add a damper between ground and the mass.}
+%\begin{frame}{Mechanical Proportional/Derivative Control}
+%\begin{center}
+%\begin{tikzpicture}[scale=1.75,inner sep=0pt,outer sep=0pt,very thick]
+%\draw (.3,0) node[fill] (a) {}; 
+%\draw (1.7,0) node[fill] (b) {};
+%\draw (3.7,0) node[fill] (c) {};
+% 
+%\draw (0,0) node (gnd1) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+%\draw (1,.3) node (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+%\draw (1,.3) node[above=.2in] {$k$};
+%\draw (1,-.3) node (D) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+%\draw (1,-.3) node[below=.22in] {$b$};
+%\draw (2.5,0) node (M1) {\input{\mainfolder/DrawingElements/MechanicalElements/mass2.tex}};
+%\draw (2.5,0) node {$m$};
+%\draw[|->] (2.5,.8) node[above=.15in] {$y$} -- ++(.5,0);
+%\draw (4.5,-.3) node (K2) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+%\draw (4.5,-.3) node[below=.2in] {$K_p$};
+%\draw (4.5,.3) node (D2) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+%\draw (4.5,.3) node[above=.3in] {$K_d$};
+%\draw (5.5,.3) node[scale=.5,rotate=180] (gnd2) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+%
+%\draw (gnd1) -- (a);
+%\draw (a) |- (K1);
+%\draw (a) |- (D);
+%\draw (K1) -| (b);
+%\draw (D) -| (b);
+%\draw (b) -- (M1);
+%\draw (M1) -- (c);
+%\draw (c) |- (K2);
+%\draw (c) |- (D2);
+%\draw (D2) -- (gnd2);
+%\draw[->] (M1.0) ++(0,.4) -- ++(.5,0) node[right] {$d$};
+%\draw[-o] (K2.0) -- ++(.5,0);
+%\draw[|->] (K2.0) ++(.42,-.2) node[below=.15in] {$r$} -- ++(.5,0);
+%
+%\end{tikzpicture}
+%\mode<presentation>{
+%\[
+%f(t) = K_{p}(r(t)-y(t)) - K_{d}\dot{y}(t).
+%\]}
+%
+%\end{center}
+%\end{frame}
+%The force that is created by this mechanical controller is
+%\[
+%f(t) = K_{p}(r(t)-y(t)) - K_{d}\dot{y}(t).
+%\]
+%Thus, we are adding a Derivative term to our control, to create a PD controller. 
+%This PD controller can be represented using the following block diagram:
+%\begin{frame}
+%\begin{center}
+%\begin{tikzpicture}[scale=1,inner sep=0pt,outer sep=0pt,very thick,
+%sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+%
+%\draw (1.25,0) node[draw,circle] (sum1) {$\rule{0pt}{18pt}$};
+%\draw (3.5,0) node[sysblock] (Kp) {$K_{p}$};
+%\draw (5,0) node[draw,circle] (sum3) {$\rule{0pt}{18pt}$};
+%\draw (7,0) node[draw,circle] (sum2) {$\rule{0pt}{18pt}$};
+%\draw (9,0) node[sysblock] (G) {$G(s)$};
+%\draw (8,-1.75) node[sysblock] (Kd) {$K_{d}s$};
+%
+%\draw[->] (0,0) node[above=2pt] {$R(s)$} -- (sum1.180) node[above left=2pt] {$+$};
+%\draw[->] (sum1.0) --  node[above=2pt,pos=.5] {$E(s)$} (Kp);
+%\draw[->] (Kp) -- (sum3.180) node[above left=2pt] {$+$};
+%\draw[->] (sum3.0) -- node[above=2pt,pos=.4] {$F(s)$}  (sum2.-180) node[above left=2pt] {$+$};
+%\draw[->] (sum2.0) -- (G);
+%\draw[->] (G) -- ++(2.5,0) node[above=2pt] {$Y(s)$};
+%\draw[->] (G) ++(1.5,0) |- (Kd) -| (sum3.-90) node[below right=2pt] {$-$};
+%\draw[->] (G) ++(1.5,0) -- ++(0,-3) -| (sum1.-90) node[below right=2pt] {$-$};
+%\draw[<-] (sum2.90) node[above right=2pt] {$+$} -- ++(0,1) node[right=2pt] {$D(s)$};
+%\end{tikzpicture}
+%\mode<presentation>{
+%\[
+%F(s) = K_{p}(R(s) - Y(s)) - K_{d}sY(s)
+%\]
+%\visible<2->{\[
+%\frac{Y(s)}{R(s)} = \frac{K_{p}/m}{s^{2}+((b+K_{d})/m)s+(k+K_{p})/m}
+%\]}}
+%\end{center}
+%\end{frame}
+%
+%The closed loop behavior (i.e. considering $r$ as an input and $y$ as an output) is given by
+%\[
+%\frac{Y(s)}{R(s)} = \frac{K_{p}/m}{s^{2}+((b+K_{d})/m)s+(k+K_{p})/m}
+%\]
+%Comparing to the previous case, we can see that there are now adjustable variables in both the coefficient of $s$ and the ones coefficient of the denominator polynomial, allowing us to adjust {\em both} damping ratio and natural frequency.
+%
+%As long as we have the appropriate actuator, this configuration can be used with any second order system, not just mass spring dampers!
+%
+%Note that the design procedure will have the same basic steps as for proportional control: collect the specifications, find the closed loop transfer functions, and then select the gains so that the specifications are met.
+
+\textcolor{red}{commented items for motor PD control that have been incorporated into the new motor control lecture in Fa'22}
+%\begin{example}\label{ex:examplePD} Let's look at the problem of designing a controller so that a motor can accurately position a rotational load.
+%\begin{frame}
+%\begin{center}
+%\input{Graphics/motordiagram2.tex}
+%\mode<presentation>{
+%$R_{a}=1$, $L_{a}=0$, $J=1$, $b=2$, $K_{e}=K_{t}=1$
+%\begin{itemize}
+%\item rise time, $t_{r}=.1$ s
+%\item overshoot, $\% OS=10\%$.
+%\end{itemize}
+%}
+%\end{center}
+%\end{frame}
+%The system parameters are: $R_{a}=1$, $L_{a}=0$, $J=1$, $b=2$, $K_{e}=K_{t}=1$. We want to design a controller so that the orientation $\theta$ will follow a command reference, with the following step response specifications:
+%\begin{itemize}
+%\item rise time, $t_{r}=.1$ s
+%\item overshoot, $\% OS=10\%$.
+%\end{itemize}
+%We found earlier that the (open loop) transfer function $\theta(s)/V_{a}(s)$ is
+%\[
+%\frac{\theta(s)}{V_{a}(s)} = \frac{K_{t}}{s((Js+b)(R_{a}+L_{a}s) +K_{t}K_{e})} = \frac{1}{s((s+2)+1)} = \frac{1}{s^{2}+3s}
+%\]	
+%We decide to use a $PD$ control structure, so the system block diagram looks like the following:
+%\begin{frame}
+%\begin{center}
+%\input{Graphics/PDexampleblockdiagram.tex}
+%
+%\mode<presentation>{
+%\[
+%\frac{\theta(s)}{R(s)} = \frac{K_{p}}{s^{2}+(3+K_{d})s+K_{p}}
+%\]
+%$\omega_{n}^{2} = K_{p}$, $2\zeta\omega_{n} = 3+K_{d}$ and $K=1$
+%}
+%\end{center}
+%\end{frame}
+%\end{example}
+%Because the system is second order with no zeros, it is possible to choose the gains $K_{p}$ and $K_{d}$ directly from the closed loop transfer function. In this case, the closed loop transfer function from the reference command is
+%\[
+%\frac{\theta(s)}{R(s)} = \frac{K_{p}}{s^{2}+(3+K_{d})s+K_{p}}
+%\]
+%This looks like our canonical second order system
+%\[
+%G(s) = K\frac{\omega_{n}^{2}}{s^{2}+2\zeta\omega_{n}s+\omega_{n}^{2}}
+%\]
+%with $\omega_{n}^{2} = K_{p}$, $2\zeta\omega_{n} = 3+K_{d}$ and $K=1$.
+%
+%To choose $K_{p}$ and $K_{d}$, we find a set of complex conjugate poles that will meet our specifications. Remember that we have already parameterized our specifications in terms of $\zeta$ and $\omega_{n}$:
+%\begin{frame}
+%\begin{itemize}
+%\item $\tr = \treqtwo = .1$ implies $\omega_{n} = 22$
+%\item $\OS = $10 \% implies $\zeta = \frac{-\ln\left(\frac{10\%}{100 \%}\right)}{\sqrt{\ln\left(\frac{10\%}{100 \%}\right)^2+\pi^2}}=.59$
+%\end{itemize} 
+%\mode<article>{Thus}
+%\begin{align*}
+%K_{p}& = \omega_{n}^{2} =  22^2 = 484 \\
+%K_{d}& = 2\zeta\omega_{n} - 3 = 2(.59)(22) - 3 =  22.96
+%\end{align*}
+%\end{frame}
+%

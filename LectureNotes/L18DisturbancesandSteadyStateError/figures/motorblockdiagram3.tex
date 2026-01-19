@@ -1,0 +1,20 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+
+\draw (-1,0) node[draw,rectangle,inner sep=2pt,minimum width=1cm,minimum height=1cm,very thick] (sum) {$-1$};
+\draw (1.5,0) node[sysblock] (a) {$\frac{1}{R_{a} + L_{a}s}$};
+\draw (4.25,0) node[sysblock] (b) {$K_{t}$};
+\draw (6.75,0) node[draw,circle] (sum2) {$\rule{0pt}{18pt}$};
+\draw (8.5,0) node[sysblock] (c) {$\frac{1}{Js + b}$};
+\draw (5,-2) node[sysblock] (d) {$K_{e}$};
+
+\draw[->] (sum.0) -- (a.180);
+\draw[->] (a.0) -- node[pos=.5,above=4pt] {$I_{a}(s)$} (b.180);
+\draw[->] (b.0) -- node[pos=.5,above=4pt] {$\tau_{m}(s)$} (sum2.180) node[below left=4pt] {$+$};;
+\draw[<-] (sum2.90) node[above right=4pt] {$-$} -- ++(0,1) node[right=4 pt] {$\tau_{d}(s)$};
+\draw[->] (sum2.0) -- (c.180);
+\draw[->] (c.0) -- ++(1,0) node[above=4pt] {$\dot{\theta}(s)$};
+\draw[->] (c.0) -- ++(.5,0) |- (d.0);
+\draw[->] (d.180) node[above left=4pt] {$V_{b}(s)$} -| (sum.-90);
+
+\end{tikzpicture}

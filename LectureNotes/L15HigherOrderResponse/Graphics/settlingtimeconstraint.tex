@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3) rectangle (-2,3);
+\draw[dashed] (-2,-3) -- (-2,3);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (-2,-.1) -- (-2,.1);
+\draw (-2,0) node[below right] {$-\sigma$} (135:2);
+\draw (-3.5,1) node[fill=white] {\begin{minipage}{1in}\begin{center}in this region, $\ts \leq \tseqone $\end{center}\end{minipage}};
+\end{tikzpicture}

@@ -1,0 +1,14 @@
+\begin{tikzpicture}[very thick,
+sysblock/.style={draw,rectangle,inner sep=6pt,minimum width=1.25cm,minimum height=1.0cm,very thick},
+summer/.style={circle,draw,very thick}]
+
+\draw (0,0) node[summer] (sum) {\rule{12pt}{0pt}};
+\draw (2,0) node[sysblock] (K) {$K$};
+\draw (5,0) node[sysblock] (G) {$\Large\frac{s}{s^{4}+s^{3}+6s^{2}+1}$};
+
+\draw[<-] (sum.180) node[above left=2pt] {$+$} -- ++(-1,0) node[above=2pt] {$R(s)$};
+\draw[->] (sum.0) -- (K.180);
+\draw[->] (K.0) -- (G.180);
+\draw[->] (G.0) -- ++(1,0) -- ++(0,-1.5) -| (sum.-90) node[below left=2pt] {$-$};
+\draw[->] (G.0) ++(1,0) -- ++(1,0) node[above=2pt] {$Y(s)$};
+\end{tikzpicture}

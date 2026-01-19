@@ -1,0 +1,32 @@
+\begin{tikzpicture}[scale=1.5,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node (a) {}; 
+\draw (4,0) node (c) {};
+\draw (0,-2) node (d) {};
+\draw (2,-2) node (e) {};
+\draw (4,-2) node (f) {};
+ 
+\draw (1,0) node (R1) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (1,0) node[above=.2in] {$R$};
+\draw (2,-1) node[rotate=90] (C1) {\input{\mainfolder/DrawingElements/CircuitElements/capacitor.tex}};
+\draw (2,-1) node[right=.2in] {$C$};
+\draw (4,-1) node[rotate=90] (L1) {\input{\mainfolder/DrawingElements/CircuitElements/inductor.tex}};
+\draw (4,-1) node[left=.25in] {$L$};
+\draw (4,0) node[right=.3in] {$+$};
+\draw (4,-1) node[right=.3in] {$v_{out}$};
+\draw (4,-2) node[right=.3in] {$-$};
+\draw (0,-1) node (V) {\input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (0,-1) node[left=.3in]{$v_{in}$};
+
+
+%\draw[->] (1.5,-.5) -- node[pos=.5,below=4pt] {$i$} ++(1,0); 
+
+\draw (a) -- (R1);
+\draw (R1) -| (C1);
+\draw (R1) -| (L1);
+\draw (L1) -- (f);
+\draw (f) -- (d);
+\draw (a) -- (V);
+\draw (d) -- (V);
+\draw (C1) -- (e);
+\end{tikzpicture}
+

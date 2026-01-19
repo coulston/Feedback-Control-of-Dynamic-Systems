@@ -1,0 +1,20 @@
+An industrial process consists of two tanks connected by a valve with resistance $R=3$. The right most tank is open to atmospheric pressure, while the left most tank is closed with pressure at the top of the tank $p_{in}$, which can be arbitrarily set. The fluid density is such that $\rho g = 10$.
+\begin{center}
+\resizebox{2.5in}{!}{
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank1) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (tank1.90) ++(-1.2,-1) -- ++(2.38,0);
+\draw (4.55,0) node[above] (tank2) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (3.35,2.00) -- ++(2.38,0);
+\draw (tank1.0) ++(.3,-.64) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (tank1.-90) node{Tank Area: $1$ m$^2$};
+\draw (tank2.-90) node{Tank Area: $2$ m$^2$};
+\draw (tank1.-90) ++(0,.75) node[above] {$p_{1}$};
+\draw (tank1.90) ++(0,-.75) node[above] {$p_{in}$};
+\draw (tank2.-90) ++(0,.75) node[above] {$p_{2}$};
+\draw (tank2.90) ++(0,-.75) node[above] {$p_{a}$};
+\draw[thick] (tank1.90) ++(-1.5,-.15) -- ++(3,0);
+\draw (pipe1.90) node[above] {$R$};
+\end{tikzpicture}}
+\end{center}
+Draw the impedance network that represents this system. All nodes in the impedance network should be labeled properly and the values of the impedances included.

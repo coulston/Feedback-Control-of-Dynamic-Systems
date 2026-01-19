@@ -1,0 +1,41 @@
+A hydraulic system is used to apply tension to prestressing tendons in the manufacture of prestressed concrete. The tendon is modeled by a (very stiff) spring. The overall system has the form below: 
+
+\begin{center}
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt]
+
+% tank
+\draw[thick] (0,0) -- ++(2,0) -- ++(0,-.5) -- ++(1,.5) -- ++(2,0) -- ++(0,-3) -- ++(-2,0) -- ++(-1,.5) -- ++(0,-.5) -- ++(-2,0);
+\draw[thick] (0,-.5) -- ++(1.5,0) -- ++(0,-.75) -- ++(-1.5,0);
+\draw[thick] (0,-1.75) -- ++(1.5,0) -- ++(0,-.75) -- ++(-1.5,0);
+\draw[thick] (2,-1) -- ++(1,.5) -- ++(0,-2) -- ++(-1,.5) -- cycle;
+\draw (4,-3.5) node {\small Piston area: 2 m$^2$};
+\draw (0,-.25) node[left] {\small drain ($P_{0}$)};
+\draw (0,-1.5) node[left] {\small supply ($P_{s}$)};
+\draw (0,-2.75) node[left] {\small drain ($P_{0}$)};
+\draw[<-] (3,-.25) node[right=2pt] {\scriptsize$Q$} -- ++(-.5,-.25);
+\draw[<-] (2.5,-2.5) -- ++(.5,-.25)  node[right=2pt] {\scriptsize$Q$};
+\draw (5.3,-1.9) node {\scriptsize $-$} ++(0,.4) node{\small $P$} ++(0,.4) node {\scriptsize$+$};
+
+% valves
+\draw[very thick] (1.75,-2.1) -- ++(0,3.1);
+\draw[fill,left color=black,right color=black,middle color=white] (1.5,-.9) rectangle ++(.5,.35);
+\draw[fill,left color=black,right color=black,middle color=white] (1.5,-2.4) rectangle ++(.5,.35);
+\draw[|->] (1.5,1) node[left=4pt] {$x$} -- ++(0,.5); 
+
+% piston
+\draw[fill,left color=black,right color=black,middle color=white] (4,-1.5) ++(-.2,0) rectangle ++(.4,2.5);
+\draw[fill,left color=black,right color=black,middle color=white] (3,-1.75) rectangle ++(2,.5);
+\draw[|->] (5,1) node[right=4pt] {$y$} -- ++(0,-.5);
+
+% mass
+\draw (4,2.25) node[rotate=90]  (K) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (K) node[right=14pt] {$k=2\times 10^4$ Nm$^{-1}$};
+\draw (4,3.75) node[rotate=-90] (gnd) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+\draw[very thick] (K.0) -- (gnd.0);
+\draw[very thick] (K.180) -- ++(0,-.5);
+\end{tikzpicture}
+\end{center}
+
+At the desired operating point, the linearized valve equation is $\delta q = 4 \delta x  - 2 \delta p$. Find the small signal transfer function $\frac{\delta Y(s)}{\delta X(s)}$.
+
+

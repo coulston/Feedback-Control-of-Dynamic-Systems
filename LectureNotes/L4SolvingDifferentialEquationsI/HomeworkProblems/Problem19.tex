@@ -1,0 +1,28 @@
+Simulink can be used to simulate systems using physical components, as well as simulate block diagrams. (This feature is called SimScape).  An example is loaded on \LearningManagementSystem~ with filename \texttt{RLCseriesmodel.slx}. Download this to your computer, start \textsc{Matlab} and go to the folder where this files was saved. Type \texttt{RLCseriesmodel} to load the model.
+\begin{center}
+\includegraphics[width=3in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem19/simulinkpic1.png}
+\end{center}
+This is a system that has a step input, and the output is recorded using both a scope and a block that creates the variable \textsc{simout} in the workspace after the simulation. 
+Double click on the subsystem block to reveal the system
+\begin{center}
+\includegraphics[width=5in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem19/simulinkpic2.png}
+\end{center}
+The physical system is defined in with the blue elements, while interfaces to the regular Simulink variables occur with the \textsf{Simulink-PS Converter} and \textsf{PS-Simulink Converter} Blocks. Note that this is a series RLC circuit with voltage source. The voltage across the capacitor is measured and applied as \textsf{V\_out}. By double clicking on the resistor, inductor and capacitor elements, you can set their values. Note that the inductor and capacitor also include additional parasitic resistive elements. For now, keep those as defaults. 
+\begin{enumerate}[(a)]
+\item The transfer function for this series combination was derived in Lecture \ImpedanceNumber~as $\frac{V_{out}(s)}{V_{in}(s)} = \frac{1}{LCs^{2} + RCs+1}$. Write down the transfer function if $R = 0.5$, $C=1$ and $L=0.125$. Enter these values into the appropriate elements in the Simulink subsystem.
+\item Using the transfer function from part (a) and Laplace Transforms, find $v_{out}(t)$, $t\geq 0$, when $v_{in}$ is a unit step function.
+\item Simulate the Simulink system (click on the green arrow), and compare the solution to your own. To do this, we will create a plot that contains both signals.  After the Simulink simulation runs, the timeseries variable \texttt{simout} should be available in your workspace. To access the voltage output, we can type \texttt{simout.Data}, while to get the time samples at which this voltage is sampled, we type \texttt{simout.Time}. Suppose we found from Laplace transforms that the response should be
+\[
+v_{out}(t) = 1-e^{-t}\sin(t)
+\]
+Then we could compare the simulation with our expectation with the following code
+\begin{alltt}
+t=simout.Time;
+v_out = 1 - exp(-t).*sin(t);
+plot(t,simout.Data,\T{}r-\T{},t,v_out,\T{}b--\T{})
+legend(\T{}Simulation\T{},\T{}Analytical Solution\T{})
+xlabel(\T{}Time (s)\T{})
+ylabel(\T{}Voltage (V)\T{})
+\end{alltt}
+(Note that the element-wise product \texttt{.*} was used to multiply the exponential by the sinusoid). Use similar code to create a plot that compares your answer from part (b) to the simulation.
+\end{enumerate}

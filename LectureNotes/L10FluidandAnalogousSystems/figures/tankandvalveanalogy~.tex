@@ -1,0 +1,28 @@
+\begin{tikzpicture}[nosep/.style={inner sep=0pt, outer sep=0pt}]
+\draw (.75,0) node[above] (tank) {\input{../../../Tikzmodeling/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (-.45,2.25) -- ++(2.38,0);
+\draw (-1.15,1) node (pipe1) {\input{../../../Tikzmodeling/FluidElements/pipe.tex}};
+\draw (2.65,1) node (pipe2) {\input{../../../Tikzmodeling/FluidElements/valve.tex}};
+\draw[->] (.2,.75) -- node[pos=.5,left] {$H$} ++(0,1.4);
+\draw (tank.-90) node{Tank Area: $A$};
+\draw (pipe2.90) node[above] {$R$};
+\draw (.75,.8) node[above] {$P_{1}$};
+\draw[<-] (pipe1.180) ++(.5,0) --  ++(-.5,0) node[left] {$Q_{in}$};
+\draw[->] (pipe2.0) ++(-.5,0) --  ++(.5,0) node[right] {$Q_{out}$};
+\draw (.75,2.5) node[above] {$P_{a}$};
+
+\draw (6,2) node[nosep,scale=.95] (I) {\input{../../../Tikzmodeling/CircuitElements/currentsource.tex}};
+\draw (6,2) node[left=18pt] {$Q_{in}$};
+\draw (8,2) node[rotate=90,nosep] (C) {\input{../../../Tikzmodeling/CircuitElements/capacitor.tex}}; 
+\draw (8,2) node[right=18pt] {$\frac{A}{\rho g}$};
+\draw (9.5,3.5) node[nosep] (R) {\input{../../../Tikzmodeling/CircuitElements/resistor.tex}}; 
+\draw (9.5,3.5) node[above=12pt] {$R$};
+\draw (8,3.5) node[draw,fill=black,circle,inner sep=2pt,outer sep=0pt] (P1) {} node[above] {$P_{1}$};
+\draw (8,.5) node[draw,fill=black,circle,inner sep=2pt,outer sep=0pt] (Pa) {} node[below=2pt] {$P_{a}$};
+\draw[->] (11,2) ++(.1,.5) -- node[pos=.5,right] {$Q_{out}$} ++(0,-1) ;
+\draw[very thick] (I.90) |- (R.180);
+\draw[very thick] (C.0) |- (P1);
+\draw[very thick] (R.0) |- (Pa);
+\draw[very thick] (C.180) |- (Pa);
+\draw[very thick] (Pa) -| (I.-90);
+\end{tikzpicture}

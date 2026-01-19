@@ -1,0 +1,51 @@
+The following shows a PD feedback control  system that is used to control the position of a load using a motor. The dotted lines represent signals, $\theta_{d}$ is the desired angular position, $v_{a}$ is the voltage applied to the motor and $\theta$ is the position of the load. Let $R_{a}=1$ $\Omega$, $K_{t}=K_{e}=1$, $J=0.5$ kg m$^2$, $k=1$ Nm/rad. (The inductance is negligible, so $L_{a}=0$.)\\
+
+\resizebox{6.5in}{!}{
+\begin{tikzpicture}[scale=1.75,inner sep=0pt,outer sep=0pt,very thick,sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1cm,minimum height=1cm,very thick}]
+\draw (-1,-1) node (a) {}; 
+
+\draw (-1,0) node (Va) { \input{\mainfolder/DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (-1,0) node[left=.3in] (x) {$V_{a}(s)$};
+\draw (1,0) node[circle,draw] (Vb) {\rule{0pt}{30pt}};
+\draw (0,1) node (R) {\input{\mainfolder/DrawingElements/CircuitElements/resistor.tex}};
+\draw (0,1) node[above=.25in] {$R_{a}$};
+\draw (0,1) node[below=.15in] {$\begin{matrix} \longrightarrow \\ i_{a}\end{matrix}$};
+\draw (2.5,0) node (M1) {\input{\mainfolder/DrawingElements/MechanicalElements/inertia.tex}};
+\draw (2.5,0) node {$J$} ++(0,-.6) node {\small arm};
+\draw[->] (M1.135) node[above] (y) {$\theta(s)$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+%\draw[->] (M1.135) ++(-.3,0) node[above=2pt] {$\tau$} ++(-.1,-.1) .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-.8);
+\draw (4,0) node (K) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+%\draw (4,-.5) node (D) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (K) node[above=.25in] {$k$};
+%\draw (D) node[above=.25in] {$b$};
+\draw (5,0) node[rotate=180] (gnd) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+
+%\draw (M1.0) |- (D.180);
+\draw (M1.0) |- (K.180);
+%\draw (D.0)  -- ++(0.25,0) |- (gnd.0);
+\draw (K.0)  -- ++(0.25,0) |- (gnd.0);
+\draw (1,0) -- (M1.180);
+\draw (R.0) -| (Vb.90);
+\draw (Va.90) |- (R.180);
+\draw (Va) -- (a);
+\draw (a.0) -| (Vb.-90);
+
+
+% control
+\draw (-3.5,1) node[sysblock]  (C2) {$K_{d}s$};
+\draw (-3.5,0) node[sysblock]  (C) {$K_{p}$};
+\draw (-4.5,0) node[draw,circle,inner sep=0pt,outer sep=0pt,very thick] (sum) {\rule{12pt}{0pt}};
+\draw (-2.5,0) node[draw,circle,inner sep=0pt,outer sep=0pt,very thick] (sum2) {\rule{12pt}{0pt}};
+\draw[thick,dotted,->] (y) -- ++(0,1.1)  -| (sum.90) node[above right=2pt] {$-$};
+\draw[thick,dotted,->] (C.0) -- (sum2.180) node[above left=2pt] {$+$};
+\draw[thick,dotted,->] (sum2.0) -- (x.180);
+\draw[thick,dotted,->] (sum.0) -- (C.180);
+\draw[thick,dotted,->] (C2.180 -| sum.90) -- (C2.180);
+\draw[thick,dotted,->] (C2.0) -| (sum2.90) node[above right=2pt] {$-$};
+\draw[<-,thick,dotted] (sum.180) node[above left=2pt] {$+$} -- ++(-1,0) node[above] {$\theta_{d}(s)$};
+\end{tikzpicture}}
+
+\begin{enumerate}[(a)]
+\item Find the transfer function for the motor and load alone, $\frac{\theta(s)}{V_{a}(s)}$ and draw the block diagram for the control system, representing the motor and load using this transfer function.
+\item Based on the block diagram you have drawn for part (a), find gains $K_{p}$ and $K_{d}$ such that the closed loop step response satisfies $\OS =10\%$ and $\tr = 0.44$s.
+\end{enumerate}

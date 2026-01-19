@@ -1,0 +1,25 @@
+The following set of ideal elements models a motorcycle of mass $20$ kg with input force $f$ from the motor, and drag $40$ Nsm$^{-1}$ due to wind resistance.
+\begin{center}
+\begin{tikzpicture}
+
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-2,0) node (gnd1) {\input{\mainfolder/DrawingElements/MechanicalElements/ground.tex}};
+\draw[inner sep=0pt,outer sep=0pt,very thick] (-.5,0) node (D1) {\input{\mainfolder/DrawingElements/MechanicalElements/damper.tex}};
+\draw (D1) node[below=14pt] {$b=40$};
+\draw (1.5,0) node[draw,rectangle,minimum width=1.5cm,minimum height=1.5cm,very thick] (M1) {$m=20$};
+
+
+\draw[|->] (M1.90) ++(0,.15) node[above] {$x$} -- ++(.5,0);
+\draw[very thick] (D1.180) -- (gnd1.0);
+\draw[very thick] (D1.0) -- (M1.180);
+\draw[->] (M1.0)  -- ++(0.75,0) node[above] {$f(t)$};
+
+\end{tikzpicture}\end{center}
+
+\begin{enumerate}[(a)]
+\item Find the transfer function from input force to \textbf{velocity} $\frac{V(s)}{F(s)}$, where $v=\dot{x}$. 
+\item Sketch the Bode plot for this transfer function.
+\begin{center}
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/blankbode}
+\end{center}
+\item Suppose the input force is $f(t) = \cos(0.5t)$. Using your approximate sketch, find the steady state response for velocity.
+\end{enumerate}

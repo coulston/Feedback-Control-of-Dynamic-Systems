@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+\draw (7,0) node (R) {\begin{tikzpicture}
+\draw[very thick] (0,0) -- ++(.37,0);
+\draw[very thick] (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] {};
+\draw[very thick] (1.65,0) -- ++(.37,0);
+\end{tikzpicture}
+};
+\draw[very thick] (8.2,0) node[rotate=90] {\input{../../../Tikzmodeling/CircuitElements/ground.tex}};
+
+\draw (R) node[above=6pt] {$\frac{1}{Ms^{2}}$};
+%\draw (6.1,.75) node[above] {$+$};
+\draw (7,-1.5) node[above] {$\begin{matrix} + & X(s) & - \end{matrix}$};
+%\draw (7.9,.75) node[above] {$-$};
+\draw[->] (6.5,-.3) -- node[pos=.5,below] {$F(s)$} ++(1,0);  
+
+\end{tikzpicture}

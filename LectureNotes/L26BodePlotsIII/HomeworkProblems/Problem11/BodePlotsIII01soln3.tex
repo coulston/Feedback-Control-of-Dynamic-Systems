@@ -1,0 +1,39 @@
+\documentclass[11pt]{amsart}
+\usepackage[width=6.5in, height=9in]{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{circuits.ee.IEC}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usetikzlibrary{decorations.pathmorphing}
+
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+
+\begin{minipage}{2in}\noindent\texttt{m1=5;\\
+c1=5;\\
+k1=420;\\
+figure(1)\\
+G=tf([c1 k1],[m1 c1 k1])\\
+bode(G)}\end{minipage}\begin{minipage}{3in}
+\includegraphics[width=3.5in]{prob4_1}\end{minipage}
+
+\noindent\texttt{m2=.5;\\
+c2=.5;\\
+k2=42;\\
+figure(2)\\
+G=tf(conv([c1 k1],[m2 c2 k2]),[m1*m2 m1*c2+m2*c1+m2*c2 c1*c2+m1*k2+m2*k1+m2*k2\\c1*k2+c2*k1 k1*k2])\\
+bode(G)}\\
+
+\begin{center}\includegraphics[width=4in]{prob4_2}\end{center}
+\end{document}  
+

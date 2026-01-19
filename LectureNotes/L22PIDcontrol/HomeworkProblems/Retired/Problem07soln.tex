@@ -1,0 +1,27 @@
+\begin{enumerate}[(a)]
+\item \rule{0pt}{0pt}\\
+ \includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln1.pdf}
+\item \rule{0pt}{0pt}\\
+ \includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln2.pdf}
+\item\rule{0pt}{0pt}\\
+ \includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln3.pdf}
+\item\rule{0pt}{0pt}\\
+ \includegraphics[width=6in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07soln4.pdf}
+ \item \rule{0pt}{0pt}\\
+ \begin{center}
+ \includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07/blockdiag}
+ \end{center}
+\begin{alltt}
+plot(simout.time,simout.signals.values,'linewidth',2)
+xlabel('Time')
+ylabel('Temperature')
+print -f1 -dpdf plotresults
+\% Note that although the steady state error and settling time
+\% specifications are met, the overshoot is over 20\%. This is 
+\% due to the zero at -Ki/Kp = -1.08, which is close to the closed
+\% loop poles that have real part -.46
+\end{alltt}
+\begin{center}
+\includegraphics[width=4in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem07/plotresults}
+\end{center}
+ \end{enumerate}

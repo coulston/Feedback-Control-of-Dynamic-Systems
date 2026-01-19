@@ -1,0 +1,43 @@
+\documentclass[11pt]{amsart}
+\usepackage[text={7in,9.5in}]{,geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.geometric}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\begin{document}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item [(c)] The closed loop configuration we want to simulate is
+\begin{center}
+\input{thermalcontrolblockdiag3.tex}
+\end{center}
+where $G(s)= \frac{100}{s^{2}+111s+100}$. This has closed loop system
+\[
+\frac{T_{2}(s)}{R(s)}=T(s)=\frac{100}{s^{2}+(111+100K_d)s+100(1+K_p)},
+\]
+and using the code
+\texttt{\rule{0pt}{0pt}\\
+Kp=4.84;\\
+Kd=-0.85;\\
+\% Configuration \#2
+figure(1)\\
+T = tf(100*Kp,[1 111+100*Kd 100*(1+Kp)])\\
+step(T)}\\
+we get the following plot:
+\begin{center}
+\includegraphics[width=4in]{prob3_1}
+\end{center}
+This shows that the specifications are met
+\end{enumerate}
+\end{document}  

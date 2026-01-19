@@ -1,0 +1,30 @@
+Consider the following two tank system with $R_{1}=2$ and $R_{2}=1$ and $\rho g$=1.
+\begin{center}
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (-.45,2.25) -- ++(2.38,0);
+\draw (4.55,0) node[above] (tank2) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (3.35,2.00) -- ++(2.38,0);
+\draw (-1.15,1) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (2.65,1) node (pipe2) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (6.45,1) node (pipe3) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+%\draw[->] (.2,.75) -- node[pos=.5,left] {$H_{1}$} ++(0,1.4);
+\draw[->] (4.0,.75) -- node[pos=.5,left] {$h_{2}$} ++(0,1.2);
+\draw (tank.-90) node{Tank Area: $10$ m$^2$};
+\draw (tank2.-90) node{Tank Area: $1$ m$^2$};
+\draw (pipe2.90) node[above] {$R_{1}$};
+\draw (pipe3.90) node[above] {$R_{2}$};
+\draw (.75,.8) node[above] {$p_{1}$};
+\draw (4.55,.8) node[above] {$p_{2}$};
+\draw[->] (pipe1.180) node[left] {$q_{in}$} -- ++(.5,0);
+\draw[->] (pipe3.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{out}$};
+\draw (.75,2.5) node[above] {$p_{a}$};
+\draw (4.45,2.5) node[above] {$p_{a}$};
+%\draw (pipe2.0) ++(1.5,0) node {$P_{2}$};
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[(a)]
+\item Find the transfer function for the following tank system with input $q_{in}$ and output $q_{out}$. 
+\item Determine if the system can be well approximated as a first order system, and if so, find the first order approximation. 
+\item Use Matlab to plot the step response of both the full order system and the first order approximation on the same graph. For full credit, you must submit your Matlab plot with both signals labeled.
+\end{enumerate}

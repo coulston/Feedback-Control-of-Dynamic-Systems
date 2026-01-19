@@ -1,0 +1,23 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\useasboundingbox (0,1) rectangle (8,-3.5); 
+\begin{scope}[transform canvas={scale=.9}]
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw (1.5,0) node[sysblock] (C) {\includegraphics[height=1.6cm]{figures/thermostats}};
+\draw (4.5,0) node[sysblock] (A) {\includegraphics[height=1.6cm]{figures/Air_conditioner}};
+\draw (7.5,0) node[sysblock] (G) {\includegraphics[height=1.6cm]{figures/bedroom}};
+\draw (6,0) node[draw,rectangle,dotted,minimum width=6cm,minimum height=2.5cm] {};
+\draw (6,1.5) node {\textsf{Plant}};
+\draw (C.90) node[above=2pt] {\textsf{Thermostat}};
+\draw (4,-3) node[sysblock] (H) {\includegraphics[height=1.6cm]{figures/sht21}};
+\draw (H.90) node[above=2pt] {\textsf{Temp. Sensor}};
+
+\draw[->] (-2,0) node[above=2pt] {\textsf{Setpoint}} -- (sum.180) node[above left=2pt] {$+$};
+\draw[->] (sum.0) -- (C);
+\draw[->] (C) -- (A);
+\draw[->] (A) -- (G);
+\draw[->] (G.0) -- ++(2,0) node[above=2pt] {\textsf{Room Temp.}};
+\draw[->] (G.0) -- ++(1,0) |- (H);
+\draw[->] (H) -| (sum.-90) node[below right=2pt] {$-$};
+\end{scope}
+\end{tikzpicture}

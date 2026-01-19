@@ -1,0 +1,46 @@
+ Read about tuned mass dampers \url{http://en.wikipedia.org/wiki/Mass_damper}. The following system figure is given in the article:
+\begin{center}
+\includegraphics[width=3in]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/Problem11/Springmassdampersystem.png}\\
+{\tiny "Spring–mass–damper system" by Rswarbrick at English Wikipedia. Licensed under CC BY-SA 3.0 via Commons - https://commons.wikimedia.org/wiki/File:Spring\%E2\%80\%93mass\%E2\%80\%93damper\_system.svg\#/media/File:Spring\%E2\%80\%93mass\%E2\%80\%93damper\_system.svg}
+\end{center}
+
+The following description is given for the figure: \begin{quote}Given a motor with mass  $m_{1}$ attached via motor mounts to the ground, the motor vibrates as it operates and the soft motor mounts act as a parallel spring and damper, $k_{1}$ and $c_{1}$. The force on the motor mounts is $F_{0}$. In order to reduce the maximum force on the motor mounts as the motor operates over a range of speeds, a smaller mass, $m_{2}$, is connected to $m_{1}$ by a spring and a damper, $k_{2}$ and $c_{2}$. $F_{1}$ is the effective force on the motor due to its operation.\end{quote}
+
+\begin{enumerate}[(a)]
+\item First, we will analyze the system with the absorber removed (i.e. take $m_{2}=c_{2}=k_{2}=0$). Take $m_{1}=5$, $c_{1}=5$, and $k_{1}=420$. We want to find the transfer function $F_{0}(s)/F_{1}(s)$ (i.e. how much force on the motor mount occurs due to motor vibration). Show that the impedance network corresponding to this system is the following.\vspace{.1in} 
+\begin{center}
+\begin{tikzpicture}[scale=1.5,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node (a) {}; 
+\draw (2,0) node (b) {};
+\draw (4,0) node (c) {};
+\draw (0,-2) node (d) {};
+\draw (2,-2) node (e) {};
+\draw (4,-2) node (f) {};
+ 
+\draw (1,0) node (R1) {\input{\mainfolder/DrawingElements/CircuitElements/impedance.tex}};
+\draw (1,0) node[above=.1in] {$\displaystyle\frac{1}{c_{1}s+k_{1}}$};
+\draw (2,-1) node[rotate=90] (C1) {\input{\mainfolder/DrawingElements/CircuitElements/impedance.tex}};
+\draw (2,-1) node[right=.1in] {$\displaystyle\frac{1}{m_{1}s^{2}}$};
+\draw (4,-1) node (I1) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}};
+\draw (I1) node[right=.3in] {$F_{1}(s)$};
+
+\draw[<-,thin] (.75,-.25) -- node[pos=.5,below=5pt] {$F_{0}(s)$} ++(.5,0) ;
+
+%\draw[->] (1.5,-.5) -- node[pos=.5,below=4pt] {$i$} ++(1,0); 
+\draw (b) node[circle,fill=black] {\rule{4pt}{0pt}}; 
+\draw (b) node[above=4pt] {$X_{1}(s)$};
+
+\draw (a) -- (R1);
+\draw (R1) -| (C1);
+\draw (R1) -| (I1);
+\draw (I1) -- (f);
+\draw (f) -- (d);
+\draw (d) -- (a);
+\draw (C1) -- (e);
+\end{tikzpicture}
+\end{center}\vspace{.1in}
+Using this impedance network, find $F_{0}(s)/F_{1}(s)$ (Hint: Current divider). Using \textsc{Matlab}, plot the Bode plot
+\item Now, attach the absorber with $m_{2}=0.5$, $c_{2}=.5$ and $k_{2}=42$. Find the new impedance network and new transfer function $F_{0}(s)/F_{1}(s)$ in this case (Hint: Current divider!!!). Plot the Bode plot. 
+\end{enumerate}
+When comparing your plots to the ones in the Wikipedia page, note that they used a log-scale magnitude plot, rather than plotting in decibels.
+

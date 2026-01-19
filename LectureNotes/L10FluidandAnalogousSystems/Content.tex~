@@ -1,0 +1,304 @@
+\usetikzlibrary{patterns}
+\usepackage{framed}
+\usetikzlibrary{decorations.pathmorphing}
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[Fluid/Analogies] % (optional, use only with long paper titles)
+{EGGN307: Modeling Fluid Systems. System Analogies\license}
+
+\subtitle
+{} % (optional)
+
+\author% (optional, use only with lots of authors)
+{Tyrone Vincent}
+%{T. Vincent\inst{1} \and S.~Another\inst{2}}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[CSM] % (optional, but mostly needed)
+{Division of Engineering\\
+  Colorado School of Mines}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date % (optional)
+{Lecture 3}
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=1.1cm]{university-logo}{UniversityLogo}
+%\logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+\section{Incompressible Fluid Systems}
+For fluid systems, the variables that we are modeling are 
+\begin{itemize}
+\item Pressure, which has units of Newtons per meter squared (Nm$^{-2}$)
+\item Volumetric Flow, which has units of meters cubed per second (m$^{3}$s$^{-1}$). 
+\end{itemize}
+
+\subsection{Components}
+
+\begin{frame}{Tank}
+The change in the volume of fluid inside the tank is equal to the difference between the input and output volumetric flow. 
+\begin{center}
+\input{figures/tank.tex}
+\end{center}
+\end{frame}
+If $V$ is the volume of fluid, then the change in the amount of fluid in the tank over time is equal to the volumetric flow in minus the volumetric flow out, so that 
+\begin{equation}\label{eqn:flow1}
+\frac{dV}{dt} = q_{1}-q_{2}.
+\end{equation}
+For a tank with constant cross-sectional area $A$, $V=Ah$, so taking the derivative of both sides with respect to time gives us 
+\begin{equation}\label{eqn:flow2}
+\frac{dV}{dt}=A\frac{dh}{dt}.
+\end{equation}
+Setting (\ref{eqn:flow1}) equal to (\ref{eqn:flow2}) gives us the equation
+\[
+A\frac{dh}{dt} = q_{1} - q_{2}.
+\]
+This can also be written in terms of the pressure difference between the bottom and top of the tank, since $p_{1}-p_{2} = \rho g h$, where $\rho$ is the fluid density, and $g$ is gravitational acceleration. Substituting for $h$ results in
+\[
+\frac{A}{\rho g}\frac{d(p_{1}-p_{2})}{dt} = q_{1} - q_{2}.
+\]
+
+
+\begin{frame}{Linear Valve}
+A valve causes a restriction that causes the pressure on one end of the value to be higher than the other end. When this pressure drop is proportional to the flow, the valve is linear with valve constant $R$. (Most valves are nonlinear, however.)
+\begin{center}
+\input{figures/valve.tex}
+\end{center}
+\end{frame}
+
+Why only two elements? We have not considered fluid inertia.
+
+\subsection{Connection Rules and Boundary Conditions}
+
+The connection rules and boundary conditions will sound familiar
+\begin{itemize}
+\item When elements are connected, the two components share the same {\em pressure}. 
+\item When elements are connected, the {\em flows} sum to zero. 
+\item Boundary conditions can set either the pressure or flow of one side of a component
+\end{itemize}
+
+\subsection{Example}
+Find the differential  equation that describes the relationship between $q_{in}$, and $h$ for the following system:
+\begin{frame}{Tank and Valve Example}
+Assume the valve is linear with valve constant $R$ and that the density of the fluid is $\rho$. The valve empties to atmospheric pressure, $p_{a}$, which is the same as the pressure at the top of the tank.
+\begin{center}
+\input{figures/tankandvalve.tex}
+\end{center}
+\end{frame}
+
+Use the following steps:
+\begin{itemize}
+\item Write down the component laws for the tank and valve, along with connection laws where applicable
+\item Write down the relationship between the pressures and the tank height
+\item Eliminate unwanted variables. 
+\end{itemize}
+\tryit{
+\begin{boxedminipage}{6.5 in}
+\rule{0pt}{12pt}\vspace{2in}
+\color{lightgray}\[
+A \frac{dh}{dt} + \frac{\rho g}{R} h = q_{in}  \\
+\]
+\end{boxedminipage}\\
+}{
+\begin{boxedminipage}{6.5in}
+The component laws are:
+\begin{align*}
+A\frac{dh}{dt} &= q_{in} - q_{out} \\
+p_{1} - p_{2} &= Rq_{out}
+\end{align*}
+Note that we used a connection law to establish that the flow out of the tank is $q_{out}$, and that the pressure at the left side of the valve is $p_{1}$.  We also have
+\[
+\rho g h = p_{1} - p_{2}.
+\] 
+Thus,
+\begin{align*}
+A\frac{dh}{dt} &= q_{in} - q_{out} \\
+\rho g h &= Rq_{out}
+\end{align*}
+Eliminating $q_{out}$,
+\[
+A\frac{dh}{dt} = q_{in} - \frac{\rho g}{R} h  \\
+\]
+or
+\[
+A \frac{dh}{dt} + \frac{\rho g}{R} h = q_{in}  \\
+\]
+\end{boxedminipage}}
+\section{System Analogies}
+Thus far, we have modeled translational mechanical systems, rotational mechanical systems, electrical systems and fluid systems using lumped, linear elements. We have see a lot of commonalities:
+\begin{itemize}
+\item Two variables are important
+\item Each element relates these two variables via a linear algebraic or differential relationship
+\item There are two connection rules that govern how the two variables are related at a connection point
+\end{itemize}
+
+\subsection{Generic Modeling Elements}
+We can consider modeling with the following generic lumped element:
+\begin{frame}{Generic Lumped Element}
+Physical system modeling requires us to keep track of two variables. The one that is measured on each side of an element is called the {\em across} variable, and the one whose magnitude is the same on each side is the {\em through} variable. The component law is a linear algebraic or differential relationship between these two variables.
+\begin{center}
+\input{figures/genericelement.tex}
+\end{center}
+\end{frame}
+
+\begin{frame}{Generic Connection Rules}
+\begin{center}
+\input{figures/genericconnection.tex}
+\end{center}
+\end{frame}
+\begin{itemize}
+\item When elements are connected, the two components share the same {\em across variable}. 
+\item When elements are connected, the {\em through variables} sum to zero. 
+\item Boundary conditions can set either the across or through variables on of one side of a component
+\end{itemize}
+
+
+\begin{frame}{Across and through variables}
+\begin{center}
+\begin{tabular}{c|c|c}
+Domain & Across Variable & Through Variable \\\hline\hline
+Electrical & Voltage & Current \\\hline
+Translational Mechanical & Position & Force \\\hline
+Fluid & Pressure & Flow \\\hline
+Rotational Mechanical & Angular Position & Torque \\\hline
+Thermal & Temperature & Heat Flow \\\hline
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{remark}
+One detail that may seem odd when considering force as a flow variable is the fact that force is defined as acting in opposite directions on the ends of each element. However, despite this, the interconnection rules are exactly the same. That is, for the example below, if the spring and damper are interconnected, we have $f_{k}=f_{b}$, while if the capacitor and inductor are connected, $i_{C}=i_{R}$. So in both cases, the flow variable on the left hand side of one element ``flows'' to the left hand side of the other element.
+\end{remark}
+
+\begin{frame}{Force flow vs Current flow}
+\begin{center}
+\input{figures/springvsresistorflow.tex}
+\end{center}
+
+\end{frame}
+
+By utilizing variables that have the same function in different domains, we can come up with system analogies. Analogous systems are systems in different domains that have the same equations describing their behavior.
+
+
+\begin{frame}{Electrical Analogy for Fluid Elements:}{Tank}
+\begin{center}
+\input{figures/tankanalogy.tex}
+\end{center}
+\end{frame}
+
+\begin{frame}{Electrical Analogy for Fluid Elements:}{Valve}
+\begin{center}
+\input{figures/valveanalogy.tex}
+\end{center}
+\end{frame}
+
+\subsection{Modeling Process}
+
+Let's return to the earlier problem and go through the modeling process with analogous elements. 
+
+\begin{frame}{Tank and Valve Problem}
+\begin{center}
+\input{figures/tankandvalve}
+\end{center}
+\end{frame}
+
+\begin{itemize}
+\item[Step 1] \textbf{Identify all node variables.} For a fluid problem, the node variables are pressure. There are two unique pressure variables: $p_{1}$, the pressure at the bottom of the tank, and $p_{a}$ atmospheric pressure.
+\item[Step 2] \textbf{Identify one node as ground, or add a ground node.} Most node variables are relative - for example, consider the ground on a circuit diagram. All voltages are measured with respect to ground, so the ground voltage is simply what we will consider to be 0 V. Negative voltages are lower than ground, positive voltages are higher than ground. If we identify a node as the ground, then we will measure all node variables relative to this node. For fluid systems, there are two typical choices: Either choose absolute zero pressure (i.e. a vacuum) as ground, or choose atmospheric pressure as ground. Pressure measured with respect to atmospheric pressure is called {\em gauge} pressure, and the translation is 
+\[
+\mbox{Absolute Pressure} = \mbox{Gauge Pressure} + \mbox{Atmospheric Pressure}
+\]
+For this problem, we will choose to measure pressure using gauge pressure, so that node $p_{a}$ will be considered ground.
+
+\item[Step 3] Connect components between nodes. 
+\end{itemize}
+
+The resulting analogous system is as follows.
+
+\begin{frame}{Example Analogy}
+\begin{center}
+\resizebox{10cm}{!}{\input{figures/tankandvalveanalogy.tex}}
+\end{center}
+\end{frame}
+
+Again, it should be emphasized that in this case we have chosen the ambient pressure $p_{a}$ as the reference pressure. This means that all pressure nodes in this ``circuit'' are measured with respect to ambient pressure, so that the pressure at node $p_{1}$ is in fact $p_{1}+p_{a}$.
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Find an analogous circuit for the following system\vspace{.1in}\\
+\begin{center}
+\input{quizfigures/fluidsystem.tex}
+\end{center}
+\end{enumerate}
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=4in]{quizfigures/1soln}
+\end{center}
+\end{enumerate}
+
+
+\end{document}
+
+

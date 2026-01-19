@@ -1,0 +1,7 @@
+\documentclass[letter]{article}
+\usepackage{fullpage}
+\usepackage{beamerarticle}
+\input{../commonheader.tex}
+\setjobnamebeamerversion{complexnumbers.presentation}
+\input{complexnumbers.tex}
+

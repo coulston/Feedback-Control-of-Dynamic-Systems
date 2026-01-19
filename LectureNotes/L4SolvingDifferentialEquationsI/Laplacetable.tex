@@ -1,0 +1,21 @@
+\begin{center}
+\resizebox{5in}{!}{\begin{tabular}{cc}\toprule
+\multicolumn{2}{c}{Laplace transform pairs}\\\midrule
+\hspace{1in}$f(t)$\hspace{1in} & \hspace{1in}$F(s)$\hspace{1in}  \\\midrule
+\rule{0pt}{16pt}Unit impulse $\delta(t)$ & 1 \\[.15cm]\midrule
+\rule{0pt}{16pt}Unit step $\step(t)$ & $\frac{1}{s}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$t\step(t)$ & $\frac{1}{s^2}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\frac{1}{2}t^{2}\step(t)$ & $\frac{1}{s^{3}}$  \\[.15cm]\midrule
+\rule{0pt}{16pt}$Ae^{at}\step(t)$ & $\frac{A}{s-a}$  \\[.15cm]\midrule
+\rule{0pt}{16pt}$te^{at}\step(t)$ & $\frac{1}{(s-a)^{2}}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\frac{1}{2}t^2e^{at}\step(t)$ & $\frac{1}{(s-a)^{3}}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\sin(\omega t)\step(t)$ & $\frac{\omega}{s^2+\omega^2}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\cos(\omega t)\step(t)$ & $\frac{s}{s^2 + \omega^2}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$e^{-at}\sin(\omega t)\step(t)$ & $\frac{\omega}{(s+a)^2+\omega^{2}}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$e^{-at}\cos(\omega t)\step(t)$ & $\frac{s+a}{(s+a)^2+\omega^{2}}$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\frac{df}{dt}$  & $sF(s) - f(0^{-})$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\frac{d^{n}f}{dt^{n}}$ & $s^{n}F(s) - \sum_{k=1}^{n}s^{n-k}\frac{d^{k-1}f}{dt^{k-1}}(0^{-})$ \\[.15cm]\midrule
+\rule{0pt}{16pt}$\int_{0}^{t} f(\tau)d\tau$ & $\frac{F(s)}{s}$ \\[.15cm]
+\bottomrule
+\end{tabular}}\vspace{.1in}
+\end{center}

@@ -1,0 +1,15 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{16pt}$};
+\draw (2.0,0) node[sysblock] (a) {$K$};
+\draw (5.5,0) node[sysblock] (b) {\Large $\frac{s+6}{(s+1)(s+10)(s^{2}+10s+50}$};
+\draw (8.5,0) node (c) {};
+
+\draw[<-] (sum.180) node[above left=4pt] {$+$} -- ++(-1,0) node[above=4pt] {$R(s)$};
+\draw[->] (sum.0) --  (a.180);
+\draw[->] (a.0) -- (b.180);
+\draw[->] (b.0) -- ++(2.5,0) node[above=4pt] {$Y(s)$};
+\draw[->] (c.0) -- ++(0,-1.5) -| (sum.-90) node[below right=4pt] {$-$};
+
+\end{tikzpicture}

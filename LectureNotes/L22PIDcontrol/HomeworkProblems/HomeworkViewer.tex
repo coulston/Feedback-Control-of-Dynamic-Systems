@@ -1,0 +1,43 @@
+\documentclass[11pt]{article}
+\usepackage{beamerarticle}
+\input{../../../commonheader.tex}
+\usepackage{fullpage}
+
+\begin{document}
+\begin{center}
+Homework Problems
+\end{center}
+
+\newcommand{\lecturefolder}{L17PIDcontrol}
+
+
+\newcommand{\homework}[1]{\item \input{Problem#1.tex}
+
+\textbf{Solution:}
+\input{Problem#1solnonly.tex}
+
+\input{Problem#1soln.tex}}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\homework{01}
+\item Available %\homework{02}
+\item \textcolor{red}{Retired- hydraulic}%\homework{03}
+\item \textcolor{red}{Retired- thermal}%\homework{04}
+\item \textcolor{red}{Retired- thermal (but really detailed - might be worth revisiting)}%\homework{05}
+\item Available %\homework{06}
+\item \textcolor{red}{Retired- thermal}%\homework{07}
+\homework{08}
+\homework{09}
+\homework{10}
+\item Available %\homework{11}
+\homework{12}
+\item \textcolor{red}{Retired- hydraulic}%\homework{13}
+\homework{14}
+\item \textcolor{red}{Problem has been moved to subfolder "NeedsMinorRevision" because it requires Routh Hurwitz but could probably be revised to allow a numeric check instead}%\homework{15}
+
+\end{enumerate}
+\end{document}  

@@ -1,0 +1,19 @@
+\begin{tikzpicture}
+\draw (-2,-1.5) node[scale=.85,inner sep=0pt,outer sep=0pt] (a) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}};
+\draw (-.5,0) node[circle,fill=black,inner sep=0,minimum width=4pt] {} node[above=4pt,circle, inner sep=1pt,fill=yellow] {$P_{1}$};
+\draw (a) node[left=9pt] {$Q_{in}(s)$};
+\draw (-.5,-1.5) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (tank1) {};
+\draw (tank1) node[right=9pt] {$\frac{\rho g}{sA_{1}}$};
+\draw (1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] (valve1) {};
+\draw (valve1) node[above=9pt] {$R_{1}$};
+\draw (2.5,-3) node[inner sep=0] (pa) {};
+\draw (-.5,-3) node[circle,fill=black,minimum width=4pt,inner sep=0] {};
+\draw (-.5,-3) node[below=4pt,circle, inner sep=1pt,fill=pink] {$P_{a}$};
+\draw (2.5,-3) node[inner sep=0,outer sep=0] (pa2) {};
+\draw (-.5,-3) node[inner sep=0,outer sep=0] (pa3) {};
+\draw[very thick] (a.90) |- (valve1.180);
+\draw[very thick] (tank1.90) |- (valve1.180);
+\draw[very thick] (valve1.0) -| (pa) -- (pa3);
+\draw[very thick] (tank1.-90) -- (pa3) -| (a.-90);
+\draw[->] (3,-1) -- node[pos=.5,right] {$Q_{out}(s)$} ++(0,-1);
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+For the following fluid system, find the  transfer function $P_{2}(s)/Q_{in}(s)$. The values above the valves are the valve constants. Assume that the fluid density $\rho$ and gravitational acceleration $g$ are such that $\rho g$ = 10. 
+\begin{center}
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (-.45,2.25) -- ++(2.38,0);
+\draw (4.55,0) node[above] (tank2) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (3.35,2.00) -- ++(2.38,0);
+\draw (-1.15,1) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (2.65,1) node (pipe2) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw (6.45,1) node (pipe3) {\input{\mainfolder/DrawingElements//FluidElements/valve.tex}};
+%\draw[->] (.2,.75) -- node[pos=.5,left] {$H_{1}$} ++(0,1.4);
+%\draw[->] (4.0,.75) -- node[pos=.5,left] {$h_{2}$} ++(0,1.2);
+\draw (tank.-90) node{Tank Area: $1$};
+\draw (tank2.-90) node{Tank Area: $2$};
+\draw (pipe2.90) node[above] {$3$};
+\draw (pipe3.90) node[above] {$4$};
+\draw (.75,.8) node[above] {$p_{1}$};
+\draw (4.55,.8) node[above] {$p_{2}$};
+\draw[->] (pipe1.180) ++(-.5,0) node[left] {$q_{in}$} -- ++(.5,0);
+\draw[->] (pipe3.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{out}$};
+\draw (.75,2.5) node[above] {$p_{a}$};
+\draw (4.45,2.5) node[above] {$p_{a}$};
+\draw (pipe3.0) ++(1.5,0) node {$p_{a}$};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,67 @@
+For the following problem, we will be considering a second order system 
+\[
+T(s) = \frac{\omega_{n}^2}{s^{2}+2\zeta\omega_{n} s + \omega_{n}^2}.
+\]
+For each of the following plots, if the poles lie within the shaded region, what guarantees can be given in terms of step response rise time, settling time, and/or percent overshoot? (That is, we are looking for inequalities such as $\tr< 3$ s.)\vspace{.2in}
+
+\begin{minipage}{3in}
+\centering
+(a)\\
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-1,-1.73) arc (240:120:2) -- (0,0) -- cycle;
+\draw[dashed] (0,0)  -- (-1,1.73);
+\draw[dashed] (0,0) -- (-1,-1.73);
+\draw[dashed]  (-1,-1.73) arc (240:120:2);
+\draw[thick] (-.5,0) arc (180:117:.5);
+\draw[very thick] (-2,.1) -- (-2,-.1) node[below left] {$-1$};
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (.25,.5) node[right] (cos) {$60^{\circ}$};
+\draw[->] (cos.180) -- ++(-.5,-.3);
+\end{tikzpicture}
+\end{minipage}
+\hspace{.5in}\begin{minipage}{3in}
+\centering
+(b)\\
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3) rectangle (0,3);
+\draw[fill=white,dashed] (0,2) arc (90:270:2) -- cycle;
+%\draw[dashed] (0,2) arc (90:270:2);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw[very thick] (-.1,2) -- (.1,2)  node[right] {$j2$};
+\draw[very thick] (-2,.1) -- (-2,-.1) node[below right] {$-2$};
+\draw[very thick] (-.1,-2) -- (.1,-2)  node[right] {$-j2$};
+\end{tikzpicture}
+\end{minipage}\vspace{1.0in}
+
+\begin{minipage}{3in}
+\centering
+(c)\\
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3) rectangle (-2,3);
+\draw[dashed] (-2,-3) -- (-2,3);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw[very thick] (-2,-.1) -- (-2,.1) node[below right] {$-4$};
+\end{tikzpicture}\end{minipage}
+\hspace{.5in}\begin{minipage}{3in}
+\centering
+(d)\\
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3) -- (-3,-3) -- (-2,-2) -- (-2,2) -- (-3,3) -- (-5,3) -- cycle;
+\draw[dashed] (-3,3)  -- (-2,2) -- (-2,-2) -- (-3,-3);
+\draw[dashed] (-3,3)  -- (0,0);
+\draw[dashed] (-3,-3)  -- (0,0);
+\draw[very thick] (-2,-.1) -- (-2,.1) node[below right] {$-7$};
+\draw[thick] (-.5,0) arc (180:135:.5);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3) -- (0,3) node[left] {$\mbox{Im}(s)$};
+\draw (.25,.5) node[right] (cos) {$45^{\circ}$};
+\draw[->] (cos.180) -- ++(-.5,-.3);
+\end{tikzpicture}
+\end{minipage}

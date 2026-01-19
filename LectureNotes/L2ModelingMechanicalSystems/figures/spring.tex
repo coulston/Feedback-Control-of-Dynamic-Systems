@@ -1,0 +1,11 @@
+\begin{tikzpicture}
+\draw (.75,0) node[inner sep=0,outer sep=0] (K1) {\input{\mainfolder/DrawingElements/MechanicalElements/spring.tex}};
+\draw (K1)  node[above=6pt] {$k$};
+\draw[very thick] (K1.180) -- ++(-.2,0);
+\draw[very thick] (K1.0) -- ++(0.2,0);
+\draw[<-,thick] (K1.0) ++(.2,0) -- ++(.5,0) node[right] {$f$};
+\draw[<-,thick] (K1.180) ++(-.2,0) -- ++(-.5,0) node[left] {$f$};
+\draw[|->,thick] (K1.180) ++(-.2,.4) node[above=2pt] {$x_{1}$} -- ++(.5,0);  
+\draw[|->,thick] (K1.0) ++(.2,.4) node[above=2pt] {$x_{2}$} -- ++(.5,0);  
+\draw<2-> (K1) ++(0,-.6) node {$f=k(x_{1}-x_{2})$};
+\end{tikzpicture}

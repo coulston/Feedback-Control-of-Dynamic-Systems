@@ -1,0 +1,35 @@
+You are to design a Proportional/Integral (PI) control system for an tank with controllable volumetric flow input ${q}_{in}$. The level of liquid in the tank must be carefully regulated.  \vspace{.1in}
+
+\begin{minipage}{3.5in}
+The desired specifications are:
+\begin{itemize}
+\item Settling time equal to 10 seconds
+\item Overshoot of 15\%
+\item Zero steady state error for unit step reference 
+\end{itemize}
+\end{minipage}
+\begin{minipage}{3in}
+\begin{center}
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (-.45,2.25) -- ++(2.38,0);
+\draw (-1.15,1) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (2.65,1) node (pipe2) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+\draw[->] (.2,.75) -- node[pos=.5,left] {$h$} ++(0,1.4);
+\draw (tank.-90) node{Tank Area: $A$};
+\draw (pipe2.90) node[above] {$R$};
+\draw (.75,.8) node[above] {$p_{1}$};
+\draw[<-] (pipe1.180) ++(.5,0) --  ++(-.5,0) node[left] {$q_{in}$};
+\draw[->] (pipe2.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{out}$};
+\draw (.75,2.5) node[above] {$p_{a}$};
+\draw (pipe2.0) ++(1.5,0) node {$p_{a}$};
+\end{tikzpicture}\end{center}
+\end{minipage}\vspace{.1in}
+
+The tank has an area of $100$ m$^2$, the density of the liquid is such that $\rho g = 10000$ kg m$^{-2}$s$^{-2}$ and the flow resistance at the outlet valve is $400$  kg m$^{-4}$s$^{-1}$. 
+\begin{enumerate}[(a)]
+\item  Find the transfer function for the tank from input $q_{in}$ to output $h$. 
+\item Draw a block diagram that represents the PI feedback control system. Include the reference signal for the desired height $H_{d}(s)$
+\item  Determine the acceptable damping ratio and undamped natural frequency of the closed loop poles achieve the desired closed loop specifications
+\item Find the gains for your controller that achieve the pole locations for part (c)
+\end{enumerate}

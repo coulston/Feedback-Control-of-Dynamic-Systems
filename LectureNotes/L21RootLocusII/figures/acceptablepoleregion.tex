@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+
+\draw[pattern=north east lines,draw=white] (-5,-3.5) -- (-2.53,-3.5) -- (-2,-2.76) -- (-2,2.76) -- (-2.53,3.5) -- (-5,3.5) -- cycle;
+\draw[dashed] (0,0)  -- (-2.17,3);
+\draw[dashed] (0,0) -- (-2.17,-3);
+\draw[dashed] (-2,-3.5) -- (-2,3.5);
+\draw (-2,0) node[below right] {$-2$};
+\draw[thick] (-.5,0) arc (180:126:.5);
+\draw[->] (-5,0) -- (1,0) node[below] {$\mbox{Re}(s)$};
+\draw[->] (0,-3.5) -- (0,3.5) node[left] {$\mbox{Im}(s)$};
+\draw (.25,.5) node[right] (cos) {$\cos^{-1}(.59)=54^{\circ}$};
+\draw[->] (cos.180) -- ++(-.5,-.3);
+\draw (-3.5,.8) node[fill=white] {\begin{minipage}{1.0in}\begin{center}in this region, \%OS$\leq 10$\%, $t_{s}\leq2.3$s\end{center}\end{minipage}};
+\end{tikzpicture}

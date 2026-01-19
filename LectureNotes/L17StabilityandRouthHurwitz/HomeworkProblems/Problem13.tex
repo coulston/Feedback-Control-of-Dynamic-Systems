@@ -1,0 +1,20 @@
+Climate scientists explain that there is a relationship between the concentration of carbon dioxide ($CO_2$) in the atmosphere and global temperature. Since it is very difficult to derive a model for this relationship using ideal element representation as we've learned how to do in this class, let's assume that we can model this relationship as an unknown transfer function $G(s) = \frac{T(s)}{U(s)}$, where $X$ is the atmospheric $CO_2$ measured in parts per million and $T$ is the global temperature anomoly (difference from the mean temperature). The following two figures plot $x(t)$ and $T(t)$ (note the different time axes). \\
+%
+%\begin{figure}
+    %\centering
+    \begin{minipage}[!h]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/KeelingCurve-large.png} \\
+				%\caption{\small{Source: NOAA. Accessed from \url{http://www3.epa.gov/climatechange/images/science/KeelingCurve-large.png} on 2/25/16.}}\\
+    \end{minipage}%
+    \begin{minipage}[!h]{0.5\textwidth}
+        \centering
+				\includegraphics[width=0.9\linewidth]{\mainfolder/LectureNotes/\lecturefolder/HomeworkProblems/GlobalTemps.pdf} \\
+				%\caption{\small{Source: NASA. Accessed from \url{http://data.giss.nasa.gov/gistemp/graphs_v3/} on 2/25/16.}}\\
+    \end{minipage}
+%\end{figure}
+\small{
+Source: NOAA. Accessed from \url{http://www3.epa.gov/climatechange/images/science/KeelingCurve-large.png} on 2/25/16.\\
+Source: NASA. Accessed from \url{http://data.giss.nasa.gov/gistemp/graphs_v3/} on 2/25/16.}\\
+
+Based on these two plots, can you reasonably argue, using control systems concepts, whether $G(s)$ is BIBO stable? Why or why not? If you performed system identification to find $G(s)$, would you be able to tell if your poles would lie in the left half plane or right half plane?

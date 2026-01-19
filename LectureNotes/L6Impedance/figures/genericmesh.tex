@@ -1,0 +1,11 @@
+\begin{tikzpicture}
+\draw (-2,-1) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (a) {};
+\draw (a) node[left=9pt] {$\begin{matrix} + \\ v_{1} \\ -\end{matrix}$};
+\draw (-1,0) node[rectangle,draw,minimum width=.5in,minimum height=.1in] (e) {};
+\draw (e) node[above=9pt] {$\begin{matrix} + & v_{2} & - \end{matrix}$};
+\draw (0,-1) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (f) {};
+\draw (f) node[right=9pt] {$\begin{matrix} + \\ v_{3} \\ - \end{matrix}$};
+\draw[very thick] (a.90) |- (e.180);
+\draw[very thick] (e.0) -| (f.90);
+\draw[very thick] (f.-90) -- ++(0,-.25) -| (a.-90);
+\end{tikzpicture}

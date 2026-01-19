@@ -1,0 +1,20 @@
+\begin{tikzpicture}[
+sysblock/.style={draw,rectangle,inner sep=6pt,minimum width=1.25cm,minimum height=1.0cm,very thick},
+summer/.style={circle,draw,very thick}]
+
+
+\draw[->] (0,0) -- ++(4,0) node[below] {Re$\{s\}$};
+\draw[->] (2,-2) -- ++(0,4) node[left] {Im$\{s\}$};
+
+\draw[color=blue,thick] plot[smooth] file {figures/nyquistmapping1.table};
+\draw[color=blue,thick] plot[smooth] file {figures/nyquistmapping2.table};
+\draw[->,very thick,color=blue] (2,1.485) -- ++(.01,0);
+\draw[->,very thick,color=blue] (2,-1.485) -- ++(-.01,0);
+
+\draw (1.5,-.1) node[below=-2pt] {\scriptsize$-1$} -- ++(0,.2);
+\draw (4,1.5) node{example:};
+\draw (4,1) node {$N=2$};
+
+
+
+\end{tikzpicture}

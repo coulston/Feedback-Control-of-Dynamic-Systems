@@ -1,0 +1,597 @@
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\BodePlotsIIIShortName] % (optional, use only with long paper titles)
+{\course: \BodePlotsIIIName\license}
+
+\subtitle
+{Lecture \BodePlotsIIINumber} % (optional)
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+
+%\section{\color{red}{Section notes to self - delete before posting}}
+%\begin{itemize}
+%	\item \color{red}{this lecture will take some of the old Lecture IV material, which is below.}
+%	\item \color{red}{focus more on Matlab, conceptual understanding}
+%	\item \color{red}{idea for active engagement: instead of sketching a whole plot by hand, give scaffolded parts and ask what comes next}
+%	\item \color{red}{ask questions like ``if you want to add magnitude but decrease phase, what term(s) would you use?''}
+%	\item \color{red}{update prerequisite material list}
+%\end{itemize}
+
+\section{Overview}
+In the prior Bode plot lectures, we've discussed plotting rules for first and second order systems with poles in the left- and right-half planes (LHP and RHP), pure integrators, derivatives and systems with zeros in the LHP or RHP. In Lecture~\BodePlotsIINumber, we summarized these in a table, reprinted below for convenience. 
+
+\begin{table}
+	\caption{Magnitude and phase characteristics for different kinds of systems.}
+\begin{center}
+	\begin{tabular}{ccccc}
+		\toprule
+		Item (Pole/Zero?) & Location & How Many? & Slope of Magnitude & Slope of Phase\\\midrule
+		\rule{0pt}{12pt}\multirow{5}{*}{Zero} & LHP & 1 & 20 dB/dec & 45$^{\circ}$/dec \\
+		\rule{0pt}{16pt} & RHP & 1 & 20 dB/dec & -45$^{\circ}$/dec \\%\midrule
+		\rule{0pt}{16pt} & LHP & 2 & 40 dB/dec & 90$^{\circ}$/dec \\
+		\rule{0pt}{16pt} & RHP & 2 & 40 dB/dec & -90$^{\circ}$/dec \\
+		\rule{0pt}{16pt} & $s=0$ (derivative) & $n$ & $20n$ dB/dec & 0$^{\circ}$/dec at 90$n^{\circ}$ \\\midrule
+		
+		\rule{0pt}{16pt}\multirow{5}{*}{Pole} & LHP & 1 &  -20 dB/dec & -45$^{\circ}$/dec  \\
+		\rule{0pt}{16pt} & RHP & 1 &  -20 dB/dec &45$^{\circ}$/dec  \\%\midrule
+		\rule{0pt}{16pt} & LHP & 2 &  -40 dB/dec & -90$^{\circ}$/dec  \\
+		\rule{0pt}{16pt} & RHP & 2 &  -40 dB/dec &90$^{\circ}$/dec  \\
+		\rule{0pt}{16pt} & $s=0$ (integrator) & $n$ & $-20n$ dB/dec & 0$^{\circ}$/dec at -90$n^{\circ}$ \\\bottomrule
+	\end{tabular}
+\end{center}
+\label{tab:bodetable}
+\end{table}
+
+
+All of this information can be used in a number of useful ways:
+\begin{itemize}
+	\item Before computers, hand-sketched Bode plots generated from these characteristics were used extensively for control systems analysis and design, as well as in other fields such as signal processing. Sketching Bode plots by hand is still an extremely common part of many control systems classes because of the insight it can provide.
+	\item Even with helpful computer tools to perform frequency-domain control systems analysis, it's still useful to have a general idea of hand-sketching rules to verify any results obtained from a computer. 
+	\item In addition, knowing the properties of different kinds of systems (including those described in the table) is very useful for designing controllers, even if we use computers to create the actual Bode plots.
+\end{itemize}
+
+In previous versions of this course, hand-sketching Bode plots was emphasized at greater length (see Appendix for an example). In this version, we'll focus more on the second and third bullet points, but still do some hand sketching with Matlab as a checking tool.  
+
+\section{Plotting Bode Plots}
+
+\subsection{Key Mathematical Properties
+\label{sec:mathprop}}
+
+The following properties of the \texttt{log} function and of complex angles are key to plotting higher order Bode plots that incorporate multiple transfer functions from the table. Suppose 
+\[
+G(s) = G_{1}(s)G_{2}(s)G_{3}(s),
+\]
+then,
+\begin{align*}
+	20\log_{10}|G_{1}(s)G_{2}(s)G_{3}(s)| &= 20\log_{10}|G_{1}(s)|+20\log_{10}|G_{2}(s)|+20\log_{10}|G_{3}(s)| \\
+	\angle G_{1}(s)G_{2}(s)G_{3}(s) &= \angle G_{1}(s) + \angle G_{2}(s) + \angle G_{3}(s)
+\end{align*}
+That is, \textit{the Bode plot of $G(s)$ will be the sum of the Bode plots of the individual parts $G_i(s)$}. This fact holds for both the magnitude and phase plots. A strategy for plotting higher order Bode plots is then as follows: break a higher order system into products of first and second order poles and zeros (including integrals $\frac{1}{s}$ and derivatives $s$). Plot the Bode plots of each of these elements, which can then be added to get the final plot.
+
+Because non-zero poles and zeros (i.e., all poles and zeros not located at the origin of the complex plane)
+\begin{itemize}
+	\item  don't impact the Magnitude Bode plot for frequencies less than their break frequency $\sigma$ or $\omega_n$, and
+	\item only impact the phase Bode plot over frequencies from one decade below to one decade above their break frequency $\sigma$ or $\omega_n$,
+\end{itemize}
+we don't actually have to plot all of the individual Bode plots for $G_i(s)$ in their entirety. Instead, we can sketch an asymptotic Bode plot by starting with the low-frequency gain ($K$ and any pure integrators or derivatives, if present), then moving from low frequencies to high frequencies and incorporating each new break frequency when it becomes relevant. Let's illustrate the process with an example.
+
+
+\subsection{Sketching Asymptotic Bode Plots}
+\begin{example}
+	
+In this example, we'll start with an asymptotic Bode plot sketch using the rules from Table~\ref{tab:bodetable} and then using Matlab. We want the Bode plot for the transfer function 
+\begin{align*}
+G(s) &= G_1(s)G_2(s) \\
+&=\frac{s-1}{s + 10}
+\end{align*}
+where
+\begin{align*}
+G_1(s) &= \frac{s-1}{1} \\
+G_2(s) &= \frac{1}{s + 10}
+\end{align*}
+where you'll notice that $G_1(s)$ has a RHP zero and $G_2(s)$ has a LHP pole. 
+
+Before using Matlab, let's predict what will happen to the magnitude and phase Bode plots for this system. In particular, consider these questions.
+
+\begin{frame}{Questions for Example Bode Plot}
+\begin{enumerate}
+	\item What is the magnitude in dB of the DC gain of $G(s)$? In other words, what is $20 \log_{10}(K)$?
+	\item What is the low frequency phase of $G(s)$, i.e., $\angle K$?
+	\item Will the magnitude at high frequencies be smaller or larger than the magnitude at low frequencies (near DC)?
+	\item What will be the total phase change of the phase Bode plot given the RHP zero and LHP pole?
+	\item What are the asymptotic phase slopes at medium frequencies (near the zero $\sigma_z$ and the pole $\sigma_p$)?
+\end{enumerate}
+\end{frame}
+
+\noindent \textbf{Question 1} We can find the DC gain using the ``Bode form'' of the overall transfer function $G(s)$, i.e., factoring out whatever values are necessary from the numerator and denominator to make the coefficients on the $s^0$ term equal to 1. For this example, that means factoring out a $(-1)$ from the numerator and a $(10)$ from the denominator.
+\[
+G(s) = \left(\frac{-1}{10}\right) \left( \frac{\frac{s}{-1}+1}{\frac{s}{10}+1} \right)
+\]
+which tells us that $K=\frac{-1}{10}$. Note that the \textit{magnitude} question doesn't care about the negative sign, so the magnitude in dB is $K_{dB} = 20 \log_{10}(0.1) = -20$~dB. In other words, the left side (low frequency side) of the magnitude Bode plot has a value of $-20$~dB, as shown in the initial asymptotic Magnitude Bode plot below. 
+\begin{frame}{Magnitude at Low Frequencies}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodemag1}
+\end{center}
+\end{frame}
+
+\vspace{10pt}
+
+\noindent \textbf{Question 2} Unlike for the magnitude question, the fact that $K<0$ \textit{does} matter for the phase term. Since $K$ is a negative real number, its angle is $\pm 180^\circ$ (or any change of $360^\circ$ from those values). Note: Matlab will usually default to $+180^\circ$, and that's what we show here. 
+\begin{frame}{Phase at Low Frequencies}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodephase1}
+\end{center}
+\end{frame}
+
+\vspace{10pt}
+
+\noindent \textbf{Question 3} This question isn't as trivial as it may seem at first glance. From Table~\ref{tab:bodetable}, we can see that the RHP zero will give us a $+20$~dB/dec magnitude slope and the LHP pole will give a $-20$~dB/dec magnitude slope. In other words, at some point they will cancel out, and we'll get a $0$~dB/dec magnitude slope.
+
+The key is to notice which slope starts impacting the magnitude Bode plot at lower frequencies; in other words, does the magnitude Bode plot start going up or down first? Because the frequency $\sigma_z$ of the first-order zero is lower ($\sigma_z=1$~rad/s) than the frequency $\sigma_p$ of the first-order pole ($\sigma_p=10$~rad/s), the magnitude Bode plot's slope will start to go up by $20$~dB/dec when $\omega \approx \sigma_z$ and then drop to a slope of zero ($0$~dB/dec~=($20$~dB/dec)+($-20$~dB/dec)) for frequencies higher than the frequency of the pole, i.e., $\omega \approx \sigma_p$.
+
+Let's take a look at the asymptotic Bode plots associated with the RHP zero and then the LHP pole for this question. As mentioned in the previous paragraph, when $\omega \approx \sigma_z$, the magnitude Bode plot starts to increase at a slope of $20$~dB/dec:
+\begin{frame}{Magnitude at Medium Frequencies}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodemag2}
+\end{center}
+\end{frame}
+This slope continues until $\omega \approx \sigma_p$, above which the slope becomes $+20-20=0$~dB/dec/
+\begin{frame}{Magnitude at High Frequencies}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodemag3}
+\end{center}
+\end{frame}
+
+\vspace{10pt}
+
+\noindent \textbf{Question 4} 
+From Table~\ref{tab:bodetable}, we know that the phase change from a RHP zero is $-45^\circ$/dec and the phase change from a LHP pole is also $-45^\circ$/dec. A key fact to recall is that \textit{both of these changes happen over a range of two decades} (each), which means that the total phase change from a RHP zero `RHPZ' is
+\begin{align*}
+\Delta \theta_{\text{RHPZ}} &= \left( -45^\circ/\text{dec} \right) (2~\text{decades}) \\
+&= -90^\circ
+\end{align*}
+and similarly, the total phase change from a LHP pole `LHPP' is
+\begin{align*}
+\Delta \theta_{\text{LHPP}} &= \left( -45^\circ/\text{dec} \right) (2~\text{decades}) \\
+&= -90^\circ
+\end{align*}
+Since the angles from each individual transfer function $G_1(s)$ and $G_2(s)$ can be added (refer back to Section~\ref{sec:mathprop}), the total phase change of the combined transfer function $G(s)$ is given by
+\begin{align*}
+\Delta \theta_{\text{Total}} &= \Delta \theta_{\text{RHPZ}} + \Delta \theta_{\text{LHPP}} \\
+&= -180^\circ
+\end{align*}
+
+Thus, even if we're not exactly sure what happens at medium frequencies, we can conclude that at high frequencies $\angle G(s) = 180^\circ - 180^\circ = 0^\circ$. 
+\begin{frame}{Phase at High Frequencies}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodephase2}
+\end{center}
+\end{frame}
+\vspace{10pt}
+
+\noindent \textbf{Question 5} The figure with low and high frequency phase angles shown leads us to our final question: what happens to the phase plot at medium frequencies near the zero of $G_1(s)$ and pole of $G_2(s)$? As you'll recall from Lecture~\BodePlotsINumber, a first-order pole $\sigma_p$ impacts the phase Bode plot's slope from approximately one decade below the pole to approximately one decade above the pole, i.e., from $0.1 \sigma_p < \omega < 10 \sigma_p$. From Lecture~\BodePlotsIINumber, you can see that the same range applies to a first-order zero. In other words, for our example, the following ranges apply:
+\begin{frame}{Phase Ranges for Medium Frequencies (Near Zero and Pole)}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodephase3}
+\end{center}
+\end{frame}
+Recall from Section~\ref{sec:mathprop} that the angles are additive, so the slope of the phase Bode plots where the two ranges overlap (i.e., between $1 < \omega < 10$~rad/s) is $-45^\circ/\text{dec}-45^\circ/\text{dec}=-90^\circ/\text{dec}$. This result allows us to complete the asymptotic phase Bode plot. 
+\begin{frame}{Phase Slopes Near Zero and Pole}
+\begin{center}
+	\includegraphics[width=3.5in]{figures/bodephase4}
+\end{center}
+\end{frame}
+
+
+\subsection{Plotting Bode Plots in Matlab}
+
+Let's continue the example using Matlab. The command \texttt{bode} can be used to plot Bode plots of transfer functions. It works just like the step command, with the input argument a transfer function. 
+
+\begin{frame}{Matlab Commands to Create Bode Plot}
+	\texttt{\\<all>
+		>> sys = tf([1 -1],[1 10]) \% define system using tf function \\<all>
+		\rule{0pt}{0pt}\\
+		sys =\\<all>
+		s - 1\\<all>
+		------\\<all>
+		s + 10\\<all>
+		\rule{0pt}{0pt}\\
+		>> bode(sys)}\\
+\end{frame}
+\begin{frame}{Matlab-Generated Bode Plot}
+	\begin{center}
+		\includegraphics[width=4in]{figures/matlabbode}
+	\end{center}
+\end{frame}
+
+Let's compare this Bode plot to our asymptotic sketch by overlaying the red asymptotes.
+\begin{frame}{Bode Plot with Asymptotes}
+\begin{center}
+\includegraphics[width=3.5in]{figures/matlabbode_asymptotes}
+\end{center}
+\end{frame}
+As you can see, the agreement between the asymptotic sketch and precise values from Matlab is pretty good, which is as expected when poles and zeros are at least a decade apart and systems are first order. 
+
+\end{example}
+
+\begin{example}
+	
+Let's use Matlab to look at another example using 
+\[
+G(s) = \frac{5(s+1)(s-50)}{s^{2}(s^{2}+10s+100)},
+\] 
+where we first define \texttt{s} as the Laplace variable, and then create the transfer function in four parts. (Note: there's no particular need to define the transfer function this way compared to the first example; we're just illustrating different ways to define a transfer function.)
+\begin{frame}{Matlab Code for Second Example}
+	\texttt{\\<all>
+		\noindent>> s = tf([1 0],[1]); \% define s as the Laplace variable\\<all>
+		>> sys1 = 5/s\^{}2; \\<all>
+		>> sys2 = s+1; \\<all>
+		>> sys3 = s-50; \\<all>
+		>> sys4 = 1/(s\^{}2+10*s+100); \\<all>
+		>> sys=sys1*sys2*sys3*sys4;\\<all>
+		>> subplot(1,2,1)\\<all>
+		>> bode(sys1,sys2,sys3,sys4)\\<all>
+		>> legend('sys1','sys2','sys3','sys4') \\<all>
+		>> subplot(1,2,2)\\<all>
+		>> bode(sys)
+}
+\end{frame}
+\vspace{10pt}
+
+\noindent Note 2: Instead of defining each pole or zero independently as \texttt{sys1}, \texttt{sys2}, etc., we could also have used \\
+\noindent \texttt{>> sys=5*(s+1)*(s-50)/(s\^{}2*(s\^{}2+10*s+100));}, \\
+but we broke apart the subparts so we could see the additive nature of the Bode plot. 
+
+The resulting Matlab plot is shown below, where the Bode diagram on the left shows each of the subsystems individually and the plot on the right is the combined \texttt{sys}. 
+
+\begin{frame}{Matlab Results}
+\begin{center}
+	\includegraphics[width=0.8\columnwidth]{figures/matlabbode2all}
+\end{center}
+\end{frame}
+% Old plot (not broken up)
+%\begin{frame}{Matlab Results}
+%	\begin{center}
+%		\includegraphics[width=3.5in]{figures/examplebodeplot_1}
+%	\end{center}
+%\end{frame}
+%
+
+
+For any frequency of interest, you could add the value of the four subsystem curves (left plot) to get the value on the right plot. For example, let's say we're interested in $\omega=10$~rad/s. At that frequency, we have $34+20-40-26=-12$~dB, as shown in the figure below. (The frequencies automatically selected by Matlab for each Bode plot don't align perfectly, so you see some cursors at $10.5$~rad/s and others at $10$~rad/s.)
+\begin{frame}{Matlab Results with Markers at $10$~rad/s}
+\begin{center}
+	\includegraphics[width=0.8\columnwidth]{figures/matlabbode2markers}
+\end{center}
+\end{frame}
+The same result would hold if we were looking at a specific frequency on the phase Bode plot, i.e., the angles of the four subsystems on the left would sum to the angle of the combined system on the right.
+
+\end{example}
+
+\section{Implications}
+
+What are the implications of the summative properties of magnitude and phase Bode plots? A major one is that we will be able to \textit{design controllers in the frequency domain by placing a pole or zero to make the magnitude or phase Bode plot go up or down}. For example, in the last example you can see that the phase plot starts at $0^\circ$, then goes up at medium frequencies, reaching its peak value of about $50^\circ$ at a frequency $\omega \approx 3$~rad/s. The reason that the phase starts to increase is because of the LHP zero at $\sigma=1$~rad/s from \texttt{sys2}. If this were desirable behavior, a controller could incorporate a zero in a similar way to increase the phase at the frequency of interest. 
+
+In the following lectures, we'll see how we can make use of this additive property of Bode plots for controller design. First, we'll design some key measures for frequency-domain analysis (Lecture~\GainandPhaseMarginNumber), then derive some relationships between these frequency-domain measures and time-domain performance specifications (Lecture~\TimeFrequencyNumber), and finally use this information for controller design (Lectures~\BodeControlDesignINumber-\BodeControlDesignIINumber).  
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Because of additive properties of the $\log$ and $\angle$ functions, higher-order Bode plots can be generated by adding Bode plots from the building block systems shown in Table~\ref{tab:bodetable}.
+\item For each individual term, the asymptotic magnitude plot is impacted for frequencies higher than the term (i.e., $\omega > \sigma$ or $\omega > \omega_n$) and the asymptotic phase plot is impacted for frequencies within one decade below to one decade above the term. (An exception for this is integrators and derivatives, which impact the low-frequency part of the Bode plot.)
+\item We'll be able to make use of the additive properties when designing controllers, so even when we have access to Matlab it's important to have a basic understanding of how each term impacts the plots. 
+\end{enumerate}
+
+
+\section{Appendix: Systematic Method for Sketching Bode Plots}
+
+We will explain a systematic method for sketching Bode plots, using the system
+\begin{frame}
+\[
+G(s) = \frac{5(s+1)(s-50)}{s^{2}(s^{2}+10s+100)}
+\]
+\end{frame}
+as a working example
+\begin{itemize}
+\item \begin{frame}
+Step 1: Factor out constant terms and any poles or zeros at $s=0$ to obtain the transfer function in ``Bode form''
+\begin{align*}
+G(s) &= \frac{5(-50)}{100s^{2}}\frac{(s+1)(\frac{s}{-50}+1)}{\left(\left(\frac{s}{10}\right)^{2}+\frac{s}{10}+1\right)}\\
+& = \frac{-2.5}{s^{2}}\frac{(s+1)(\frac{s}{-50}+1)}{\left(\left(\frac{s}{10}\right)^{2}+\frac{s}{10}+1\right)}
+\end{align*}
+the term $\frac{-2.5}{s^{2}}$ is called the {\em low frequency term}
+\end{frame}
+\item \begin{frame} Step 2: List break frequencies and important info
+\begin{center}
+\resizebox{6.5in}{!}{\begin{tabular}{lllll}
+		\toprule
+		Break Frequency & Item (P/Z? L/RHP? \#?) & Magnitude Slope & Phase Slope & Range for Phase Slope\\\midrule
+		1 rad/s & 1 LHP zero & 20 dB/dec & 45$^{\circ}$/dec & 0.1 to 10 rad/s \\
+		10 rad/s & 2 LHP poles & -40 dB/dec &  -90$^{\circ}$/dec & 1 to 100 rad/s \\
+		50 rad/s & 1 RHP zero & 20 dB/dec & -45$^{\circ}$/dec & 5 to 500 rad/s \\\bottomrule
+\end{tabular}}
+\end{center}
+\end{frame}
+\item \begin{frame} Step 3: Calculate gain and phase of low frequency term ($2.5/s^{2}$). To calculate the magnitude, we pick a frequency less than or equal to all break frequencies. In this case 1 rad/s is convenient, so we plug in $s=j\omega$ with $\omega=1$:
+\[
+\left|-\frac{2.5}{s^{2}}\right|_{s=j} = \frac{|-2.5|}{|j^{2}|} = \frac{2.5}{1} = 2.5
+\]
+Thus, at 1 rad/s, the magnitude is $20\log_{10}(2.5) = 7.96$. To calculate low frequency phase, you can always just plug in $j$ 
+\[
+\angle \left.-\frac{2.5}{s^{2}}\right._{s=j} = \angle \frac{-2.5}{j^{2}} = \angle \frac{-2.5}{-1} = \angle 2.5 = 0^{\circ}
+\]
+In this case, the low frequency phase is $0^{\circ}$.
+\end{frame}
+\item Step 4: Draw magnitude plot, starting from lowest frequencies. If the low  frequency term is just a gain, mark that gain at the lowest frequency, otherwise follow the first two steps below
+
+\begin{center}
+\begin{minipage}{1.5in}
+Plot point at 1 rad/s and 7.96 db
+\end{minipage}\hspace{.25in}
+\begin{frame}
+\mode<presentation>{Step 4: Draw magnitude plot, starting from lowest frequencies.\vspace{.25in}}
+\begin{minipage}{3in}
+\includegraphics[width=3in]{figures/magprocedure1}
+\end{minipage}
+\end{frame}
+
+
+\begin{minipage}{1.5in}
+Draw line with slope of -20 dB/dec for each pure integrator term. In this case, the low frequency term is $\frac{2.5}{s^{2}}$, which has two pure integrators, so the initial slope is $-40$ dB/dec
+\end{minipage}\hspace{.25in}
+\begin{frame}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure2}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\end{tikzpicture}
+\end{minipage}
+\end{frame}
+
+\begin{minipage}{1.5in}
+Since 1 rad/s is a break frequency with one LHP zero, change slope by +20 dB/dec or a net -40+20=-20 dB/dec and extend to next highest break frequency 
+\end{minipage}\hspace{.25in}
+\begin{frame}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure3}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\draw(-0.15,0.8) node[above right]{$-20$ \textsf{dB/dec}};
+\draw[thick] (-0.15,0.8) -- ++(.2,0) -- ++(0,-.1);
+\end{tikzpicture}
+\end{minipage}
+\end{frame}
+
+\begin{minipage}{1.5in}
+Continue changing slope after each break frequency as dictated by pole or zero location and number
+\end{minipage}\hspace{.25in}
+\begin{frame}
+\begin{minipage}{3in}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/magprocedure4}};
+\draw(-1.78,1.58) node[above right]{$-40$ \textsf{dB/dec}};
+\draw[thick] (-1.78,1.58) -- ++(.2,0) -- ++(0,-.15);
+\draw(-0.15,0.8) node[above right]{$-20$ \textsf{dB/dec}};
+\draw[thick] (-0.15,0.8) -- ++(.2,0) -- ++(0,-.1);
+\draw(1.4,0) node[above right]{$-60$ \textsf{dB/dec}};
+\draw[thick] (1.4,0) -- ++(.2,0) -- ++(0,-.2);
+\draw[thick] (2.3,-.75) -- ++(.2,0) -- ++(0,-.17);
+\draw[thick] (2.3,-.75)  node[above right] {$-40$ \textsf{dB/dec}};
+\end{tikzpicture}
+\end{minipage}
+\end{frame}
+\end{center}
+When drawing the plot, it can be convenient to calculate the magnitudes at the break frequencies. For example, we know that at 1 rad/s the magnitude is 7.96 dB. Since the linear approximation decreases by -20 dB/dec from this point, the magnitude at 10 rad/s is
+\[
+\text{Mag at 10 rad/s} = 7.96\mbox{dB}. - 20 \mbox{dB/dec} \times 1 \mbox{decade} = -12.04\mbox{dB}.
+\]
+The next break frequency is at 50 rad/s. Note that 
+\[
+\log_{10}(50) = 1.7
+\]
+and
+\[
+\log_{10}(10)= 1
+\]
+Thus 50 rad/s is 1.7-1 = 0.7 of a decade from 10 rad/s. The magnitude at 50 rad/s is then
+\[
+\text{Mag at 50 rad/s} = -12.04\mbox{dB}. - 60 \mbox{dB/dec} \times 0.7 \mbox{decade} = -54.04\mbox{dB}.
+\]
+
+\item Step 5: Indicate regions on phase plot where slope is non-zero. To do this, draw a line above the phase plot for each break frequency listed in the table above. This line will extend from one decade below to one decade above the break frequency, as indicated in the ``Range for Phase Slope'' column from Step 2. On each line, list the slope that is associated with that term. 
+\begin{center}
+\begin{minipage}{1.5in}
+Draw lines centered at 1, 10 and 50 rad/s
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{frame}
+\mode<presentation>{Step 5: Draw phase plot}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure1}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\end{tikzpicture}
+\end{frame}
+\end{minipage}
+\end{center}
+\item Step 6: Draw phase plot, starting from the lowest frequencies. As you go from low to high frequency, you can determine the proper slope by adding up the numbers associated with each line at each frequency.
+\begin{center}
+\begin{minipage}{1.5in}
+From calculation above, low frequency phase is 0$^{\circ}$, so start there, and follow slope indicated by lines
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{frame}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure2}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{frame}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{1.5in}
+at 5 rad/s, the phase will be $45 - 45\times (\log_{10}(5) - \log_{10}(1)) = 13.5^{\circ}$
+\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{frame}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure3}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\draw(-.5,1.32) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (-.5,1.32) -- ++(.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{frame}
+\end{minipage}
+\end{center}
+\begin{center}
+\begin{minipage}{1.5in}
+The slope changes as each line ``turns on'' or ``turns off'\end{minipage}\hspace{.25in}
+\begin{minipage}{3in}
+\begin{frame}
+\begin{tikzpicture}
+\draw (0,0) node {\includegraphics[width=3in]{figures/phaseproceedure4}};
+\draw[thick,*-*] (-2.7,2.1) -- node[pos=.2,above] {45$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (-.97,2.3) -- node[pos=.15,above] {-90$^{\circ}$/dec} ++(3.67,0);
+\draw[thick,*-*] (0.25,2.5) -- node[pos=.2,above] {-45$^{\circ}$/dec} ++(3.67,0);
+\draw(-1.28,1.32) node[above left]{$45^{\circ}$\textsf{/dec}};
+\draw[thick] (-1.28,1.32) -- ++(-.2,0) -- ++(0,-.07);
+\draw(-.5,1.32) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (-.5,1.32) -- ++(.2,0) -- ++(0,-.07);
+\draw(.5,1) node[above right]{$-90^{\circ}$\textsf{/dec}};
+\draw[thick] (.5,1) -- ++(.2,0) -- ++(0,-.15);
+\draw(1.6,.1) node[above right]{$-135^{\circ}$\textsf{/dec}};
+\draw[thick] (1.6,.1) -- ++(.2,0) -- ++(0,-.2);
+\draw(3,-.86) node[above right]{$-45^{\circ}$\textsf{/dec}};
+\draw[thick] (3,-.86) -- ++(.2,0) -- ++(0,-.07);
+\end{tikzpicture}
+\end{frame}
+\end{minipage}
+\end{center}
+
+\item Step 7: Verify your phase plot by calculating the total phase \textit{change} for each of the poles and zeros in your Table from Step 2.
+
+\begin{center}
+{\begin{tabular}{lllll}
+\toprule
+Break Frequency & Item (P/Z? L/RHP? \#?) & Phase Slope & \# of Decades & Phase Change for Item \\\midrule
+1 rad/s & 1 LHP zero & 45$^{\circ}$/dec & 2 decades & 90$^{\circ}$\\
+10 rad/s & 2 LHP poles &  -90$^{\circ}$/dec & 2 decades & -180$^{\circ}$\\
+50 rad/s & 1 RHP zero & -45$^{\circ}$/dec & 2 decades & -90$^{\circ}$\\\midrule
+& & & Total Phase Change & -180$^{\circ}$\\\bottomrule
+\end{tabular}}
+\end{center}
+
+In this example, the total phase change should be therefore be -180$^{\circ}$, which is consistent with the phase starting at 0$^{\circ}$ and ending at -180$^{\circ}$ in the final plot of Step 6. 
+
+\end{itemize}
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Sketch the Bode plot for the following systems. Label your sketch with the magnitude and phase at each break point. Verify your results using MATLAB. In order to select the frequency range of the Bode plot, you can use the second argument: \texttt{bode(sys,\{wmin, wmax\})}, where you replace \texttt{wmin} with the minimum desired frequency and \texttt{wmax} with the maximum frequency. You will need to include the curly brackets.
+\begin{enumerate}
+\item
+\[
+G(s) = \frac{(s+10)}{s(s+1)(s+2)(s+20)}
+\]
+\item 
+\[
+G(s) = \frac{10(s-1)}{s(s^{2}+20s+100)}
+\]
+\item 
+\[
+G(s) = \frac{900(s+10)}{(s+30)(s^{2}-s+1)}
+\]
+\end{enumerate}
+\end{enumerate}
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item[1a] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=6in]{quizfigures/1asolnc}\\
+\includegraphics[width=6in]{quizfigures/1bsoln}\\
+\includegraphics[width=6in]{quizfigures/1csoln}\\
+\includegraphics[width=5in]{quizfigures/1dsoln}
+\end{center}
+\newpage
+\item[1b] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=5in]{quizfigures/2asolnc}\\
+\includegraphics[width=6in]{quizfigures/2bsoln}\\
+\includegraphics[width=5in]{quizfigures/2csoln}
+\end{center}
+\item[1c] \rule{12pt}{0pt}
+\begin{center}
+\includegraphics[width=5in]{quizfigures/3asolnc}\\
+\includegraphics[width=6in]{quizfigures/3bsoln}\\
+\includegraphics[width=5in]{quizfigures/3csoln}
+\end{center}
+\end{enumerate}
+
+
+\end{document}
+
+

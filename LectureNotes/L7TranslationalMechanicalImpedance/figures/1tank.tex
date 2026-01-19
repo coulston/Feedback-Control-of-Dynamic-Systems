@@ -1,0 +1,15 @@
+\begin{tikzpicture}
+\draw (.75,0) node[above] (tank) {\input{\mainfolder/DrawingElements/FluidElements/tank.tex}};
+\draw[decorate,decoration={coil,aspect=0,segment length=5.85pt}] (-.45,2.25) -- ++(2.38,0);
+\draw (-1.15,1) node (pipe1) {\input{\mainfolder/DrawingElements/FluidElements/pipe.tex}};
+\draw (2.65,1) node (pipe2) {\input{\mainfolder/DrawingElements/FluidElements/valve.tex}};
+%\draw[->] (.2,.75) -- node[pos=.5,left] {$H_{1}$} ++(0,1.4);
+\draw (tank.-90) node{Tank Area: $A_{1}$};
+\draw (pipe2.90) node[above] {$R_{1}$};
+\draw (.75,.8) node[above] {$p_{1}$};
+\draw (pipe1.180) node[left] {$p_{in}$};
+\draw[->] (pipe2.0) ++(-.5,0) --  ++(.5,0) node[right] {$q_{out}$};
+\draw (.75,2.5) node[above] {$p_{a}$};
+\draw (pipe2.0) ++(1.2,0) node {$p_{a}$};
+%\draw (pipe2.0) ++(1.5,0) node {$P_{2}$};
+\end{tikzpicture}

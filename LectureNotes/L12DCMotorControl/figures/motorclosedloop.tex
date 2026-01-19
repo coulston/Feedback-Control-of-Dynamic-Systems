@@ -1,0 +1,16 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{36pt}$};
+\draw (2.5,0) node[sysblock] (z) {Controller $C(s)$};
+\draw (8,0) node[sysblock] (y) {\resizebox{2.5in}{!}{\input{figures/motorblockdiagram2b.tex}}};
+\draw (12,0) node (x) {};
+
+\draw[<-] (sum.180) node[above left=4pt] {$+$} -- ++(-1.5,0) node[above=4pt] {$R(s)$};
+\draw[->] (sum.0) -- (z.180);
+\draw[->] (z.0) -- node[pos=.5,above=4pt] {$V_{a}(s)$} (y.180);
+\draw[->] (y.0) -- ++(1,0) node[above=4pt] {$\theta(s)$};
+\draw[->] (x.-90) -- ++(0,-2) -| (sum.-90) node[below right=4pt] {$-$};
+
+
+\end{tikzpicture}

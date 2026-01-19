@@ -1,0 +1,366 @@
+\documentclass[12pt]{article}
+\input{../commonheader}
+\usepackage{pbox}
+%\usepackage{siunitx}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+
+\setlength{\topmargin}{-.75in}
+\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\textwidth}{7in}
+
+
+
+
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Electrical Impedance}%
+\begin{center}%
+\mode<article>{
+
+\begin{tabular}{c|ccc}
+ & resistor & capacitor & inductor  \\\hline
+ Component & \input{./figures/resistor.tex} & \input{./figures/capacitor.tex} & \input{./figures/inductor.tex}\\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} 
+Component law & $v_1-v_2=iR$ & $i = C\frac{d(v_1-v_2)}{dt}$ & $v_1-v_2=L\frac{di}{dt}$  \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} 
+Laplace Transform & $V(s)= I(s)R$ & $V(s) = \frac{1}{Cs}I(s)$ & $V(s) = LsI(s)$ \\\hline
+Impedance Component & \input{./figures/resistorimpedance.tex} & \input{./figures/capacitorimpedance.tex} & \input{./figures/inductorimpedance.tex}
+
+\end{tabular}}
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Fluid Impedance}
+\graphicspath{}
+\begin{center}
+\mode<article>{
+
+\begin{tabular}{c|cc}
+ & valve & tank \\\hline
+%Component &\input{./figures/valve2.tex} &  \input{./figures/figurestank2.tex} \\\hline
+Component &\input{./figures/valve2.tex} &  \input{./figures/tank.tex} \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Component law & $p=Rq$ & $\frac{A}{\rho g}\frac{dp}{dt} = q_{1} - q_{2}$ \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $P(s)= RQ(s)$ & $\frac{A}{\rho g}sP(s) = Q_{1}(s)-Q_{2}(s)$ \\\hline
+ Impedance Component & \input{./figures/valveanalogycopy.tex} & \input{./figures/tankanalogycopy.tex}
+ \end{tabular}}
+ 
+\mode<presentation>{\resizebox{11cm}{!}{
+
+\begin{tabular}{c|cc}
+ & valve & tank \\\hline
+Component &\input{./figures/valve2.tex} & \input{./figures/tank2.tex} \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Component law & $p=Rq$ & $\frac{A}{\rho g}\frac{dp}{dt} = q_{1} - q_{2}$ \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $P(s)= RQ(s)$ & $\frac{A}{\rho g}sP(s) = Q_{1}(s)-Q_{2}(s)$ \\\hline
+ Impedance Component & \input{./figures/valveanalogycopy.tex} & \input{./figures/tankanalogycopy.tex}
+ \end{tabular}}}
+\end{center}
+\end{frame}
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Mechanical Impedance}%
+\begin{center}%
+\mode<article>{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{./figures/masswithground.tex} & \input{./figures/spring.tex} & \input{figures/damper.tex}\\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} 
+Component law & $f = m\ddot{x}$ & $f = kx$ & $f=b\dot{x}$  \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $X(s)= \frac{1}{ms^{2}}F(s)$ & $X(s) = \frac{1}{k}F(s)$ & $X(s) = \frac{1}{bs}F(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(positive $f$ direction agrees with positive $x$ direction)\end{center}
+\end{minipage}
+& \input{figures/massimpedance.tex} & \input{figures/springimpedance.tex} & \input{figures/damperimpedance.tex}
+ \end{tabular}}
+\mode<presentation>{\resizebox{10cm}{!}{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{./figures/masswithground.tex}& \input{./figures/spring.tex} & \input{figures/damper.tex}\\\hline
+\rule{0pt}{14pt} Component law & $M\ddot{x}=f$ & $f = kx$ & $f=b\dot{x}$  \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $X(s)= \frac{1}{Ms^{2}}F(s)$ & $X(s) = \frac{1}{k}F(s)$ & $X(s) = \frac{1}{bs}F(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component \\
+(positive $f$ direction agrees with positive $x$ direction)\end{center}
+\end{minipage}
+& \input{./figures/massimpedance.tex} & \input{./figures/springimpedance.tex} & \input{./figures/damperimpedance.tex}
+ \end{tabular}}}
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Rotational Impedance}
+\begin{center}
+\mode<article>{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \begin{minipage}[b]{.75in}\input{./figures/inertia.tex}\\\vspace{.1in}\end{minipage} & \input{./figures/rotspring.tex} & \input{./figures/rotdamper.tex}\\\hline
+ \rule[-8pt]{0pt}{0pt}\rule{0pt}{12pt} 
+ Component Law & $\tau = J\ddot{\theta}$ & $\tau = k\theta$ & $\tau = b\dot{\theta}$ \\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component
+\end{center}
+\end{minipage}
+& \input{./figures/inertiaimpedance.tex} & \input{./figures/rotspringimpedance.tex} & \input{./figures/rotdamperimpedance.tex}
+ \end{tabular}}
+\mode<presentation>{\resizebox{10cm}{!}{\begin{tabular}{c|ccc}
+ & mass & spring & damper \\\hline
+ Component & \input{figures/inertia.tex} & \input{./figures/rotspring.tex} & \input{./figures/rotdamper.tex}\\\hline
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt} Laplace Transform & $\theta(s)= \frac{1}{Js^{2}}\tau(s)$ & $\theta(s) = \frac{1}{k}\tau(s)$ & $\theta(s) = \frac{1}{bs}\tau(s)$ \\\hline
+\begin{minipage}[b]{1.5in}\begin{center}Impedance Component 
+\end{center}
+\end{minipage}
+& \input{./figures/inertiaimpedance.tex} & \input{./figures/rotspringimpedance.tex} & \input{./figures/rotdamperimpedance.tex}
+ \end{tabular}}}
+\end{center}
+\end{frame}
+
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Thermal Impedance}
+\begin{center}
+\begin{tabular}{c|ccc}
+ & Resistance & Capacitance & Convection \\\hline
+ 
+ 
+Component & 
+%-------- Thermal Resistance :''Brick wall''
+\begin{tikzpicture}
+\draw[pattern=bricks]  (0,-2) -- ++(0,4) -- ++(.25,0) -- ++(0,-4)  -- cycle;
+\draw (-1,1) node {$T_{1}$};
+\draw (1,1) node {$T_{2}$};
+\draw[->] (-.5,0) -- ++(1,0) node[right=2pt] {$\dot{Q}$}; 
+\end{tikzpicture}
+ & 
+ %--------- Thermal Capacitance ''Heat Chamber''
+\begin{tikzpicture}
+\draw[dotted,very thick]  (-1.5,-1.5) rectangle (1.5,1.5);
+\draw (0,0) node {$T_{o}$};
+\draw (0,1) node {Heat capacity: $C$};
+\draw[->] (-2,0) -- ++(1,0) node[right=2pt] {$\dot{Q}$}; 
+\end{tikzpicture} 
+& 
+%--------- Thermal Convection ''Heat Flow''
+\begin{tikzpicture}
+\draw[dotted,very thick]  (-2,-2) rectangle (2,2);
+\draw[dotted,very thick]  (-3,-0.5) rectangle ++(1,1);
+\draw[dotted,very thick]  (1,-0.5) rectangle ++(1,1);
+\draw (0,1.5) node {Specific heat};
+\draw (0,1.0) node {capacity: $c$};
+\draw (0,0) node {$T_{2}$};
+\draw (-2.5,0) node {$T_{1}$};
+\draw (1.5,0) node {$T_{2}$};
+\draw[->,line width=4pt] (-2.25,0) -- ++(.5,0);
+\draw[->,line width=4pt] (1.75,0) -- ++(.5,0);
+ \end{tikzpicture}  
+ \\\hline
+
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt}  
+Component law & 		$T = \dot{Q}R$ & 
+							$\dot{Q} = C \frac{dT_o}{dt}$ & 
+							$\dot{Q} = \dot{m} c T$ \\\hline
+							
+\rule[-8pt]{0pt}{0pt}\rule{0pt}{14pt}							
+Laplace Transform &	$T(s)=\dot{Q}(s)R$ & 
+							$\dot{Q}(s)=CsT_o(s)$ & 
+							$\dot{Q}(s)=\dot{m}cT(s)$ \\\hline
+
+ 							 
+Impedance Component  &  
+ %--------- Thermal resistance model
+ \begin{tikzpicture}
+\draw (5,0) node[inner sep=0,outer sep=0] (C) {\input{../DrawingElements/CircuitElements/resistor.tex}};
+\draw (C) node[above=12pt] {$R$};
+\draw[->] (C.0) ++(.1,0) -- node[pos=.5,below=2pt] {$\dot{Q}$} ++(.5,0);
+\draw[<-] (C.180) ++(-.1,0) -- node[pos=.5,below=2pt] {$\dot{Q}$} ++(-.5,0);
+\draw (C.0) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] {$\rule{2pt}{0pt}$};
+\draw (C.0) node[above=4pt] {$T_{2}$};
+\draw (C.180) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] {$\rule{2pt}{0pt}$};
+\draw (C.180) node[above=4pt] {$T_{1}$};
+%\draw (C) ++(0,-1) node {$\dot{Q}R = T_{1} - T_{2}$};
+\draw (C) ++(0,-1) node {$T = T_{1} - T_{2}$};
+\end{tikzpicture} 
+& 
+%--------- Thermal capacitor model
+ \begin{tikzpicture} 
+\draw (5,0) node[inner sep=0,outer sep=0,rotate=90] (C) {\input{../DrawingElements/CircuitElements/capacitor.tex}};
+\draw (C) node[right=12pt] {$\frac{1}{Cs}$};
+\draw[->] (C.0) ++(.3,0) -- node[pos=0,right=2pt] {$\dot{Q}$} ++(0,-.5);
+\draw (C.0) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] {$\rule{2pt}{0pt}$};
+\draw (C.0) node[above=4pt] {$T_{o}$};
+\draw (C.180) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] {$\rule{2pt}{0pt}$};
+\draw (C.180) node[below=4pt] {$T_{ref}=0$}; 
+\end{tikzpicture} 
+& 
+ \begin{tikzpicture} 
+\draw (7,0) node (C) {\input{../DrawingElements/CircuitElements/resistor.tex}};
+\draw (5,0) node[isosceles triangle,draw,very thick,inner sep=2pt] (G) {$1$};
+\draw (C) node[above=12pt] {$R=\frac{1}{c\dot{m}}$};
+\draw[very thick] (G.180) ++(-.75,0) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] (Gin) {$\rule{2pt}{0pt}$} -- (G.180);
+\draw (Gin) node[above=4pt] {$T_{1}$};
+\draw[<-] (Gin) ++(-.1,0) -- node[pos=-1.5,below left=2pt] {$\dot{Q}_{in}=0$} ++(-.5,0);
+\draw[very thick] (G.0) ++(-0.1,0) --   ++(0.8,0) ;
+\draw[very thick] (C.0) ++(-0.2,0) -- ++(.5,0) node (C_p) {} node[above=4pt]  {$T_{2}$};
+\draw (C_p.0)++(-0.1,0) node[draw,fill,inner sep=0pt,outer sep=0pt,circle] {$\rule{2pt}{0pt}$};
+\draw[->] (C_p.0) ++(.1,0) -- node[pos=-.5,below right=2pt] {$\dot{Q}$} ++(.5,0);
+\draw (C) ++(0,-1) node {$T = T_{1} - T_{2}$};
+\end{tikzpicture}
+
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{DC Motor}
+\begin{center}
+\begin{tabular}{c|c}
+   &   DC motor \\\hline
+   
+Component & 
+\begin{tikzpicture}[scale=1.3,inner sep=0pt,outer sep=0pt,very thick]
+\draw (0,0) node[fill=black] (a) {}; 
+\draw (3.5,0) node[fill=black] (c) {};
+\draw (0,-2) node[fill=black] (d) {};
+\draw (2,-2) node[fill=black] (e) {};
+\draw (3.5,-2) node[fill=black] (f) {};
+ 
+\draw (1,0) node (R1) {\input{../DrawingElements/CircuitElements/resistor.tex}};
+\draw (1,0) node[above=.2in] {$R_{a}$};
+\draw (2.5,0) node (L1) {\input{../DrawingElements/CircuitElements/inductor.tex}};
+\draw (2.5,0) node[above=.2in] {$L_{a}$};
+\draw (3.5,-1) node (Rot) {\input{../DrawingElements/CircuitElements/rotor.tex}}; 
+\draw[->] (4,-1) ++(0,.5)  node[above=2pt] {$\theta$}  .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-1);
+\draw[->] (4.25,-1) ++(0,.5) node[above=2pt] {$\tau_{m}$}  .. controls  ++(-.15,-.3) and ++(-.15,.3) ..  ++(0,-1);
+\draw[->] (3.35,-.1) -- node[left=1pt] {$i_{a}$} ++(0,-.5); 
+\draw (3.5,-1) node[left=.2in] {$\begin{matrix} + \\ v_{b} \\ -\end{matrix}$};
+\draw (0,-1) node (V) {\input{../DrawingElements/CircuitElements/voltagesource.tex}};
+\draw (0,-1) node[left=.2in]{$v_{a}$};
+\draw (a) -- (R1);
+\draw (R1) -- (L1);
+\draw (L1) -| (Rot);
+\draw (Rot) -- (f);
+\draw (f) -- (d);
+\draw (a) -- (V);
+\draw (d) -- (V);
+
+
+\end{tikzpicture}
+ \\\hline
+ 
+ 						 
+Component Law &  	
+\pbox{10cm}
+{$v_{b} = K_{e}\dot{\theta}$ \\ 
+$\tau_{m} = K_{t} i_{a}$ \\ 
+$v_a(t) = i_a(t)R + L\frac{di_a(t)}{dt} + v_b(t)$ }
+
+\\\hline
+ 							 
+Block Diagram  &  
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw (2,0) node[sysblock] (a) {$\frac{1}{R_{a} + L_{a}s}$};
+\draw (5,0) node[sysblock] (b) {$K_{t}$};
+\draw (8,0) node[sysblock] (c) {$N(s)$};
+\draw (5,-2) node[sysblock] (d) {$K_{e}s$};
+\draw[<-] (sum.180) node[above left=4pt] {$+$} -- ++(-1,0) node[above=4pt] {$V_{a}(s)$};
+\draw[->] (sum.0) -- (a.180);
+\draw[->] (a.0) -- node[pos=.5,above=4pt] {$I_{a}(s)$} (b.180);
+\draw[->] (b.0) -- node[pos=.5,above=4pt] {$\tau_{m}(s)$} (c.180);
+\draw[->] (c.0) -- ++(1,0) node[above=4pt] {$\theta(s)$};
+\draw[->] (c.0) -- ++(.5,0) |- (d.0);
+\draw[->] (d.180) node[above left=4pt] {$V_{b}(s)$} -| (sum.-90) node[below right=4pt] {$-$};
+\end{tikzpicture}  
+\end{tabular}
+\end{center}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak
+\begin{frame}{Hydraulic}
+\begin{center}
+\begin{tabular}{c|c}
+   &   Hydraulic \\\hline
+
+Component &    
+\begin{tikzpicture}
+% tank
+\draw[very thick] (0,0) -- ++(2,0) -- ++(0,-.5) -- ++(1,.5) -- ++(2,0) -- ++(0,-3) -- ++(-2,0) -- ++(-1,.5) -- ++(0,-.5) -- ++(-2,0);
+\draw[very thick] (0,-.5) -- ++(1.5,0) -- ++(0,-.75) -- ++(-1.5,0);
+\draw[very thick] (0,-1.75) -- ++(1.5,0) -- ++(0,-.75) -- ++(-1.5,0);
+\draw[very thick] (2,-1) -- ++(1,.5) -- ++(0,-2) -- ++(-1,.5) -- cycle;
+\draw (4,-3.5) node {\small Piston area: $A$};
+\draw (0,-.25) node[left] {\small drain ($p_{0}$)};
+\draw (0,-1.5) node[left] {\small supply ($p_{s}$)};
+\draw (0,-2.75) node[left] {\small drain ($p_{0}$)};
+\draw[->] (3,-.25) node[right] {\scriptsize$q$} -- ++(-.5,-.25);
+\draw[->] (2.5,-2.5) -- ++(.5,-.25)  node[right] {\scriptsize$q$};
+\draw (5.3,-1.9) node {\scriptsize $+$} ++(0,.4) node{\small $p$} ++(0,.4) node {\scriptsize$-$};
+
+% valves
+\draw[very thick,color=black] (1.75,-2.1) -- ++(0,3.1);
+\draw[fill,left color=black,right color=black,middle color=white] (1.5,-.9) rectangle ++(.5,.35);
+\draw[fill,left color=black,right color=black,middle color=white] (1.5,-2.4) rectangle ++(.5,.35);
+\draw[|->] (1.5,1) node[left] {$x$} -- ++(0,-.5); 
+
+% piston
+\draw[fill,left color=black,right color=black,middle color=white] (4,-1.5) ++(-.2,0) rectangle ++(.4,2.5);
+\draw[fill,left color=black,right color=black,middle color=white] (3,-1.75) rectangle ++(2,.5);
+\draw[|->] (5,1) node[right] {$y$} -- ++(0,.5);
+
+% load
+\draw (4,1) node[draw,very thick,above,dotted,rectangle,minimum width=.65in,minimum height=.4in] {Load};
+\end{tikzpicture}
+\\\hline
+
+\rule[-8pt]{0pt}{0pt}
+Component Law &  
+\pbox{10cm}
+{$\delta q = k_x\delta x - k_p \delta p$ \\
+$f = p A $ \\
+$y = \frac{1}{A} \int q dt $ }
+
+\\\hline
+
+Block Diagram & 
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (-1.5,0) node[sysblock] (d) {$k_{x}$};
+\draw (0,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw (4,0) node[sysblock] (a) {$\frac{1}{sA}$};
+\draw (4,-2) node[sysblock] (b) {$\frac{1}{A}$};
+\draw (7,-2) node[sysblock] (b1) {$\frac{1}{N(s)}$};
+\draw (1,-2) node[sysblock] (c) {$k_{p}$};
+\draw[<-] (d.180)  -- ++(-1,0) node[above=4pt] {$\delta X(s)$};
+\draw[->] (d.0) -- (sum.180) node[above left=2pt] {$+$};
+\draw[->] (sum.0) -- node[pos=.5,above=4pt] {$\delta Q(s)$} (a.180);
+\draw[->] (a.0) -- ++(5,0) node[above=4pt] {$\delta Y(s)$};
+\draw[->] (a.0) -- ++(3.5,0) |- (b1.0);
+\draw[->] (b1.180) node[above left=2pt] {$\delta F(s)$} -- (b.0);
+\draw[->] (b.180) node[above left=2pt] {$\delta P(s)$} -- (c.0);
+\draw[->] (c.180)  -| (sum.-90) node[below right=4pt] {$-$};
+
+\end{tikzpicture}
+
+
+
+
+
+\end{tabular}
+\end{center}
+\end{frame}
+
+\end{document}
+
+

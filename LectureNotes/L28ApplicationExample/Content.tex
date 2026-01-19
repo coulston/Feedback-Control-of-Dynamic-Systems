@@ -1,0 +1,514 @@
+%\usepackage[
+%backend=biber,
+%style=ieee,
+%]{biblatex}
+%%\geometry{
+%%	a4paper,
+%%	total={170mm,257mm},
+%%	left=10mm,
+%%	top=20mm,
+%%}
+%\addbibresource{sources.bib}
+%%\usepackage[style=ieee]{biblatex}
+
+\usepackage{enumitem}
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+  
+}
+
+\title[\ApplicationExampleIIShortName] % (optional, use only with long paper titles)
+{\course: \ApplicationExampleIIName\license}
+
+\subtitle
+{Lecture \ApplicationExampleIINumber} % (optional)
+
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+%\mode<presentation>{
+%\begin{frame}{Outline}
+%  \tableofcontents
+%  % You might wish to add the option [pausesections]
+%\end{frame}}
+%\section{\color{red}{Section notes to self - delete before posting}}
+%\begin{itemize}
+%	\item \color{red}{Consider asking: how would you model? (motor lecture - electrical and rotational systems)}
+%	\item \color{red}{Consider asking: who cares? (why do we want this)}
+%	\item \color{red}{Consider asking: is this in the news lately? how would it impact you or your community?}
+%	\item \color{red}{Consider asking: who might have written this problem statement? How might things (e.g., specifications, solutions, ...) be different if someone else had written it? (e.g., someone who lives in a community where solar panel materials are mined, someone who owns a natural gas field, ...)}
+%\end{itemize}
+
+%\begin{frame}{\textcolor{red}{Frame Content for Presentation File}}
+%\begin{center}
+%\mode<article>{\input{figures/templateframecontent.tex}}
+%\mode<presentation>{\resizebox{3in}{!}{\input{figures/templateframecontent.tex}}}
+%\end{center}
+%\end{frame}
+
+\section{Big Picture: Evaluating an Application for Control Design}
+In this application example article, we will take a look at the biological control system for blood sugar regulation in the human body, as well as problems that can arise when this biological control system does not work correctly. We will also examine technology that can be used to help people stay healthy when their automatic biological systems do not regulate their blood sugar levels appropriately.
+
+Some big picture questions to keep in mind for this article (and any other time you are putting a ``real-world'' problem into \course~terms) include
+
+\begin{frame}{Big-picture questions}
+\begin{itemize}
+	\item What is the problem we are trying to solve?
+	\item How can we describe (and model) the plant system articulated in the problem definition?
+	\item Who is creating the control technology and who are they creating it for? How does that impact the definition of the problem, the plant model, and any control solutions developed?
+\end{itemize}
+\end{frame}
+
+\section{Modeling and Control for Insulin Pumps}
+\subsection{Background}
+
+The human pancreas is supposed to produce the right amount of insulin to move glucose from the blood into the cells. Glucose comes from carbohydrates (measured in grams) in food. Foods with a high \textit{glycemic index}, abbreviated GI, will cause a rapid increase in blood sugar levels. An effectively working pancreas will then produce insulin to move the blood sugar (or blood glucose) into the cells, which can be observed as a reduction in blood sugar level over time. Foods with a low GI will cause a slow increase in blood sugar levels. Alternatively, blood sugar decreases when a human exercises because the muscles use up the blood sugar. Blood sugar is measured in mg/dL (milligrams per deciliter). 
+
+\subsection{Non-Diabetic Blood Sugar Regulation System}
+Blood sugar regulation is a type of biological automatic feedback control system. In people without diabetes, the pancreas controls the amount of insulin production to maintain a desired blood sugar. The pancreas \textit{measures} the blood sugar level within a person (acts as an ideal sensor), determines how much insulin should be produced (controller) to achieve the desired blood sugar level, and then produces that amount of insulin (actuator) to maintain the desired blood sugar level in a human (the plant). 
+
+Figure~\ref{fig:cl_gen} shows a conceptual biological feedback loop for a person without diabetes with the actions performed by the pancreas indicated. A normal blood sugar level, while depending on the person, is typically \(r(t) \approx 120\)~mg/dL. %Therefore we can think of our reference signal \(r(t)\), or desired blood sugar level, as being 120 mg/dL. 
+The disturbance \(d(t)\) is the ``insulin effect'' of any input that would change the blood sugar, typically meals (which cause an increase in blood sugar) or exercise (which cause a reduction in blood sugar). The insulin signal \(i(t)\) is the amount of insulin from the pancreas to regulate a person's blood sugar \(y(t)\). $H(s)$ is the biological sensor in the pancreas that measures blood sugar level, which is fed back to the desired blood sugar level $r(t)$ so that the body can compute the ``error'' $e(t)$ in blood sugar level, i.e., the difference between the actual and desired blood sugar level. 
+
+Note that we refer to the disturbance signal $D(s)$ as the ``insulin effect'' because we are assuming a conversion from the source (e.g., food or exercise) to units of insulin so that the signals $I(s)$ and $D(s)$ have the same units and can therefore be added. This conversion isn't precise -- in the ``real world'' we would need different signals and conversion transfer functions from different kinds of inputs, which might be better modeled using multiple inputs to the ``plant'' $G(s)$ itself -- but we are using the simplification so that we can frame the example using \course~concepts.
+
+\mode<article>{
+\begin{figure}[h]
+	\centering
+	\input{figures/CL_nonDiabetic}
+	\caption{Conceptual biological feedback loop for blood sugar regulation via insulin in a person without diabetes.}
+	\label{fig:cl_gen}
+\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Conceptual biological feedback loop for blood sugar regulation in a person without diabetes}
+		\begin{center}
+		\resizebox{4.5in}{!}{\input{figures/CL_nonDiabetic}}
+	\end{center}
+	\end{frame}
+}
+
+\subsection{Diabetic Blood Sugar Regulation}
+People with Type I diabetes (sometimes called ``Juvenile Diabetes") are unable to regulate blood sugar levels because their pancreas cannot produce insulin. Rather than having a working biological feedback loop for closed-loop control of blood sugar levels by insulin production, the relationship between disturbance (such as carbohydrate or exercise) inputs $d(t)$ and the blood sugar output $y(t)$ is open-loop, as is described in Section~\ref{ref:olsec}. 
+
+Since it is problematic to have no ability to regulate blood sugar, Sections~\ref{sec:olcont}-\ref{sec:autocntrl}~describe options for control, first without and then with feedback. 
+
+\subsubsection{Open-Loop with No Control
+\label{ref:olsec}}
+Without insulin to move blood sugar into the cells, a person with Type 1 diabetes may experience an excessively high blood sugar level $y(t)$. For example, if someone with diabetes drinks multiple sugary drinks (high GI), their blood sugar level may increase to a dangerous point. Long-term or extreme high blood sugar levels is undesirable and can be life-threatening. When blood sugar levels exceed 600 mg/dL, a person may experience \textit{hyperglycemia}, which can cause confusion, extreme thirst, vision loss, and hallucinations. On the other hand, when a person's blood sugar levels are below 70 mg/dL, they may experience \textit{hypoglycemia}, which has symptoms of dizziness, drowsiness, fainting, and slurred speech. 
+
+Figure~\ref{fig:ol_diab} shows the open-loop (no control) version of Figure~\ref{fig:cl_gen} in which the pancreas does not work properly and is therefore omitted from the diagram. Without insulin, the blood sugar \(Y(s)\)% in Figure~\ref{fig:ol_diab} 
+ may exceed safe and healthy thresholds, for example due to an infusion of a high-GI food indicated by the nonzero disturbance signal $D(s)$.
+
+\mode<article>{
+	\begin{figure}[h]
+	\centering
+	\input{figures/OL_Diabetic}
+	\caption{Human with diabetes: modeled as an open-loop system with no blood-sugar regulation feedback. In this no-control case, it is easy for a disturbance to cause dangerously high blood sugar levels. }
+	\label{fig:ol_diab}
+\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Open-loop system diagram for human with diabetes}
+	\begin{center}
+		\resizebox{4.5in}{!}{\input{figures/OL_Diabetic}}
+	\end{center}
+\end{frame}
+}
+
+\begin{frame}{Discussion Question}
+\begin{enumerate}[label=DQ\arabic*]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\item If you were to develop an external feedback controller for this open-loop system modeling a person with diabetes, what specifications may you care about and why? Consider both transient and steady-state response as well as robustness (gain and phase margins).
+	\seti
+\end{enumerate}
+\end{frame}
+
+\subsubsection{Open-Loop Control
+\label{sec:olcont}}
+In the simplest case, people with diabetes can regulate their blood sugar by manually injecting insulin in pre-calculated amounts without the benefit of feedback. There are two types of insulin that can be used for this method: long-lasting and quick-release insulin. Slow release (basal rate) or long-lasting insulin would be injected prior to bed to maintain a baseline blood sugar level for a long period of time with minimal disturbances (no meals or exercise). Quick-release insulin (bolus rate) can be injected prior to meals and can reduce blood sugar levels within 15 minutes. So, a diabetic person who expects to eat a meal with 10-12 grams of carbohydrates can give themselves a specified amount of quick-release insulin to maintain their desired blood sugar level prior to eating. 
+
+An example of this ``open loop control'' scheme is shown in Figure~\ref{fig:ol_hitl} with example values provided. The amount of insulin that ``covers'' a certain amount of carbohydrates may change throughout the day and depends on the person. In general, 1 unit of insulin may ``cover" 10-12 grams of carbohydrates, which is indicated by the triangle gain block in Figure~\ref{fig:ol_hitl}. %This example of regulation is shown in Figure~\ref{fig:ol_hitl}. 
+Without insulin, the blood sugar could increase by about 70-100 mg/dL for a meal with 10-12 grams of carbohydrates. 
+
+\mode<article>{
+	\begin{figure}[h]
+		\centering
+		\input{figures/OL_HumanInTheLoop}
+%		\caption{Human in the Loop Blood Sugar Regulation with Manual Insulin Injection} % adjusted caption since there is no ``loop'' in this control scheme
+		\caption{Blood sugar regulation with manual insulin injection at pre-determined amounts with no feedback.}
+		\label{fig:ol_hitl}
+	\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Open-loop (no feedback) blood sugar regulation}
+	\begin{center}
+		\resizebox{4.5in}{!}{\input{figures/OL_HumanInTheLoop}}
+	\end{center}
+\end{frame}
+}
+
+
+\subsubsection{Human-in-the-Loop Feedback Control with Manual Injection
+	\label{sec:hilman}}
+
+Additionally, a human with diabetes has to read their blood sugar level to determine whether they may need to give themselves more or less insulin for a meal, depending on their blood sugar prior to a meal. The blood sugar is measured with a glucose monitor (sensor), where a person may have to prick their finger and put a drop of blood onto a strip which is fed into the glucose monitor which then shows the blood sugar level on the screen.
+
+If blood sugar is too low, then they have to eat/drink something with a high GI (such as a glucose tablet or orange juice). If blood sugar is too high, then they have to give themselves some amount of insulin. 
+
+\begin{frame}{Discussion Question}
+\begin{enumerate}[label=DQ\arabic*]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+	\item How would you augment the open-loop figure (Figure~\ref{fig:ol_hitl}) to consider the case with ``feedback'' from external reading of a glucose monitor but for which the human must still take action, such as injecting insulin or eating something with a high GI?
+	\seti
+\end{enumerate}
+\end{frame}
+
+\subsubsection{Human-in-the-Loop Feedback Control with Insulin Pump
+\label{sec:hilcont}}
+Advances in technology have allowed for a less invasive human-in-the loop controller using an insulin pump. With this technology, the human uses a glucose monitor to read their blood sugar, then determine how much insulin they need, which is manually programmed into an insulin pump by the human. The insulin pump then releases some amount of insulin into the human (rather than injecting it themselves) as shown in Figure~\ref{fig:cl_hitl}.
+\mode<article>{
+\begin{figure}[h]
+	\centering
+	\input{figures/CL_Diabetic_Past}
+	\caption{Human-in-the-loop feedback control with actuator (insulin pump) and sensor (glucose monitor). The human is still involved in reading the sensor's measurement and ensuring the correct information reaches the insulin pump.}
+	\label{fig:cl_hitl}
+\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Human-in-the-loop feedback control with actuator (insulin pump) and sensor (glucose monitor)}
+	\begin{center}
+		\resizebox{4.5in}{!}{\input{figures/CL_Diabetic_Past}}
+	\end{center}
+\end{frame}
+}
+
+\begin{frame}{Discussion Questions}
+%\begin{enumerate}[label=DQ\arabic*, resume]
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+	\item What acts as the controller, actuator, and sensor in the insulin regulation system for a person with diabetes and how is that different from a person without diabetes? 
+	\item What are the inputs and outputs of each of these subsystems?
+	\seti
+\end{enumerate}
+\end{frame}
+
+\subsubsection{Automatic Closed Loop Control
+\label{sec:autocntrl}}
+Even more recently, a Personal Diabetes Manager (PDM), has been developed to ``close the loop'' for automatic blood sugar regulation for people with diabetes. As shown in Figure~\ref{fig:cl_diabetiC_present}, the PDM is the controller. The PDM gets a measurement of the blood sugar from a continuous glucose monitor (CGM) and compares it to the reference blood sugar value $r(t)$. The PDM and CGM are connected by bluetooth through a cell phone. The PDM determines how much insulin is needed based on this measurement and tells the insulin pump how much insulin to release. 
+
+In this automatic closed-loop control scenario, the human is removed from the blood sugar regulation system when the person with diabetes is experiencing hyperglycemia (too much blood sugar). % as shown in Figure~\ref{fig:cl_diabetiC_present}. 
+However, this system does not include any regulation if blood sugar is too low because it is not capable of administering any glucose. Thus, the representation in Figure~\ref{fig:cl_diabetiC_present} is imperfect. Even though the human may not have to determine how much insulin to give themselves if their blood sugar is high, they still have to determine how many carbohydrates to eat if their blood sugar is too low. 
+\mode<article>{
+\begin{figure}[h]
+	\centering
+	\input{figures/CL_Diabetic_Present}
+	\caption{Feedback loop schematic for automatic blood sugar regulation containing a CGM and PDM. Note that this automatic controller can only correct for blood sugar levels that are too high, not those that are too low.}
+	\label{fig:cl_diabetiC_present}
+\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Automatic Closed Loop Blood Sugar Regulation using Insulin Pump}
+	\begin{center}
+		\resizebox{4.5in}{!}{\input{figures/CL_Diabetic_Present}}
+	\end{center}
+\end{frame}
+}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+	\item What are some risks or potential issues with the closed-loop system? 
+	\item What kind of disturbances can it account for and not account for?
+	\seti
+\end{enumerate}
+\end{frame}
+
+\subsection{Other Considerations}
+Without insurance, the cost of the ``closed-loop" blood sugar regulation technology for people with diabetes (discussed in the previous section) is a lot.
+
+\begin{frame}{Cost Considerations}
+\begin{itemize}
+	\item Continuous Glucose Monitor (CGM): \textit{Dexcom G6}
+	\begin{itemize}
+		\item Transmitter Cost: \$600
+		\item 3 pack of sensors (sensors need to be replaced every 10 days): \$300-\$500
+		\item Transmitter + 3 pack sensor pack: \$700-\$1000
+	\end{itemize}
+	
+	\item Insulin Pump and PDM: \textit{Omnipod}
+	\begin{itemize}
+		\item Pump \& PDM: \$800
+		\item 5 pack of pods (pods have to be replaced every 2-3 days or 200 units of insulin): \$150-\$350
+	\end{itemize}
+	
+	\item Insulin
+	\begin{itemize}
+		\item 1 vial has 1000 units of insulin: \$60-\$140
+		\item 1000 units of insulin covers about 10,000 grams of carbs
+		\item recommended daily carb intake is 225-325 grams
+		\item 1 vial of insulin could last 1-1.5 months
+		\item In 2019 insulin had a cost of \$0.34/unit
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+	\item Who has access to the automatic closed-loop blood sugar regulation technology and who doesn't? 
+	\item How could the ``problem" be re-defined to make this technology more accessible? What are other considerations that could be included in the controller design process?
+	\seti
+\end{enumerate}
+\end{frame}
+
+\subsection{System Identification for PDM Controller Design}
+%\textcolor{red}{Idea for future iterations: What if we used the weird input, 1st-order system output as a way to discuss how we would actually do this kind of thing in real life, but then had an example problem that used the 2nd-order TF from the article you found with some of our own ``noise'' added (to make it look like an experiment)? In other words, there's one part where we can discuss how things are a bit messy in real life, then another where we say ``here's how we make it a bit simpler to illustrate 307 concepts.'' Do you think that would make sense? If so I can make the simulated data pretty quickly using the TF you provided plus the Matlab scripts I have for the SysID lecture.	}
+
+To develop an appropriate control algorithm for the PDM, we must understand the ``Plant" of a diabetic person. We need to understand how the blood sugar level of a diabetic person changes based on an input. We can use system ID to find an approximate transfer function that represents the relationship between a meal disturbance and the blood sugar level in a diabetic person, i.e., the transfer function \(\frac{Y(s)}{U(s)}\). 
+
+%From \cite{stein_2022} and \cite{mayo_clinic_2022}, 
+Diabetes can be diagnosed based on a variety of blood sugar tests. From \footnote{Mayo Clinic Staff, ``Diabetes.'' \url{https://www.mayoclinic.org/diseases-conditions/diabetes/diagnosis-treatment/drc-20371451}. Accessed 11/21/22.}%\cite{mayo_clinic_2022}
+, a person may be exhibiting signs of diabetes if 
+\begin{itemize}
+	\item a blood sugar measurement, independent of the time of meal, exceeds 200 mg/dL, and/or
+	\item a blood sugar level exceeds 126 mg/dL after 8 hours of fasting (on multiple occasions), and/or
+	\item a blood sugar measurement is above 200 mg/dL 2 hours after fasting for 8 hours then consuming a sugary drink.
+\end{itemize}
+
+From \footnote{Stein, Natalie, ``Blood Sugar Chart: What is the Normal Range for Blood Sugar?,'' 5/9/22. \url{https://www.lark.com/resources/blood-sugar-chart}. Accessed 11/21/22.}%\cite{stein_2022}
+, immediately after eating (not necessarily a sugary drink), a diabetic person may have a blood sugar ranging from 220-300 mg/dL. 
+
+
+Figure~\ref{fig:bs_diabvshealth} shows measured glucose levels for a healthy person and a person with diabetes after intake of carbohydrates. Let's use this plot to think about how an ``experiment'' might be run in order to approach the system ID problem, i.e., to identify the human ``plant'' system so that a controller could be designed for the PDM feedback system in Figure~\ref{fig:cl_diabetiC_present}.  %\textcolor{red}{Start here on Tuesday and reconsider ordering and delete subheading}
+
+\mode<article>{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.75\textwidth]{figures/glucose_dynamics.PNG}
+		%	\caption{Figure obtained from \cite{glucose_dynamics}}
+		\caption{Glucose vs. time for a healthy person and a person with diabetes. Figure obtained from %\footnote{
+			Meszyski, Sebastian, Sokolov, Oleksandr, Mrela, Aleksandra, ``From Compartments to Agents via Fuzzy Models \em Modeling and Analysis of Complex Behavior of Physiological Systems,'' \textit{International Journal on Advances in Intelligent Systems}, Vol. 11, no. 1-2, 2018.}%}
+		\label{fig:bs_diabvshealth}
+	\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Measured Glucose Dynamics in Person With and Person Without Diabetes}
+	\begin{center}
+		\resizebox{4.5in}{!}{\includegraphics{figures/glucose_dynamics.PNG}}
+		\tiny{Figure obtained from Meszyski, Sebastian, Sokolov, Oleksandr, Mrela, Aleksandra, ``From Compartments to Agents via Fuzzy Models \em Modeling and Analysis of Complex Behavior of Physiological Systems,'' \textit{International Journal on Advances in Intelligent Systems}, Vol. 11, no. 1-2, 2018.}
+	\end{center}
+\end{frame}
+}
+
+If a healthy person and a person with diabetes were to drink a beverage containing approximately 40 grams of carbohydrates (keeping all safety precautions in mind -- don't try this at home!), it would in theory be possible to measure their blood glucose levels to obtain a plot with a nature that is similar to Figure~\ref{fig:bs_diabvshealth}. This 40 grams gives a sense of a magnitude of the input signal (the beverage) of  \(d(t)\approx40\) at some time $t$, with the shape of the signal depending on how quickly and consistently the person drinks. For example, this signal could be modeled as a pulse consisting of a sum of step inputs \(d(t)=40u(t)-40u(t-1.4)\), where 1.4 is the time shift indicating the duration of the meal or drink.  %While in reality this would be modeled as some impulse with a ramp down, we will assume it's a step input with a magnitude of 10.
+
+%\subsubsection{More specifics on System ID}
+Assume that the person's initial blood sugar level (after 8 hours of fasting) is $y\approx126$~mg/dL. Suppose that by the time the disturbance signal $d$ returns to zero at time $t=1.4$ (indicating no more input of carbohydrates), the person's blood sugar level reaches its peak and that the increase in blood sugar level is 70~mg/dL per 10 grams of carbohydrate. With 40 gram input, then the blood sugar would peak at \(126+(70*4)=406\)~mg/dL. Our key data is thus
+\begin{itemize}
+	\item at \(t=0\) hours we have a blood sugar level of \(y(t)=126\)~mg/dL
+	\item from \(t=0\) to \(t=1.4\) hours we have a step input with a magnitude of $40u(t)$, or \(U(s)=\frac{40}{s}\).
+	\item at \(t=1.4\) hours the magnitude of our input goes from a magnitude of 40 to a magnitude of 0 (where the delayed scaled step is subtracted).
+	%\item at \(t=4\) hours we have a value of 200 mg/dL
+	\item at \(t=8\) hours the output signal settles to a final value of \(y(t)=126\)~mg/dL
+	%\item at \(t=0.25\) we reach 10\% of our final value
+	%\item at \(t=0.9\) we reach 90\% of our final value
+\end{itemize}
+
+
+This situation is shown by the solid red line with legend $y(t)$ in Figure~\ref{fig:plt02}. %Two hours after this, the blood sugar would still exceed 200 mg/dL. We know that no matter when food was last consumed, the blood sugar level may be around 200 mg/dL. Let's assume at 6 hours the steady-state blood sugar level is 200 mg/dL. 
+This key data and response curve leads to our next discussion question: 
+
+\mode<article>{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.75\textwidth]{figures/output_minus_ic.png}
+		\caption{Blood Sugar Response to Meal Disturbance without Insulin with Subtracted Initial Condition}
+		\label{fig:plt02}
+	\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Blood Sugar Response to Meal Disturbance without Insulin -- Measured and Corrected for Initial Conditions}
+	\begin{center}
+		\resizebox{4.5in}{!}{\includegraphics{figures/output_minus_ic.png}}
+	\end{center}
+\end{frame}
+}
+
+\begin{frame}{Discussion Question}
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+	\item Given the ``initial condition'' of a blood sugar level of $y(t)=126$~mg/dL and the scaling of the input signal $d(t)$ to a magnitude of 40, how do we need to process our data to perform system ID?
+	\seti
+\end{enumerate}
+\end{frame}
+
+To identify our system \(G(s)\) using system identification concepts we must first subtract off the initial condition, the result of which is indicated by the dashed red curve in Figure~\ref{fig:plt02}. This subtraction allows us to account for the impact of the input $d(t)$ with which we are experimenting alone. Then, we should divide by the magnitude of our input (which is 40 in this case) as shown in Figure~\ref{fig:plt03}. These steps are further explained in Lecture~\SystemIdentificationNumber.
+
+\mode<article>{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.75\textwidth]{figures/output_minus_ic_divby40.png}
+		\caption{Blood Sugar Response to Meal Disturbance without Insulin with Subtracted Initial Condition and Divided by Magnitude of the Input}
+		\label{fig:plt03}
+	\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Blood Sugar Response to Meal Disturbance without Insulin - Fully Processed}
+	\begin{center}
+		\resizebox{4.5in}{!}{\includegraphics{figures/output_minus_ic_divby40.png}}
+	\end{center}
+\end{frame}
+}
+
+In Lecture~\SystemIdentificationNumber, we based our system identification on assumptions of the order of the system on which we were running the experiment. For example, we could assume that a single tank system was first order, a mass-spring-damper system was likely to be second order and underdamped (meaning it would oscillate), and a two-tank system was likely to be second order and overdamped. In this case, we are dealing with a much more complicated system, the human body, which is higher-order and nonlinear. This situation leads us to the next set of discussion questions:
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+%	\item Given the information presented thus far, how could you use system identification concepts to make a model of the plant to inform control design? 
+	\item Can you determine the order of the plant system from net insulin $u(t)$ to blood sugar level $y(t)$? How might knowing (or not knowing) the order impact any system identification?
+	\item Given the data and your assumptions about the order of the plant system, what may you be able to infer about some of the parameters?
+	\seti
+\end{enumerate}
+\end{frame}
+%\textit{Answer: Second order, critically damped \(\zeta \approx 1\), large overshoot, long settling time compared to rise-time.}
+
+
+If you answered ``no'' or ``not sure'' to either of these questions, you're probably in good company. As mentioned previously, the human body's blood sugar regulation system is more complicated than the systems we've studied in this class. However, it's still possible to see how closely we can model it using a simplified first- or second-order system. In fact, this sort of approximation is often used in real-world control system design since most systems are higher-order and nonlinear but controller design is much easier for simpler (or simplified) systems. 
+
+Since there doesn't appear to be any oscillatory behavior (indicating an underdamped system) in the data, let's assume we can model a human's blood glucose response as a first order plant. We can identify components of a first order system (in the form \(G(s)=\frac{K\sigma}{s+\sigma}\)) from its step response or impulse response. For the first 1.4 hours in Figure~\ref{fig:plt03}, we see the step response rising in response to the initial scaled step up $40u(t)$. However, it doesn't appear to reach steady-state by the time of the next delayed step $-40u(t-1.4)$, which means we can't determine the DC gain $K$ and therefore can't determine the rise time to find $\sigma$. %So the step-response isn't very useful in helping us find the parameters \(K\) and \(\sigma\) that describe a first order system.
+
+The sum of two steps, one up and one (delayed) down at the same magnitude, does create a scaled ``pulse'' input $p_{t_0}(t)$ (not impulse $\delta(t)$; see Lecture~\LaplaceTransformReviewNumber). Thus, if we look at the response after time $t=1.4$~hours, we can use a sort of impulse-response-like idea and our knowledge of the time constant $\tau$ to estimate $\sigma$.   %Does our input signal resemble an impulse at all? Sure does! At 1.4 hours! 
+Note that we acknowledge we're not precisely modeling the human blood glucose system -- this is admittedly an approximation of the type that control systems engineers often choose to make in the real world, balancing complexity with accuracy. 
+
+For the impulse response of a first order system, we know that:
+\begin{itemize}
+	\item at $t=0$ our output has a magnitude of \(K\sigma\)
+	\item at the time constant \(\tau = \frac{1}{\sigma}\) our output will be decayed by 64\%
+\end{itemize}. 
+
+\mode<article>{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.75\textwidth]{figures/plt04.png}
+		\caption{Blood Sugar Response to Meal Disturbance without Insulin with Subtracted Initial Condition and Divided by Magnitude of Input}
+		\label{fig:plt04}
+	\end{figure}
+}
+\mode<presentation>{
+	\begin{frame}{Blood Sugar Response to Meal Disturbance without Insulin - Processed with Data Markers}
+	\begin{center}
+		\resizebox{4.5in}{!}{\includegraphics{figures/plt04.png}}
+	\end{center}
+\end{frame}
+}
+
+From the data markers in Figure~\ref{fig:plt04}, at the time of the step down, the magnitude of our output is \(y(t)\approx7\), so we can estimate that \(K\sigma=7\). 
+Then, at time \(\tau\)\ we will have a magnitude of \(0.36K\sigma\), or 2.52. Thus, we find the time our blood sugar has \textit{decayed} to a value of 2.52 mg/dL in Figure~\ref{fig:plt04} (some time after 1.4 hours). We reach this magnitude at about 3.4 hours, so \(\tau=(3.4-1.4)=2*60*60=7200\)~seconds and we can find \(\sigma=\frac{1}{\tau}=0.00014\). So, we can estimate that 
+
+\[
+G(s)\approx50000\frac{0.00014}{s+0.00014}.
+\] 
+
+%From this information we can say that our settling time is \(t_s=5\) hours, our rise time is \(t_r=0.9-0.25=0.65\) hours. We also know that our steady-state value \(y_{ss}(t)=200\) mg/dL. We can estimate that \(\omega_n=\frac{2.2}{t_r}=\frac{2.2}{0.65}=3.38\). We can then estimate \(\zeta=\frac{4.6}{t_s \omega_n}=\frac{4.6}{5*3.38}=0.2722\).
+
+%For a second order system \(G(s)=K\frac{\omega_n^2}{s^2+2\zeta\omega_ns+\omega_n^2}\). We know that \(y_{ss}(t)=200\) when the initial condition is \(126\) mg/dL. To find K, we subtract the initial condition so \(K=200-126=74\). But, this is when our input is \(D(s)=\frac{10}{s}\), so \(K=\frac{74}{10}=7.4\) for a normal step input \(D(s)=\frac{1}{s}\). So, our relationship between a disturbance input and the blood sugar level is \(\frac{Y(s)}{D(s)}=\frac{7.4 (3.38^2)}{s^2+2(0.2722)(3.38)s+3.38^2}\).
+%So we know that our steady-state value is \(K=200\). We also know that the peak is \(K+M_p=406\) at 1 hour. So our percent overshoot can be found using \(\%OS=\frac{M_p}{K}*100\%=\frac{406-200}{200}*100\%=103\%\). From our percent overshoot, we can find \(\zeta=\frac{-ln(1.03)}{\sqrt{ln(1.03)^2+\pi^2}}=-0.0094\)
+
+
+\begin{frame}{Discussion Questions}
+\begin{enumerate}[label=DQ\arabic*]%[resume]
+	\setlength{\itemsep}{0pt}
+	\setlength{\parskip}{0pt}
+	\setlength{\parsep}{0pt}
+	\conti
+\mode<article>{	\item If you compare the transfer function from our approximate system identification work and the resulting plot (Figure~\ref{fig:plt04}) to the original data (Figure~\ref{fig:bs_diabvshealth}), what similarities and differences do you see? Do the assumptions discussed make sense?}
+\mode<presentation>{\item If you compare the transfer function from our approximate system identification work and the resulting plot to the original data, what similarities and differences do you see? Do the assumptions discussed make sense?}
+\item Which value, $K$ or $\sigma$, is likely to be less accurate from our ``experiment''? What could we do to improve the experiment to get better data? % probably K, since at least with \sigma we are able to look at a rate of decay, whereas we really have no idea how far we are from the DC gain
+	\seti
+\end{enumerate}
+\end{frame}
+
+As you can see from this article, modeling for real-world systems is often quite complicated, requiring many assumptions and approximations long before control design can be started. 
+
+
+%\printbibliography
+
+
+%\section{Lecture Highlights}
+%The primary takeaways from this article include
+%\begin{enumerate}
+%\setlength{\itemsep}{5pt}
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%\item \textcolor{red}{Make list here...}
+%\end{enumerate}
+
+%\section{Quiz Yourself}
+%
+%\subsection{Questions}
+%\begin{enumerate}
+%\setlength{\itemsep}{5pt}
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%\item \input{quizfigures/quizyourself1.tex} 
+%\end{enumerate}
+%
+%\subsection{Solutions}
+%
+%\begin{enumerate}
+%\setlength{\itemsep}{5pt}
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%\item \rule{0pt}{12pt}\\  % use this \rule command to correctly align solutions given as images
+%\begin{center}
+%\includegraphics[width=4.5in]{quizfigures/emptyfig.png}
+%\end{center}\newpage
+%\end{enumerate}
+%
+
+
+\end{document}
+
+

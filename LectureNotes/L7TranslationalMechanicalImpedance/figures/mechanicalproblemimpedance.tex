@@ -1,0 +1,25 @@
+\begin{tikzpicture}
+\draw (-2,-1.5) node[scale=.85,inner sep=0pt,outer sep=0pt] (a) {\input{\mainfolder/DrawingElements/CircuitElements/currentsource.tex}};
+\draw (-.5,0) node[circle,fill=black,inner sep=0,outer sep=0,minimum width=4pt] (x1) {} node[above] {$X_{1}$};
+\draw (a) node[left=9pt] {$ F_{in}(s)$};
+\draw (-.5,-1.5) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (mass1) {};
+\draw (mass1) node[right=9pt] {$\frac{1}{s^{2}m_{2}}$};
+\draw (1.5,.5) node[rectangle,draw,minimum width=.5in,minimum height=.1in] (damper) {};
+\draw (damper) node[above=9pt] {$\frac{1}{bs}$};
+\draw (1.5,-.5) node[rectangle,draw,minimum width=.5in,minimum height=.1in] (spring) {};
+\draw (spring) node[below=9pt] {$\frac{1}{k}$};
+\draw (3.5,0) node[circle,fill=black,inner sep=0,minimum width=4pt] (x2) {} node[above] {$X_{2}$};
+\draw (3.5,-1.5) node[rectangle,draw,minimum width=.1in,minimum height=.5in] (mass2) {};
+\draw (mass2) node[right=9pt] {$\frac{1}{s^{2}m_{1}}$};
+\draw (-.5,-3) node[inner sep=0,outer sep=0] (pa3) {};
+\draw (3.5,-3) node[below=0pt,scale=.85,inner sep=0pt,outer sep=0pt]  {\input{\mainfolder/DrawingElements/CircuitElements/ground.tex}};
+\draw[very thick] (a.90) |- (x1);
+\draw[very thick] (mass1.90) -- (x1);
+\draw[very thick] (x1) -- ++(.5,0) |- (damper.180);
+\draw[very thick] (x1) -- ++(.5,0) |- (spring.180);
+\draw[very thick] (x2) -- ++(-.5,0) |- (damper.0);
+\draw[very thick] (x2) -- ++(-.5,0) |- (spring.0);
+\draw[very thick] (x2) -- (mass2.90);
+\draw[very thick] (mass1.-90) -- (pa3) -| (a.-90);
+\draw[very thick] (mass2.-90) |- (pa3);
+\end{tikzpicture}

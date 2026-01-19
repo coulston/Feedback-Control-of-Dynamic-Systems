@@ -1,0 +1,61 @@
+num=[0 0 -3];
+den=[0 1 1];
+rho=2;
+i=1;
+figure(1)
+clf
+ha=axes;
+axis([-.4 1.0 -1 1])
+set(ha,'visible','off')
+set(ha,'dataaspectratio',[1 1 1])
+arrow([-.4 0],[1.4 0]);
+text(1.3,-.1,'\fontname{times}\fontsize{14}Re\{{\its}\}')
+text(-.3,.95,'\fontname{times}\fontsize{14}Im\{{\its}\}')
+arrow([0 -1],[0 1]);
+s=-.7:.001:.7;
+s1=j*s';
+theta=pi/2:-.001:-pi/2;
+s2=.7*cos(theta)'+0.7*j*sin(theta)';
+s=[s1;s2];
+hold on
+plot(s,'linewidth',2)
+arrow([0 .2],[0 .21],'width',0,'length',10,'baseangle',45,'tipangle',40,'edgecolor','b','facecolor','b')
+line([-.05 .05],[-.7 -.7],'color','k')
+line([-.05 .05],[.7 .7],'color','k')
+%text(-.2,-.7,['\fontname{times}\fontsize{14}{\itj}',num2str(rho)])
+%text(-.23,.7,['\fontname{times}\fontsize{14}{\it-j}',num2str(rho)])
+text(-.16,.7,'\fontname{times}\fontsize{14}{\itj}\rho')
+text(-.19,-.7,'\fontname{times}\fontsize{14}{\it-j}\rho')
+text(.03,-.74,'\fontname{times}\fontsize{14}\ita')
+text(.03,.76,'\fontname{times}\fontsize{14}\itb')
+plot(s2(1),'.','markersize',20,'linewidth',2,'color','y')
+plot(s2(end),'.','markersize',20,'linewidth',2,'color','r')
+hold off
+
+figure(2)
+clf
+hb=axes;
+axis([-1 1 -1 1])
+set(hb,'visible','off')
+set(hb,'dataaspectratio',[1 1 1])
+arrow([-1 0],[1 0]);
+text(1,-.1,'\fontname{times}\fontsize{14}Re\{{\its}\}')
+text(-.3,.95,'\fontname{times}\fontsize{14}Im\{{\its}\}')
+arrow([0 -1],[0 1]);
+s1=rho*s1.';
+s2=rho*s2.';
+G1=1+(num*[s1.^2;s1;ones(size(s1))])./(den*[s1.^2;s1;ones(size(s1))]);
+G2=1+(num*[s2.^2;s2;ones(size(s2))])./(den*[s2.^2;s2;ones(size(s2))]);
+G=[G1,G2];
+hold on
+plot(G/2,'-','linewidth',2)
+plot(G2(1)/2,'.','markersize',20,'color','y')
+plot(G2(end)/2,'.','markersize',20,'color','r')
+line([-.5 -.5],[-.05 .05],'color','k')
+line([-.05 .05],[-.5 -.5],'color','k')
+line([-.05 .05],[.5 .5],'color','k')
+line([.5 .5],[-.05 .05],'color','k')
+text(-.54,-.1,'\fontname{times}\fontsize{14}-1')
+text(.46,-.1,'\fontname{times}\fontsize{14}1')
+text(.06,-.5,'\fontname{times}\fontsize{14}-j')
+text(.06,.5,'\fontname{times}\fontsize{14}j')

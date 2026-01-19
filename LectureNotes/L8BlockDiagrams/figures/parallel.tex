@@ -1,0 +1,19 @@
+\begin{tikzpicture}[inner sep=0pt,outer sep=0pt,very thick,
+sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+\draw (1,1) node[sysblock] (G1) {$\plant_{1}(s)$};
+\draw (1,-1) node[sysblock] (G2) {$\plant_{2}(s)$};
+\draw (-2,0) node[above=4pt] {$R(s)$} -- (-1,0);
+\draw[->] (-1,0) |- (G1.180);
+\draw[->] (-1,0) |- (G2.180);
+\draw (3,0) node[draw,circle] (sum) {$\rule{0pt}{18pt}$};
+\draw[->] (G1.0) -| (sum.90) node[above right=4pt] {$+$};
+\draw[->] (G2.0) -| (sum.-90) node[below right=4pt] {$+$};
+\draw[->] (sum.0) -- ++(1,0) node[above=4pt] {$\outptLT(s)$};
+\draw (1,-2) node {$\outptLT(s)=\plant_{1}(s)\inptLT(s) + \plant_{2}(s)\inptLT(s)$};
+
+\draw (1,-3.5) node[sysblock] (GG) {$\plant_{1}(s)+\plant_{2}(s)$};
+\draw[<-] (GG.180) -- ++(-1,0) node[above=4pt] {$\inptLT(s)$};
+\draw[->] (GG.0) -- ++(1,0) node[above=4pt] {$\outptLT(s)$};
+\draw (1,-5) node {$\boxed{\outptLT(s)=(\plant_{1}(s)+\plant_{2}(s))\inptLT(s)}$};
+
+\end{tikzpicture}

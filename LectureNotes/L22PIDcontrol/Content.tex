@@ -1,0 +1,347 @@
+
+\mode<presentation>
+{
+  \usetheme{CambridgeUS}
+  \usecolortheme{whale}
+  \usecolortheme{lily}
+
+  \setbeamercovered{transparent}
+  \usefonttheme[onlymath]{serif}
+}
+
+\title[\PIDControlDesignShortName] % (optional, use only with long paper titles)
+{\course: \PIDControlDesignName\license}
+
+\subtitle
+{Lecture \PIDControlDesignNumber} % (optional)
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\mode<article>{
+\maketitle
+\tableofcontents
+}
+
+
+\section{Pre-requisite Material}
+This lecture assumes that the reader is familiar with the following material:
+\begin{itemize}
+\item Lecture \ControlAndStabilityNumber:~\ControlAndStabilityName
+\item Lecture \HigherOrderResponseNumber:~\HigherOrderResponseName
+\item Lecture \PDControlTransientNumber:~\PDControlTransientName
+\item Lecture \RotationalAndFluidSystemsNumber:~\RotationalAndFluidSystemsName
+\end{itemize}
+
+%%%KEJ note: this "Intro to PID" is now in Lecture 13 (PD control design)
+%\section{Intro to PID}
+%
+%In this lecture, we look at the design of a simple feedback control system. The control will be restricted to have specific terms: a proportional gain, an integral, or a derivative. Using the first initials of the three terms, this is often called a PID controller. This PID control works well for systems that are first or second order (or have dominant dynamics that are first or second order). There are many examples of such systems, thus the PID controller is very common. 
+%
+%In {\em open loop} (i.e. before we attach a controller) the system to be controlled looks like the following:
+%\begin{frame}
+%\begin{center}
+%\begin{tikzpicture}[scale=1,inner sep=0pt,outer sep=0pt,very thick,
+%sysblock/.style={draw,rectangle,inner sep=2pt,minimum width=1.5cm,minimum height=1.25cm,very thick}]
+%
+%\draw (7,0) node[draw,circle] (sum2) {$\rule{0pt}{18pt}$};
+%\draw (9,0) node[sysblock] (G) {$G(s)$};
+%
+%\draw[->] (5.5,0) node[above=2pt] {$X(s)$}  -- (sum2.180) node[above left=2pt] {$+$};
+%\draw[->] (sum2.0) -- (G);
+%\draw[->] (G) -- ++(2,0) node[above=2pt] {$Y(s)$};
+%\draw[<-] (sum2.90) node[above right=2pt] {$+$} -- ++(0,1) node[right=2pt] {$D(s)$};
+%\end{tikzpicture}
+%\end{center}
+%\begin{itemize}
+%\item $G(s)$ - system to be controlled
+%\item $D(s)$ - disturbance modeled as input disturbance
+%\item $X(s)$ - actuator command
+%\item $Y(s)$ - output to be regulated
+%\end{itemize}
+%\end{frame}
+\section{Overview of PID Control}
+Proportional, integral, derivative (PID) control is one of the most common types to appear in industry because it is fairly easy to implement and tune. In Lectures~\ControlAndStabilityNumber~and \PDControlTransientNumber, we have seen some examples of P and PD control. In this lecture, we'll do another example of P control for a fluid system, then show how using PI control can improve the steady-state behavior. 
+
+Because PID control can be so commonly used, including in other classes, in the Appendix we provide information about implementing it on a microcontroller. 
+
+\section{Proportional Control}
+%\textcolor{red}{the steps 1-3 and mass-spring-damper basic example appear in Lecture 13 (example not identical), but I should repeat some of this P control that deals with steady-state error here, as well, and also the tank height control example}
+We have already seen an example of P control for a mass-spring-damper system in Lecture~\PDControlTransientNumber:~\PDControlTransientName. Let's revisit some of the main points, as well as applying this control strategy to a fluid system and then a more generalized mass-spring-damper system. 
+
+\mode<all>{\input{Pcontrol.tex}}
+Mass-spring-damper systems tend to be underdamped, often requiring D control to dampen oscillations. See Lecture~\PDControlTransientNumber:~\PDControlTransientName~for more information.
+
+%\section{Proportional/Derivative (PD) Control}
+%\mode<all>{\input{PDcontrol.tex}}
+
+\section{Proportional/Integral (PI) Control}
+\mode<all>{\input{PIcontrol.tex}}
+
+\section{Using Simulink to Simulate Control Systems}
+%\textcolor{red}{a lot of this part of the lecture can be removed in Fa'22 since we've had several lectures on Simulink already (especially the PD control example; maybe keep the PI?). }
+
+In prior semesters, this lecture was the first in which Simulink was formally introduced. We have chosen to leave some of the Simulink content from prior semesters here for easy reference; for students who successfully applied P and PD control previously, the PI control section (Section \ref{sec:simulinkPI}) might be of most interest. 
+
+\mode<all>{\input{Simulink.tex}}
+
+%\section{Application Example}
+%
+%\noindent In Lectures \textcolor{red}{update references} we reviewed the wind turbine plant with pitch control input \(\beta\) and wind speed disturbance input \(u\) (Figure~\ref{fig:openloop}). If we place this wind turbine in a feedback control configuration with reference input \(\omega_{ref}\) and (preliminary) controller \(C(s) = 1\) as shown in Figure~\ref{fig:feedback}, what do we expect the steady-state error to a step reference input to be?
+%\begin{figure}
+%	\begin{center}
+%		\includegraphics[width=6in]{graphics/Diagram}
+%		\caption{Wind turbine plant (open loop) block diagram and associated transfer functions.}
+%		\label{fig:openloop}
+%	\end{center}
+%\end{figure}
+%
+%\begin{figure}
+%\begin{center}
+%	\includegraphics[width=5in]{graphics/Diagram2}\\
+%	\caption{Wind turbine plant with feedback control loop and disturbance input.}
+%	\label{fig:feedback}
+%\end{center}
+%\end{figure}
+%
+%Referring to the Lecture \ReferenceSteadyStateErrorNumber \ article for the definition of System Type, we see that the feedback system is Type 0 (there are no pure integrators in \(C(s)G(s))\), which means that we expect a finite, nonzero steady-state error to a step reference input, and indeed we do observe such an error in Figure~\ref{fig:response} (note the $x$ axis: we've zoomed in on the last 50~s of the 300~s simulation to make it easier to see).
+%\begin{figure}
+%\begin{center}
+%	\includegraphics[width=3in]{graphics/Diagram3}\\
+%	\caption{Figure 2: Steady-state error to a unit step reference speed input.}
+%	\label{fig:response}
+%\end{center}
+%\end{figure}
+%
+%We could predict the steady-state value of the error from the equation
+%\begin{align*}
+%e_{ss} &= \lim_{t \to \infty} e(t) = \frac{0.1}{1+K_p}\\
+%K_p &= C(0)G(0)\\
+%&= \frac{-21.201(6.509)}{(0.2867)(6.477)}\\
+%&=-74.31\\
+%&\Rightarrow e_{ss} = -0.0014
+%\end{align*}
+%
+%\noindent Therefore, it is clear that the steady-state error should be quite small. (In fact, we need to run the simulation considerably longer, to more than 1000 s, before we reach ``steady state'' due to the slowness of the overall response).
+%
+%Including an integrator $\frac{1}{s}$ in the controller, for example as the integral portion of a PID controller, serves the purpose of creating a Type 1 system, which we understand has zero steady-state error to a step reference input. Simulation results verify this for sufficiently long simulations and appropriate choices of \(K_i\) and \(K_p\).
+%
+%Although we generally expect performance to improve when we increase the ``control authority'' (magnitudes of \(K_i\) and \(K_p\)), we should always ask whether increasing controller gains leads to the risk of instability. The next set of lectures on \textbf{Root Locus} helps us to answer that question.
+%
+
+
+\section{Lecture Highlights}
+The primary takeaways from this article include
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \textcolor{red}{make sure to update list for Fa'22}
+\item Proportional-Integral-Derivative (PID) control is commonly used in industry due to its straightforwardness and long history, which makes tuning the controller gains easier.
+\item The proportional gain $K_p$ multiplies the error signal $e(t)$, the integral gain $K_I$ multiplies the integral of the error signal $\int{e(t)}$, and the derivative gain $K_D$ multiplies the derivative of the error signal $\dot{e}(t)$.
+\item The PID gains can be computed to cause the closed-loop poles to lie within the allowable region to meet transient response specifications. However, since rules of thumb are not always precise, it is common for the system response not to meet specifications based on these initial calculations. Iterative tuning and checking response (for example, in Matlab) is common practice.
+\item Simulink is a Matlab tool that enables additional flexibility for modeling more complex systems than may be possible in the Matlab command window. \textit{Note: a common point of confusion is the fact that Simulink models signals, such as the reference input, as blocks. This is opposed to the arrow designator for signals in standard block diagram conventions.}
+\end{enumerate}
+
+
+\section{Quiz Yourself}
+
+\subsection{Questions}
+
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item Consider a thermal system 
+\begin{center}
+\input{quizfigures/meloven2.tex}
+\end{center}
+that can be modeled with an equivalent thermal circuit (that can be treated just like an electrical circuit containing resistors, capacitors, a ``voltage'' source $v_{in}=T_a$, and a ``current'' source $i_{in}=K_h v_h$)
+\begin{center}
+\input{quizfigures/melcircuit2.tex}
+\end{center}
+You are going to design a PD controller for this system. You will measure the temperature reading of the thermocouple, compare it to a reference, and then use the PD controller to calculate the required voltage to the heater, $v_{h}$. The block diagram of your control system is as follows:
+\begin{center}
+\input{quizfigures/thermalcontrolblockdiag.tex}
+\end{center}
+where $C(s) = K_{p}+sK_{d}$, $G(s)=\frac{T_{2}(s)}{V_{h}(s)}$, and $F(s) = \frac{T_{2}(s)}{T_{a}(s)}\frac{1}{G(s)}$. The system parameters are $R_{v}=R=2$, $C=1$, $R_{T}=0.1$, $C_{T}=0.1$, $K_{h}=1$. 
+\begin{enumerate}
+\item Find $G(s)$ and $F(s)$. In each case, to find the transfer function from an input to an output signal, set all other sources equal to zero. In other words, to find $G(s)=\frac{T_{2}(s)}{V_{h}(s)}$, let $T_a(s)=0$ (short circuit). To find $F(s) = \frac{T_{2}(s)}{T_{a}(s)}\frac{1}{G(s)}$, let $V_h(s)=0$ (open circuit). 
+\item Design a PD control so that a unit step command from $R(s)$ has rise time $t_{r}=0.1$s and overshoot $\%OS=10\%$. For this design you can assume $T_{a}(s)=0$. 
+\item Confirm your design by finding the closed loop transfer function from $R(s)$ to $T_2(s)$ and using \textsc{Matlab} to plot the step response (See Lecture 12, section 4). You can assume $T_{a}(s)=0$. 
+\item Find the steady state error for the unit step reference command.
+\item Find the steady state error to a unit step change in the ambient temperature.  
+\end{enumerate}
+\end{enumerate}
+
+
+\subsection{Solutions}
+\begin{enumerate}
+\setlength{\itemsep}{5pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\item \rule{0pt}{12pt}\\
+\begin{center}
+\includegraphics[width=6in]{quizfigures/2solna}\\
+\includegraphics[width=6in]{quizfigures/2solnb}\\
+\includegraphics[width=6in]{quizfigures/2solnc}
+\end{center}
+(c) We want to simulate the  configuration
+\begin{center}
+\input{quizfigures/thermalcontrolblockdiag3.tex}
+\end{center}
+This has closed loop system
+\[
+\frac{T_{2}(s)}{R(s)}=T(s)=\frac{100}{s^{2}+(111+100K_d)s+100(1+K_p)},
+\]
+and using the code
+\texttt{\rule{0pt}{0pt}\\
+Kp=3.84;\\
+Kd=-0.85;\\
+\% Configuration \#2
+figure(1)\\
+T = tf(100*Kp,[1 111+100*Kd 100*(1+Kp)])\\
+step(T)}\\
+we get the following plot:
+\begin{center}
+\includegraphics[width=4in]{quizfigures/prob3_2}
+\end{center}
+\begin{center}
+\includegraphics[width=6in]{quizfigures/2solnd}\\
+\includegraphics[width=6in]{quizfigures/2solne}
+\end{center}
+\end{enumerate}
+
+\section{Resources}
+
+\subsection{Books}
+
+
+\begin{itemize}
+\item Gene F. Franklin, J. David Powell and Abbas Emami-Naeini,  {\em Feedback Control of Dynamic Systems}, Pearson
+\begin{itemize}
+\item 6th and 7th edition: Section 4.3
+\end{itemize}
+\end{itemize}
+
+
+\subsection{Web resources}
+The following are web resources concerning PID controllers. If you find something else on the web that is useful, or if you find a link that no longer works, please inform your instructor!
+
+
+\begin{itemize}
+\item \url{http://ctms.engin.umich.edu/CTMS/index.php?example=Introduction&section=ControlPID} - An interactive tutorial of PID controllers that is designed to be covered while you have access to \textsc{Matlab}.
+\item \url{https://www.youtube.com/watch?v=XfAt6hNV8XM} A 13 minute video with some examples of PID control.
+
+
+\end{itemize}
+
+
+
+\section{Appendix: Implementing a PID controller on a microcontroller}
+
+A PID controller is easily implemented on a micro-controller, and only requires a few lines of code. The main issue is that a micro-controller is a discrete time system, in that it can only read or write in discrete times. Thus, we need to find discrete time approximations to the integral and derivative. The basic functionality is as follows:
+
+\textsf{\\
+Set \texttt{Kp}, \texttt{Ke}, \texttt{Ki} to PID control gains\\
+Set \texttt{I := 0}\\
+Set \texttt{e\_past := 0}\\
+Set \texttt{Ts := 0}\\
+Set \texttt{Tc :=} current time\\
+\\
+Loop:\\
+\rule{0pt}{0pt}\hspace{.1in}Read \texttt{r}, current value of reference variable (supplied by the user, probably input using a user interface)\\
+\rule{0pt}{0pt}\hspace{.1in}Read \texttt{y}, current value of system output \\
+\rule{0pt}{0pt}\hspace{.1in}Calculate \texttt{e := r-y}, the error\\
+\rule{0pt}{0pt}\hspace{.1in}{\color{red} If \texttt{Ts>0}, \\
+\rule{0pt}{0pt}\hspace{.2in}Calculate \texttt{D := (e - e\_past)/Ts}, Set \texttt{e\_past := e}, \\
+\rule{0pt}{0pt}\hspace{.1in}else\\
+\rule{0pt}{0pt}\hspace{.2in}Set \texttt{D := 0}}\\
+\rule{0pt}{0pt}\hspace{.1in}{\color{violet} Calculate \texttt{I := I + Ts*e}}\\
+\rule{0pt}{0pt}\hspace{.1in}{\color{blue} Calculate controller output \texttt{u = Kp*e + Ki*I + Kd*D}} \\
+\rule{0pt}{0pt}\hspace{.1in}Set output to \texttt{u} (for example, setting a voltage to \texttt{u} using a digital to analog element)\\
+\rule{0pt}{0pt}\hspace{.1in}Set \texttt{Ts := } current time minus \texttt{Tc}\\
+\rule{0pt}{0pt}\hspace{.1in}Set \texttt{Tc := } current time\\
+End Loop:
+}
+
+The blue line is where the PID control output is calculated. The first time through the loop, only the proportional term will be utilized, as two samples are necessary to calculate the derivative, and the integral of a single sample is zero.
+In the next subsections, we explain the red and purple lines, which are the discrete time approximations to derivative and integral. 
+
+\subsection{Approximation to a Derivative}
+
+Given a function $e(t)$, the definition of derivative is
+\[
+\frac{de}{dt} = \lim_{h\rightarrow  0} \frac{e(t) - e(t-h)}{h}
+\]
+In the micro-controller, we can only calculate $e(t)$ at discrete times as we go through the loop. Our approximation will be to take $h$ to be this cycle time, which is the variable \texttt{Ts}. Thus
+\[
+{\color{red} \frac{de}{dt} \approx \frac{e(t) - e(t-\texttt{Ts})}{\texttt{Ts}}}
+\] 
+Note that $e(t-\texttt{Ts})$ is saved in the variable \texttt{e\_past}.
+\subsection{Approximation to an Integral}
+
+The integral of a function is the area under the graph. When we only get discrete samples of the function we can approximate the area using rectangles whose width is the sample time, and height are the samples. This is illustrated below, where the sample time is fixed to $T_{s}$ seconds.
+
+\begin{center}
+\includegraphics[width=4in]{Graphics/backwardrectangle}
+\end{center}
+
+As an equation, we can define the approximation as follows: Let $i(t)$ be the function that is the integral of $e(t)$ from $0$ to $t$. The exact calculation of $i(t)$ is
+\[
+i(t) = \int_{0}^{t} e(\tau)d\tau.
+\]
+Suppose we want to calculate $i(t)$ at sample $N$, so that  $t=NT_{s}$. The approximation is 
+\[
+i(t) = i(NT_{s}) \approx \sum_{k=1}^{N} e(kT_{s})T_{s}.
+\]
+Since we keep adding new terms as $t$ increases, we can also calculate this recursively as
+\[
+{\color{purple} i(NT_{s}) = i((N-1)T_{s}) + e(NT_{s})T_{s}.}
+\]
+
+
+\subsection{Anti-windup - accounting for actuator saturation}
+
+It is very common for the control output $u(t)$ to be only valid over a finite range. For example, if you have a D/A board that can only supply a maximum of $\pm 10$ volts, then $u$ can only lie between -10 and 10. Even if we calculate a larger value of \texttt{u}, only $10$ volts will be delivered. In this case, the output is {\em saturated}. Output saturation can have detrimental effects on the integral control element, as the error will be larger than expected, causing the integral term to {\em wind-up}, or count up to a very large value.  This can be counteracted by limiting the integral term when saturation occurs. The modified code that includes anti-windup is as follows:
+
+\textsf{\\
+Set \texttt{Kp}, \texttt{Ke}, \texttt{Ki} to PID control gains\\
+{\color{cyan} Set \texttt{umax} to maximum control magnitude}\\
+Set \texttt{I := 0}\\
+Set \texttt{e\_past := 0}\\
+Set \texttt{Ts := 0}\\
+Set \texttt{Tc :=} current time\\
+\\
+Loop:\\
+\rule{0pt}{0pt}\hspace{.1in}Read \texttt{r}, current value of reference variable (supplied by the user, probably input using a user interface)\\
+\rule{0pt}{0pt}\hspace{.1in}Read \texttt{y}, current value of system output \\
+\rule{0pt}{0pt}\hspace{.1in}Calculate \texttt{e := r-y}, the error\\
+\rule{0pt}{0pt}\hspace{.1in}{\color{red} If \texttt{Ts>0}, \\
+\rule{0pt}{0pt}\hspace{.2in}Calculate \texttt{D := (e - e\_past)/Ts}, Set \texttt{e\_past := e}, \\
+\rule{0pt}{0pt}\hspace{.1in}else\\
+\rule{0pt}{0pt}\hspace{.2in}Set \texttt{D := 0}}\\\rule{0pt}{0pt}\hspace{.1in}{\color{violet} Calculate \texttt{I := I + Ts*e}}\\
+\rule{0pt}{0pt}\hspace{.1in}{\color{blue} Calculate controller output \texttt{u = Kp*e + Ki*I + Kd*D}} \\
+\rule{0pt}{0pt}\hspace{.1in}{\color{cyan} If \texttt{abs(u)>umax},  \\
+\rule{0pt}{0pt}\hspace{.2in}\texttt{u := sgn(u)*umax} \quad (saturate output)\\
+\rule{0pt}{0pt}\hspace{.2in}\texttt{I := I - Ts*e} \quad (undo integration)}\\ 
+\rule{0pt}{0pt}\hspace{.1in}Set output to \texttt{u}  \quad (for example, setting a voltage to \texttt{u} using a digital to analog element)\\
+\rule{0pt}{0pt}\hspace{.1in}Set \texttt{Ts := } current time minus \texttt{Tc}\\
+\rule{0pt}{0pt}\hspace{.1in}Set \texttt{Tc := } current time\\
+End Loop:\\
+}
+
+Note that the new lines are in cyan.
+
+
+
+
+
+
+\end{document}
+
+

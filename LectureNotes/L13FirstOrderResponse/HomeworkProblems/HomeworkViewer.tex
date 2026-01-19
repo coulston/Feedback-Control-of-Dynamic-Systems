@@ -1,0 +1,29 @@
+\documentclass[11pt]{article}
+\usepackage{beamerarticle}
+\input{../../../commonheader.tex}
+\usepackage{fullpage}
+
+\begin{document}
+\begin{center}
+Homework Problems
+\end{center}
+
+\newcommand{\lecturefolder}{L10FirstOrderResponse}
+\newcommand{\homework}[1]{\item \input{Problem#1.tex}
+
+\textbf{Solution:}
+\input{Problem#1solnonly.tex}
+
+\input{Problem#1soln.tex} \newpage}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{10pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\homework{01}
+\item \textcolor{red}{Available; problem moved to fluid systems modeling} %\homework{02}
+\homework{03}
+\homework{04}
+\end{enumerate}
+\end{document}  
